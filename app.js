@@ -4227,3 +4227,43 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js").catch(() => {});
   });
 }
+
+/* ------------------------------------------------------------------
+   Opening splash: hold the home screen until the scene has played
+   ------------------------------------------------------------------ */
+function initSplash() {
+  const splash = document.getElementById("splash");
+  if (!splash) return;
+
+  const behind = [".site-header", "#main", ".site-footer", ".dock"]
+    .map(selector => document.querySelector(selector))
+    .filter(Boolean);
+  behind.forEach(el => el.setAttribute("inert", ""));
+  document.body.classList.add("splash-open");
+  try {
+    splash.focus({ preventScroll: true });
+  } catch (err) {
+    /* focus is a nicety */
+  }
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let closed = false;
+
+  const close = () => {
+    if (closed) return;
+    closed = true;
+    splash.classList.add("is-leaving");
+    behind.forEach(el => el.removeAttribute("inert"));
+    document.body.classList.remove("splash-open");
+    window.setTimeout(() => splash.remove(), reduce ? 180 : 520);
+  };
+
+  splash.addEventListener("click", close);
+  splash.addEventListener("keydown", close);
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" || event.key === "Enter" || event.key === " ") close();
+  });
+  window.setTimeout(close, reduce ? 900 : 2500);
+}
+
+initSplash();

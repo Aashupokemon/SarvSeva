@@ -14,6 +14,65 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="splash" id="splash" role="status" aria-label="SarvSeva is opening" tabindex="0">
+    <div class="splash-scene" aria-hidden="true">
+      <svg class="splash-orbit" viewBox="0 0 300 300">
+        <path class="arc arc-1" d="M150 22a128 128 0 0 1 109 61"/>
+        <path class="arc arc-2" d="M275 110a128 128 0 0 1-20 134"/>
+        <path class="arc arc-3" d="M227 263a128 128 0 0 1-153 0"/>
+        <path class="arc arc-4" d="M48 244A128 128 0 0 1 23 115"/>
+        <path class="arc arc-5" d="M42 83A128 128 0 0 1 150 22"/>
+      </svg>
+
+      <svg class="splash-figures" viewBox="0 0 300 300">
+        <!-- helper walking in from the right -->
+        <g class="figure helper">
+          <circle class="head" cx="216" cy="112" r="17"/>
+          <path class="torso" d="M196 148c0-16 9-25 20-25s20 9 20 25v36h-40z"/>
+          <path class="arm" d="M201 147c-11-3-20-9-27-17"/>
+          <path class="arm arm-back" d="M237 150c8 6 12 14 13 24"/>
+          <path class="leg" d="M203 184v34"/>
+          <path class="leg" d="M229 184v34"/>
+        </g>
+
+        <!-- elder seated, waiting -->
+        <g class="figure elder">
+          <circle class="head" cx="90" cy="150" r="16"/>
+          <path class="torso" d="M71 184c0-14 8-22 19-22s19 8 19 22v26H71z"/>
+          <path class="shawl" d="M71 190c7-11 31-11 38 0"/>
+          <path class="leg" d="M77 210h30"/>
+          <path class="cane" d="M114 198l6 26"/>
+        </g>
+
+        <!-- child waving hello -->
+        <g class="figure child">
+          <circle class="head" cx="140" cy="184" r="10"/>
+          <path class="torso" d="M130 206c0-10 4-15 10-15s10 5 10 15v16h-20z"/>
+          <path class="arm wave" d="M149 194c6-6 8-13 6-19"/>
+          <path class="leg" d="M135 222v14"/>
+          <path class="leg" d="M145 222v14"/>
+        </g>
+
+        <!-- the shared heart, passed from helper to elder -->
+        <path class="splash-heart" d="M150 138c-5-6-24-18-24-30 0-13 15-16 24-5 9-11 24-8 24 5 0 12-19 24-24 30z"/>
+
+        <!-- sparks travelling around the circle of care -->
+        <circle class="spark spark-1" cx="212" cy="46" r="3.6"/>
+        <circle class="spark spark-2" cx="268" cy="205" r="3.2"/>
+        <circle class="spark spark-3" cx="60" cy="252" r="3.2"/>
+        <circle class="spark spark-4" cx="36" cy="92" r="3.6"/>
+        <circle class="spark spark-5" cx="128" cy="24" r="2.8"/>
+        <circle class="spark spark-6" cx="246" cy="126" r="2.8"/>
+      </svg>
+    </div>
+
+    <h1 class="splash-word" aria-label="SarvSeva">
+      <span style="--i:0">S</span><span style="--i:1">a</span><span style="--i:2">r</span><span style="--i:3">v</span><span style="--i:4">S</span><span style="--i:5">e</span><span style="--i:6">v</span><span style="--i:7">a</span>
+    </h1>
+    <p class="splash-tag">Together, We Save Lives</p>
+    <p class="splash-hint">Tap to continue</p>
+  </div>
+
   <div class="bg-wash" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
