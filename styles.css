@@ -4035,3 +4035,33 @@ body {
   line-height: 1.5;
   color: var(--text-dim);
 }
+
+/* On phones the display controls sit in one compact row above the tabs,
+   so they stop covering the page cards. */
+@media (max-width: 560px) {
+  .dock {
+    left: 10px;
+    right: 10px;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    pointer-events: none;
+  }
+  .dock > * {
+    pointer-events: auto;
+  }
+  .dock-btn,
+  .music-btn {
+    min-height: 38px;
+    padding: 7px 11px;
+    font-size: 12px;
+    gap: 6px;
+  }
+  .dock-btn .dock-icon svg,
+  .dock-btn .dock-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
