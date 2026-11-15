@@ -1670,7 +1670,15 @@ function render() {
     }
   });
   renderChrome(dict, state);
+  if (state.screen !== lastRenderedScreen) {
+    lastRenderedScreen = state.screen;
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
 }
+
+let lastRenderedScreen = null;
 
 function navIcon(name) {
   const icons = {
