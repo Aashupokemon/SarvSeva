@@ -2226,3 +2226,36 @@ initChrome();
 state.screen = screenFromHash();
 if (state.screen === "me" && !state.phone) state.phone = "+91 98765 43210";
 render();
+
+/* ------------------------------------------------------------------
+   Phase 0: offline shell and connectivity status
+   ------------------------------------------------------------------ */
+const netStatusEl = document.getElementById("net-status");
+
+function syncNetStatus() {
+  if (!netStatusEl) return;
+  const offline = !navigator.onLine;
+  const hindi = document.documentElement.lang === "hi";
+  netStatusEl.hidden = !offline;
+  netStatusEl.textContent = offline
+    ? hindi
+      ? "आप ऑफ़लाइन हैं — सहेजा हुआ कॉन्टेंट दिख रहा है।"
+      : "You are offline — showing saved content."
+    : "";
+}
+
+window.addEventListener("online", syncNetStatus);
+window.addEventListener("offline", syncNetStatus);
+
+const langToggleEl = document.getElementById("lang-toggle");
+if (langToggleEl) {
+  langToggleEl.addEventListener("click", () => setTimeout(syncNetStatus, 0));
+}
+
+syncNetStatus();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
