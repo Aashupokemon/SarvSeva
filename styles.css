@@ -2492,3 +2492,258 @@ textarea:focus-visible {
     transition: none;
   }
 }
+
+/* ============================================================
+   Phase 1 — emergency action and verified directory
+   ============================================================ */
+
+.sos-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(217, 54, 54, 0.45);
+  background: linear-gradient(120deg, rgba(217, 54, 54, 0.14), rgba(242, 183, 101, 0.08));
+}
+.sos-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.sos-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.2px;
+  color: var(--text);
+}
+.sos-sub {
+  font-size: 13.5px;
+  color: var(--text-dim);
+}
+.sos-btn {
+  background: var(--brand-red);
+  color: #fff;
+  border-color: transparent;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.sos-btn:hover {
+  filter: brightness(1.06);
+}
+
+/* Call confirmation sheet */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px calc(env(safe-area-inset-bottom, 0px) + 14px);
+  overflow-y: auto;
+  background: rgba(4, 18, 22, 0.62);
+  backdrop-filter: blur(2px);
+}
+.sheet {
+  width: min(100%, 440px);
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px 18px 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sheet-title {
+  margin: 0;
+  font-size: 19px;
+  font-family: var(--font-display);
+}
+.sheet-number {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--brand-amber);
+  line-height: 1.05;
+}
+.sheet-name {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+.sheet-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+.sheet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.sheet-actions .btn {
+  flex: 1 1 140px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Directory */
+.dir-search {
+  width: 100%;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 9px 14px;
+  min-height: 40px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.chip.is-on {
+  background: var(--brand-teal);
+  border-color: var(--brand-teal);
+  color: #fff;
+}
+.dir-count {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.dir-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dir-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  padding: 14px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.dir-card.is-primary {
+  border-color: rgba(242, 183, 101, 0.55);
+}
+.dir-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dir-num {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--brand-amber);
+  letter-spacing: 0.5px;
+}
+.dir-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+}
+.badge-stale {
+  background: rgba(217, 54, 54, 0.18);
+  color: #ffb4ac;
+  border: 1px solid rgba(217, 54, 54, 0.4);
+}
+.dir-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+.dir-meta {
+  margin: 0;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+}
+.dir-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.dir-meta dt {
+  font-size: 10.5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.dir-meta dd {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text);
+}
+.dir-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dir-actions .btn {
+  min-height: 44px;
+}
+.dir-source {
+  font-size: 12px;
+  color: var(--text-faint);
+  text-underline-offset: 3px;
+  flex: 1 1 160px;
+  text-align: right;
+}
+.dir-empty {
+  margin: 0;
+  padding: 18px 4px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+[data-theme="light"] .sheet {
+  background: #fffdf8;
+}
+[data-theme="light"] .dir-card {
+  background: #fffdf8;
+}
+[data-theme="light"] .chip {
+  background: #fffdf8;
+}
+[data-theme="light"] .badge-stale {
+  color: #8d2118;
+}
+
+/* Keep the last directory card clear of the fixed dock. */
+.dir-list {
+  padding-bottom: 104px;
+}

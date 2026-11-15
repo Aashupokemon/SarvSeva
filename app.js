@@ -168,6 +168,30 @@ const i18n = {
       "Only once you are safe: 181 for a woman in danger, 1098 for a child, 1930 for money lost online."
     ],
     callLabel: "Call",
+    navDirectory: "Verified help",
+    sosLabel: "Emergency?",
+    sosAction: "Call 112",
+    sosSub: "One number for police, fire and ambulance.",
+    dirTitle: "Verified help directory",
+    dirSub: "Government helplines, each with the source we checked and the date we last checked it. SarvSeva does not run or dispatch these services.",
+    dirSearch: "Search by name or number",
+    dirAll: "All",
+    dirCountOne: "service",
+    dirCountMany: "services",
+    dirCheckLabel: "Checked",
+    dirSource: "Source",
+    dirCoverage: "Coverage",
+    dirHours: "Hours",
+    dirStale: "Needs re-check",
+    dirEmpty: "No service matches that search.",
+    dirNote: "If a number does not answer, call 112. To report a wrong listing, use Contact.",
+    callSheetTitle: "Call {number}?",
+    callSheetBody: "This opens your phone's dialler. SarvSeva does not contact police, ambulance or fire services for you, and no alert is sent on your behalf.",
+    callSheetOpen: "Open dialler",
+    callSheetCopy: "Copy number",
+    callSheetCancel: "Cancel",
+    callSheetCopied: "Number copied.",
+    callSheetFallback: "If the dialler does not open, type the number yourself.",
     groupEmergency: "Core emergency",
     groupMedical: "Medical & mental health",
     groupWomen: "Women & children",
@@ -356,6 +380,30 @@ const i18n = {
       "सुरक्षित होने के बाद ही: खतरे में महिला के लिए 181, बच्चे के लिए 1098, ऑनलाइन पैसा गँवाने पर 1930।"
     ],
     callLabel: "कॉल",
+    navDirectory: "सत्यापित मदद",
+    sosLabel: "आपातकाल?",
+    sosAction: "112 पर कॉल",
+    sosSub: "पुलिस, फायर और एम्बुलेंस के लिए एक ही नंबर।",
+    dirTitle: "सत्यापित सहायता सूची",
+    dirSub: "सरकारी हेल्पलाइन, हर एक के साथ वह स्रोत जो हमने देखा और वह तारीख़ जब अंतिम बार जाँचा। SarvSeva इन सेवाओं को न चलाता है न भेजता है।",
+    dirSearch: "नाम या नंबर से खोजें",
+    dirAll: "सभी",
+    dirCountOne: "सेवा",
+    dirCountMany: "सेवाएँ",
+    dirCheckLabel: "जाँचा",
+    dirSource: "स्रोत",
+    dirCoverage: "कवरेज",
+    dirHours: "समय",
+    dirStale: "फिर जाँच ज़रूरी",
+    dirEmpty: "इस खोज से कोई सेवा नहीं मिली।",
+    dirNote: "अगर नंबर न उठे तो 112 पर कॉल करें। गलत जानकारी बताने के लिए संपर्क करें।",
+    callSheetTitle: "{number} पर कॉल करें?",
+    callSheetBody: "इससे आपके फ़ोन का डायलर खुलेगा। SarvSeva आपकी ओर से पुलिस, एम्बुलेंस या फायर से संपर्क नहीं करता और कोई अलर्ट नहीं भेजता।",
+    callSheetOpen: "डायलर खोलें",
+    callSheetCopy: "नंबर कॉपी करें",
+    callSheetCancel: "रद्द करें",
+    callSheetCopied: "नंबर कॉपी हो गया।",
+    callSheetFallback: "अगर डायलर न खुले तो नंबर खुद टाइप करें।",
     groupEmergency: "मुख्य आपातकाल",
     groupMedical: "मेडिकल और मानसिक स्वास्थ्य",
     groupWomen: "महिलाएँ और बच्चे",
@@ -411,8 +459,8 @@ const RESOURCES = [
     category: "emergency",
     titleEn: "Call 112 for emergencies",
     titleHi: "आपातकाल में 112 पर कॉल करें",
-    bodyEn: "112 is the single European emergency number. In many countries it connects police, fire and medical services.",
-    bodyHi: "112 यूरोप का एकीकृत आपातकालीन नंबर है। कई देशों में यह पुलिस, फायर और मेडिकल सेवाओं से जोड़ता है।",
+    bodyEn: "112 is India's single emergency number under ERSS - police, fire and ambulance reachable in one call, in every state and union territory.",
+    bodyHi: "112 भारत का एकीकृत आपातकालीन नंबर है (ERSS) - पुलिस, फायर और एम्बुलेंस एक ही कॉल में, हर राज्य और केंद्रशासित प्रदेश में।",
     type: "emergency-number",
     value: "112",
     noteEn: "Not a SarvSeva service. If you are in immediate danger, call this first.",
@@ -619,6 +667,195 @@ const EMERGENCY_INDIA = [
     descHi: "पर्यटन मंत्रालय से यात्रियों के लिए मदद, 12 भाषाओं में।"
   }
 ];
+
+/* Verified help directory.
+   Every entry carries its source and the dates we last checked it, because a
+   helpline number is only useful if the caller can trust it is current. */
+const DIRECTORY = [
+  {
+    id: "erss-112",
+    category: "emergency",
+    number: "112",
+    nameEn: "National emergency number (ERSS)",
+    nameHi: "राष्ट्रीय आपातकालीन नंबर (ERSS)",
+    descEn: "One call for police, fire and ambulance, anywhere in India.",
+    descHi: "पुलिस, फायर और एम्बुलेंस के लिए एक ही कॉल, पूरे भारत में।",
+    coverageEn: "All 36 states and union territories",
+    coverageHi: "सभी 36 राज्य और केंद्रशासित प्रदेश",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "Ministry of Home Affairs - 112.gov.in",
+    sourceUrl: "https://112.gov.in/about",
+    verified: "2026-11-15",
+    review: "2027-05-15",
+    primary: true
+  },
+  {
+    id: "ambulance-108",
+    category: "health",
+    number: "108",
+    nameEn: "Emergency ambulance",
+    nameHi: "इमरजेंसी एम्बुलेंस",
+    descEn: "Accident, trauma and critical illness transport, run by state health services.",
+    descHi: "दुर्घटना, चोट और गंभीर बीमारी के लिए एम्बुलेंस, राज्य स्वास्थ्य सेवाओं द्वारा।",
+    coverageEn: "Most states and UTs",
+    coverageHi: "ज़्यादातर राज्य और केंद्रशासित प्रदेश",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "National Portal of India - helpline directory",
+    sourceUrl: "https://services.india.gov.in/directory/helpline",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "ambulance-102",
+    category: "health",
+    number: "102",
+    nameEn: "National Ambulance Service",
+    nameHi: "राष्ट्रीय एम्बुलेंस सेवा",
+    descEn: "Free ambulance for pregnant women and sick infants in many states.",
+    descHi: "कई राज्यों में गर्भवती महिलाओं और बीमार शिशुओं के लिए मुफ़्त एम्बुलेंस।",
+    coverageEn: "Many states",
+    coverageHi: "कई राज्य",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "National Portal of India - helpline directory",
+    sourceUrl: "https://services.india.gov.in/directory/helpline",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "women-181",
+    category: "women",
+    number: "181",
+    nameEn: "Women Helpline (Mission Shakti)",
+    nameHi: "महिला हेल्पलाइन (मिशन शक्ति)",
+    descEn: "Violence, harassment or abuse, with referral to police, shelter, legal aid and One Stop Centres.",
+    descHi: "हिंसा, उत्पीड़न या दुर्व्यवहार के लिए, पुलिस, आश्रय, कानूनी सहायता और वन स्टॉप सेंटर तक जोड़ता है।",
+    coverageEn: "35 states and UTs",
+    coverageHi: "35 राज्य और केंद्रशासित प्रदेश",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "Ministry of Women and Child Development",
+    sourceUrl: "https://wcd.gov.in/women/help",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "child-1098",
+    category: "children",
+    number: "1098",
+    nameEn: "Child Helpline",
+    nameHi: "चाइल्ड हेल्पलाइन",
+    descEn: "A child in danger, alone, or in distress. Free and open to anyone reporting for a child.",
+    descHi: "खतरे में, अकेला या परेशान बच्चा। मुफ़्त, और बच्चे के लिए कोई भी कॉल कर सकता है।",
+    coverageEn: "All 36 states and UTs",
+    coverageHi: "सभी 36 राज्य और केंद्रशासित प्रदेश",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "National Commission for Women - helplines",
+    sourceUrl: "https://www.ncw.gov.in/other-useful-helplines",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "elder-14567",
+    category: "elderly",
+    number: "14567",
+    nameEn: "Elder Line (senior citizens)",
+    nameHi: "एल्डर लाइन (वरिष्ठ नागरिक)",
+    descEn: "Health guidance, legal aid, protection from abuse and rescue for older people.",
+    descHi: "बुज़ुर्गों के लिए स्वास्थ्य सलाह, कानूनी सहायता, दुर्व्यवहार से सुरक्षा और बचाव।",
+    coverageEn: "Nationwide",
+    coverageHi: "देशभर",
+    hoursEn: "8 am to 8 pm",
+    hoursHi: "सुबह 8 से रात 8 बजे",
+    sourceName: "Department of Empowerment of Persons with Disabilities",
+    sourceUrl: "https://depwd.gov.in/en/others-helplines/",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "mental-14416",
+    category: "health",
+    number: "14416",
+    nameEn: "Tele-MANAS mental health",
+    nameHi: "टेली-मानस मानसिक स्वास्थ्य",
+    descEn: "Talk to a counsellor about stress, fear or thoughts of self-harm.",
+    descHi: "तनाव, डर या खुद को नुकसान पहुँचाने के विचारों पर काउंसलर से बात करें।",
+    coverageEn: "Nationwide",
+    coverageHi: "देशभर",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "Ministry of Health and Family Welfare",
+    sourceUrl: "https://depwd.gov.in/en/others-helplines/",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "cyber-1930",
+    category: "legal",
+    number: "1930",
+    nameEn: "Cyber crime and financial fraud",
+    nameHi: "साइबर अपराध और वित्तीय धोखा",
+    descEn: "Money taken online. Call quickly - the faster you report, the better the chance of a freeze.",
+    descHi: "ऑनलाइन पैसा चला गया। जल्दी कॉल करें - जितनी जल्दी शिकायत, उतना बेहतर।",
+    coverageEn: "Nationwide",
+    coverageHi: "देशभर",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "National Portal of India - helpline directory",
+    sourceUrl: "https://services.india.gov.in/directory/helpline",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "disaster-1078",
+    category: "emergency",
+    number: "1078",
+    nameEn: "Disaster management (NDMA)",
+    nameHi: "आपदा प्रबंधन (NDMA)",
+    descEn: "Flood, cyclone, earthquake and other disaster relief coordination.",
+    descHi: "बाढ़, चक्रवात, भूकंप और अन्य आपदा राहत समन्वय।",
+    coverageEn: "Nationwide",
+    coverageHi: "देशभर",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "Maharashtra Police - emergency helplines",
+    sourceUrl: "https://igcsn.mahapolice.gov.in/english/assets/event/emergency.pdf",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  },
+  {
+    id: "ncw-14490",
+    category: "women",
+    number: "14490",
+    nameEn: "National Commission for Women",
+    nameHi: "राष्ट्रीय महिला आयोग",
+    descEn: "Grievances about women's rights, harassment or violence.",
+    descHi: "महिलाओं के अधिकार, उत्पीड़न या हिंसा से जुड़ी शिकायतें।",
+    coverageEn: "Nationwide",
+    coverageHi: "देशभर",
+    hoursEn: "24 hours, every day",
+    hoursHi: "24 घंटे, हर दिन",
+    sourceName: "National Commission for Women",
+    sourceUrl: "https://www.ncw.gov.in/other-useful-helplines",
+    verified: "2026-11-15",
+    review: "2027-05-15"
+  }
+];
+
+const DIR_CATS = ["emergency", "health", "women", "children", "elderly", "legal"];
+
+/* Short chip labels: the full category names are too long for a filter row. */
+const DIR_CAT_LABELS = {
+  emergency: ["Emergency", "आपातकाल"],
+  health: ["Health", "स्वास्थ्य"],
+  women: ["Women", "महिलाएँ"],
+  children: ["Children", "बच्चे"],
+  elderly: ["Older adults", "बुज़ुर्ग"],
+  legal: ["Legal", "कानूनी"]
+};
 
 const AID_GROUPS = ["breathing", "bleeding", "burns", "other"];
 
@@ -896,6 +1133,7 @@ const AID_CASES = [
 ];
 
 const NAV_ITEMS = [
+  { href: "#/directory", labelKey: "navDirectory", icon: "phone" },
   { href: "#/about", labelKey: "navAbout", icon: "info" },
   { href: "#/login", labelKey: "navJoin", icon: "user" },
   { href: "#/sdg", labelKey: "navSdg", icon: "globe" },
@@ -1167,6 +1405,7 @@ function render() {
 function navIcon(name) {
   const icons = {
     info: '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 10.6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1" fill="currentColor"/>',
+    phone: '<path d="M6.5 3.5 H9.5 L11 8 L8.8 9.6 C 9.8 12.2 11.8 14.2 14.4 15.2 L16 13 L20.5 14.5 V17.5 C 20.5 19.1 19.1 20.4 17.5 20.2 C 10.3 19.3 4.7 13.7 3.8 6.5 C 3.6 4.9 4.9 3.5 6.5 3.5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
     user: '<circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 20c1-4.4 3.9-6.2 7.5-6.2s6.5 1.8 7.5 6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
     globe: '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.2 12h17.6" stroke="currentColor" stroke-width="1.4"/><path d="M12 3c3.2 3 3.2 15 0 18c-3.2-3-3.2-15 0-18Z" fill="none" stroke="currentColor" stroke-width="1.4"/>',
     landmark: '<path d="M3.5 9.5 12 4l8.5 5.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 10.5v7M10 10.5v7M14 10.5v7M18 10.5v7M3.5 20h17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
@@ -1341,6 +1580,8 @@ function buildScreen(screen, dict, state) {
       return resourcesHtml(dict, state);
     case "emergency":
       return emergencyHtml(dict, state);
+    case "directory":
+      return directoryHtml(dict, state);
     case "sketch":
       return sketchHtml(dict, state);
     case "aid":
@@ -1377,6 +1618,14 @@ function landingHtml(dict) {
     [dict.pillar3Title, dict.pillar3Body]
   ];
   return `
+    <section class="sos-strip reveal">
+      <div class="sos-copy">
+        <span class="sos-label">${dict.sosLabel}</span>
+        <span class="sos-sub">${dict.sosSub}</span>
+      </div>
+      <button type="button" class="btn sos-btn" data-call="112" data-call-name="${dict.sosLabel}">${dict.sosAction}</button>
+    </section>
+
     <section class="hero-shell reveal">
       <div class="video-card">
         <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="metadata">
@@ -1855,7 +2104,7 @@ function emergencyCard(state, n) {
   const name = state.locale === "hi" ? n.nameHi : n.nameEn;
   const desc = state.locale === "hi" ? n.descHi : n.descEn;
   return `
-    <a class="emergency-row${n.highlight ? " is-primary" : ""}" href="tel:${escapeHtml(n.value)}">
+    <button type="button" class="emergency-row${n.highlight ? " is-primary" : ""}" data-call="${escapeHtml(n.value)}" data-call-name="${escapeHtml(name)}">
       <span class="emergency-num">${escapeHtml(n.value)}</span>
       <span class="emergency-text">
         <span class="emergency-name">${escapeHtml(name)}</span>
@@ -1864,8 +2113,213 @@ function emergencyCard(state, n) {
       <span class="emergency-call" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="17" height="17"><path d="M6.5 3.5 H9.5 L11 8 L8.8 9.6 C 9.8 12.2 11.8 14.2 14.4 15.2 L16 13 L20.5 14.5 V17.5 C 20.5 19.1 19.1 20.4 17.5 20.2 C 10.3 19.3 4.7 13.7 3.8 6.5 C 3.6 4.9 4.9 3.5 6.5 3.5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
       </span>
-    </a>
+    </button>
   `;
+}
+
+/* ------------------------------------------------------------------
+   Verified help directory
+   ------------------------------------------------------------------ */
+const dirState = { q: "", cat: "all" };
+
+function formatDate(iso, locale) {
+  const d = new Date(iso + "T00:00:00");
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString(locale === "hi" ? "hi-IN" : "en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function isStale(item) {
+  const review = new Date(item.review + "T00:00:00").getTime();
+  return Number.isFinite(review) && review < Date.now();
+}
+
+function catLabel(id, state) {
+  const cat = CATEGORIES.find(c => c.id === id);
+  if (!cat) return id;
+  return state.locale === "hi" ? cat.labelHi : cat.labelEn;
+}
+
+function filteredDirectory() {
+  const q = dirState.q.trim().toLowerCase();
+  return DIRECTORY.filter(item => {
+    if (dirState.cat !== "all" && item.category !== dirState.cat) return false;
+    if (!q) return true;
+    return [item.nameEn, item.nameHi, item.number, item.descEn, item.descHi]
+      .join(" ")
+      .toLowerCase()
+      .includes(q);
+  });
+}
+
+function directoryCard(dict, state, item) {
+  const name = state.locale === "hi" ? item.nameHi : item.nameEn;
+  const desc = state.locale === "hi" ? item.descHi : item.descEn;
+  const coverage = state.locale === "hi" ? item.coverageHi : item.coverageEn;
+  const hours = state.locale === "hi" ? item.hoursHi : item.hoursEn;
+  const stale = isStale(item);
+  return `
+    <article class="dir-card${item.primary ? " is-primary" : ""}">
+      <div class="dir-head">
+        <span class="dir-num">${escapeHtml(item.number)}</span>
+        <span class="dir-name">${escapeHtml(name)}</span>
+        ${stale ? `<span class="badge badge-stale">${escapeHtml(dict.dirStale)}</span>` : ""}
+      </div>
+      <p class="dir-desc">${escapeHtml(desc)}</p>
+      <dl class="dir-meta">
+        <div><dt>${escapeHtml(dict.dirCoverage)}</dt><dd>${escapeHtml(coverage)}</dd></div>
+        <div><dt>${escapeHtml(dict.dirHours)}</dt><dd>${escapeHtml(hours)}</dd></div>
+        <div><dt>${escapeHtml(dict.dirCheckLabel)}</dt><dd>${escapeHtml(formatDate(item.verified, state.locale))}</dd></div>
+      </dl>
+      <div class="dir-actions">
+        <button type="button" class="btn btn-primary" data-call="${escapeHtml(item.number)}" data-call-name="${escapeHtml(name)}">${escapeHtml(dict.callLabel)} ${escapeHtml(item.number)}</button>
+        <a class="dir-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.dirSource)}: ${escapeHtml(item.sourceName)}</a>
+      </div>
+    </article>
+  `;
+}
+
+function directoryListHtml(dict, state) {
+  const items = filteredDirectory();
+  if (!items.length) return `<p class="dir-empty">${escapeHtml(dict.dirEmpty)}</p>`;
+  return items.map(item => directoryCard(dict, state, item)).join("");
+}
+
+function directoryHtml(dict, state) {
+  const chips = ["all", ...DIR_CATS].map(cat => {
+    const on = dirState.cat === cat;
+    const pair = DIR_CAT_LABELS[cat];
+    const label = cat === "all" ? dict.dirAll : pair ? pair[state.locale === "hi" ? 1 : 0] : catLabel(cat, state);
+    return `<button type="button" class="chip${on ? " is-on" : ""}" data-cat="${escapeHtml(cat)}" aria-pressed="${on}">${escapeHtml(label)}</button>`;
+  }).join("");
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <h1 class="card-title">${dict.dirTitle}</h1>
+      <p class="card-sub">${dict.dirSub}</p>
+      <input class="input dir-search" id="dir-q" type="search" value="${escapeHtml(dirState.q)}" placeholder="${escapeHtml(dict.dirSearch)}" aria-label="${escapeHtml(dict.dirSearch)}" autocomplete="off">
+      <div class="chip-row" role="group" aria-label="${escapeHtml(dict.dirAll)}">${chips}</div>
+      <p class="dir-count" id="dir-count" role="status" aria-live="polite"></p>
+      <div class="dir-list" id="dir-list">${directoryListHtml(dict, state)}</div>
+      <p class="hint-line">${dict.dirNote}</p>
+    </section>
+  `;
+}
+
+function wireDirectory(dict, state) {
+  const input = document.getElementById("dir-q");
+  const list = document.getElementById("dir-list");
+  const count = document.getElementById("dir-count");
+  if (!input || !list) return;
+
+  const paint = () => {
+    list.innerHTML = directoryListHtml(dict, state);
+    const n = filteredDirectory().length;
+    if (count) count.textContent = `${n} ${n === 1 ? dict.dirCountOne : dict.dirCountMany}`;
+  };
+  paint();
+
+  input.addEventListener("input", () => {
+    dirState.q = input.value;
+    paint();
+  });
+
+  document.querySelectorAll("[data-cat]").forEach(chip => {
+    chip.addEventListener("click", () => {
+      dirState.cat = chip.getAttribute("data-cat");
+      document.querySelectorAll("[data-cat]").forEach(c => {
+        const on = c === chip;
+        c.classList.toggle("is-on", on);
+        c.setAttribute("aria-pressed", String(on));
+      });
+      paint();
+    });
+  });
+}
+
+/* ------------------------------------------------------------------
+   Call confirmation sheet
+   Nothing dials and nothing claims to dispatch until the person confirms.
+   ------------------------------------------------------------------ */
+let sheetPrevFocus = null;
+
+function closeCallSheet() {
+  const sheet = document.getElementById("call-sheet");
+  if (!sheet) return;
+  sheet.remove();
+  document.removeEventListener("keydown", sheetKeydown);
+  if (sheetPrevFocus && typeof sheetPrevFocus.focus === "function") {
+    sheetPrevFocus.focus();
+  }
+  sheetPrevFocus = null;
+}
+
+function sheetKeydown(e) {
+  if (e.key === "Escape") {
+    e.preventDefault();
+    closeCallSheet();
+    return;
+  }
+  if (e.key !== "Tab") return;
+  const sheet = document.getElementById("call-sheet");
+  if (!sheet) return;
+  const items = [...sheet.querySelectorAll("a[href], button")].filter(el => !el.disabled);
+  if (!items.length) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+}
+
+function openCallSheet(number, label, dict) {
+  closeCallSheet();
+  const wrap = document.createElement("div");
+  wrap.className = "sheet-backdrop";
+  wrap.id = "call-sheet";
+  wrap.innerHTML = `
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" aria-describedby="sheet-body">
+      <h2 class="sheet-title" id="sheet-title">${escapeHtml(dict.callSheetTitle.replace("{number}", number))}</h2>
+      <p class="sheet-number">${escapeHtml(number)}</p>
+      ${label ? `<p class="sheet-name">${escapeHtml(label)}</p>` : ""}
+      <p class="sheet-body" id="sheet-body">${escapeHtml(dict.callSheetBody)}</p>
+      <div class="sheet-actions">
+        <a class="btn btn-primary btn-lg" id="sheet-dial" href="tel:${escapeHtml(number)}">${escapeHtml(dict.callSheetOpen)}</a>
+        <button type="button" class="btn btn-ghost" id="sheet-copy">${escapeHtml(dict.callSheetCopy)}</button>
+        <button type="button" class="btn btn-ghost" id="sheet-cancel">${escapeHtml(dict.callSheetCancel)}</button>
+      </div>
+      <p class="fine">${escapeHtml(dict.callSheetFallback)}</p>
+    </div>
+  `;
+  sheetPrevFocus = document.activeElement;
+  document.body.appendChild(wrap);
+  const cancel = wrap.querySelector("#sheet-cancel");
+  if (cancel) cancel.focus();
+  wrap.addEventListener("click", (e) => {
+    if (e.target === wrap) closeCallSheet();
+  });
+  if (cancel) cancel.addEventListener("click", closeCallSheet);
+  const dial = wrap.querySelector("#sheet-dial");
+  if (dial) dial.addEventListener("click", () => setTimeout(closeCallSheet, 500));
+  const copy = wrap.querySelector("#sheet-copy");
+  if (copy) {
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(number);
+        flashOk(dict.callSheetCopied);
+      } catch (err) {
+        flashError(dict.callSheetFallback);
+      }
+    });
+  }
+  document.addEventListener("keydown", sheetKeydown);
 }
 
 function categoriesHtml(dict, state) {
@@ -1962,6 +2416,19 @@ function wireScreen(screen, dict, state) {
       go(el.getAttribute("data-go"));
     });
   });
+
+  root.onclick = (e) => {
+    const trigger = e.target.closest && e.target.closest("[data-call]");
+    if (!trigger) return;
+    e.preventDefault();
+    openCallSheet(
+      trigger.getAttribute("data-call"),
+      trigger.getAttribute("data-call-name") || "",
+      dict
+    );
+  };
+
+  if (screen === "directory") wireDirectory(dict, state);
 
   document.querySelectorAll(".category-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -2198,7 +2665,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
   render();
 });
 
-const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "sketch", "aid", "about", "sdg", "initiatives", "careers", "contact"];
+const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "sketch", "aid", "about", "sdg", "initiatives", "careers", "contact"];
 
 function screenFromHash() {
   const name = String(location.hash || "").replace(/^#\/?/, "");
