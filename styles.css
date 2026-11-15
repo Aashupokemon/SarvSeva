@@ -3086,5 +3086,5 @@ details.more[open] > summary {
 
 /* keep the fixed display dock from covering the last form controls */
 #main {
-  padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(196px + env(safe-area-inset-bottom, 0px));
 }
