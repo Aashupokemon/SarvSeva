@@ -3604,3 +3604,8 @@ body.splash-open {
     transition: opacity 0.2s ease;
   }
 }
+
+/* failed automatic retry: kept on screen until the next attempt */
+.status-retry-fail {
+  margin: 0;
+}

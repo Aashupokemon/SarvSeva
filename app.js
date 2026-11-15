@@ -230,7 +230,11 @@ const i18n = {
     statusSendHint: "Sending is a separate step. Nothing leaves this phone unless you press this.",
     statusQueued: "Queued - not sent",
     statusQueuedWhat: "You tried to send this while offline. It is waiting inside this app and has not reached anyone.",
-    statusQueuedNext: "It will not send by itself. When you have a connection, press try sending again - or call 112 if this is urgent.",
+    statusQueuedNext: "It retries by itself when your connection comes back. You can also press try sending again - or call 112 if this is urgent.",
+    statusRetryWaiting: "Waiting for a connection. This screen retries on its own, and each attempt is recorded below.",
+    statusRetryFailedEvent: "Automatic retry failed. Nothing was delivered.",
+    statusRetryFailedNotice: "An automatic retry at {time} did not go through, so nothing was delivered. The request is still saved on this phone.",
+    statusRetryFailedFlash: "Automatic retry failed - nothing was sent. The request stays on this phone.",
     statusQueuedEvent: "Send attempted while offline. Queued on this phone; nothing was sent.",
     statusQueuedFlash: "Queued. Nothing was sent.",
     statusFailed: "Could not send",
@@ -589,7 +593,11 @@ const i18n = {
     statusSendHint: "भेजना अलग कदम है। जब तक आप यह न दबाएँ, कुछ भी फ़ोन से बाहर नहीं जाता।",
     statusQueued: "कतार में - भेजा नहीं गया",
     statusQueuedWhat: "आपने ऑफ़लाइन रहते भेजने की कोशिश की। यह ऐप के अंदर कतार में है और किसी तक नहीं पहुँचा।",
-    statusQueuedNext: "यह अपने आप नहीं भेजा जाएगा। कनेक्शन आने पर दोबारा भेजें - और अगर ज़रूरी हो तो 112 पर कॉल करें।",
+    statusQueuedNext: "कनेक्शन आते ही यह खुद दोबारा कोशिश करता है। आप दोबारा भेजने का बटन भी दबा सकते हैं - और ज़रूरी हो तो 112 पर कॉल करें।",
+    statusRetryWaiting: "कनेक्शन का इंतज़ार। यह स्क्रीन खुद दोबारा कोशिश करती है, और हर कोशिश नीचे दर्ज होती है।",
+    statusRetryFailedEvent: "अपने आप दोबारा कोशिश हुई और विफल रही। कुछ भी नहीं पहुँचा।",
+    statusRetryFailedNotice: "{time} पर अपने आप दोबारा कोशिश हुई, वह पूरी नहीं हुई, इसलिए कुछ भी नहीं पहुँचा। अनुरोध अभी भी इस फ़ोन में सहेजा है।",
+    statusRetryFailedFlash: "अपने आप दोबारा कोशिश विफल - कुछ नहीं भेजा गया। अनुरोध इस फ़ोन पर ही सहेजा है।",
     statusQueuedEvent: "ऑफ़लाइन रहते भेजने की कोशिश हुई। इस फ़ोन पर कतार में; कुछ नहीं भेजा गया।",
     statusQueuedFlash: "कतार में रखा गया। कुछ नहीं भेजा गया।",
     statusFailed: "भेजा नहीं जा सका",
@@ -3430,6 +3438,99 @@ function checkOnline(timeoutMs = 2500) {
   });
 }
 
+/* Delivery is not switched on in this build. When a dispatch service exists,
+   setting its URL here turns the same retry path into a real send. */
+const DELIVERY_ENDPOINT = null;
+
+async function deliverRequest(request) {
+  if (!DELIVERY_ENDPOINT) return { ok: false, reason: "disabled" };
+  try {
+    const response = await fetch(DELIVERY_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: request.id,
+        category: request.category,
+        what: request.what,
+        locality: request.locality,
+        precise: request.precise,
+        urgency: request.urgency,
+        language: request.language,
+        details: request.details,
+        contact: request.contact,
+        sms: request.sms
+      })
+    });
+    return response.ok ? { ok: true } : { ok: false, reason: "http-" + response.status };
+  } catch (err) {
+    return { ok: false, reason: "network" };
+  }
+}
+
+/** One send attempt: off the network it queues, on the network it tries to deliver. */
+async function attemptSend(dict, automatic) {
+  const list = LS.get(REQ_KEY, []);
+  const request = list[list.length - 1];
+  if (!request || request.state === "cancelled") return null;
+
+  const online = await checkOnline();
+  const stamp = new Date().toISOString();
+
+  if (!online) {
+    if (request.state === "queued") return { state: "queued", automatic, changed: false };
+    request.state = "queued";
+    request.events = (request.events || []).concat([
+      { at: stamp, human: false, text: dict.statusQueuedEvent }
+    ]);
+    LS.set(REQ_KEY, list);
+    return { state: "queued", automatic, changed: true };
+  }
+
+  const result = await deliverRequest(request);
+  request.attempts = (request.attempts || 0) + 1;
+  request.lastAttemptAt = stamp;
+  request.state = "failed";
+  if (automatic) request.autoRetryFailedAt = stamp;
+  else delete request.autoRetryFailedAt;
+  request.events = (request.events || []).concat([
+    { at: stamp, human: false, text: automatic ? dict.statusRetryFailedEvent : dict.statusFailedEvent }
+  ]);
+  LS.set(REQ_KEY, list);
+  return { state: "failed", automatic, changed: true, reason: result.reason };
+}
+
+let retryBusy = false;
+let retryWatcherStarted = false;
+
+async function retryQueuedIfNeeded() {
+  if (retryBusy || document.hidden) return;
+  const request = currentRequest();
+  if (!request || request.state !== "queued") return;
+
+  retryBusy = true;
+  try {
+    const dict = i18n[state.locale];
+    const result = await attemptSend(dict, true);
+    if (!result || !result.changed) return;
+    if (state.screen === "status") render();
+    if (result.state === "failed") flashError(dict.statusRetryFailedFlash);
+    else flashOk(dict.statusQueuedFlash);
+  } finally {
+    retryBusy = false;
+  }
+}
+
+function startRetryWatcher() {
+  if (retryWatcherStarted) return;
+  retryWatcherStarted = true;
+  window.addEventListener("online", () => window.setTimeout(retryQueuedIfNeeded, 800));
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) retryQueuedIfNeeded();
+  });
+  window.setInterval(retryQueuedIfNeeded, 30000);
+  window.setTimeout(retryQueuedIfNeeded, 3200);
+}
+
 function STATUS_COPY(status, dict) {
   switch (status) {
     case "queued":
@@ -3496,7 +3597,9 @@ function statusHtml(dict, state) {
         <p class="status-what">${escapeHtml(copy.what)}</p>
         <p class="status-next"><strong>${escapeHtml(dict.statusWhatNext)}:</strong> ${escapeHtml(copy.next)}</p>
         ${copy.warn ? `<p class="status-warn">${escapeHtml(copy.warn)}</p>` : ""}
+        ${req.state === "queued" ? `<p class="field-hint status-retry">${escapeHtml(dict.statusRetryWaiting)}</p>` : ""}
       </div>
+      ${req.state === "failed" && req.autoRetryFailedAt ? `<div class="notice notice-amber status-retry-fail" role="status">${escapeHtml(dict.statusRetryFailedNotice.replace("{time}", req.autoRetryFailedAt.slice(11, 16)))}</div>` : ""}
       ${canSend ? `<div class="status-send">
         <p class="field-hint">${escapeHtml(dict.statusSendHint)}</p>
         <button type="button" class="btn btn-primary btn-lg" data-status-send>${escapeHtml(sendLabel)}</button>
@@ -3768,22 +3871,11 @@ function wireStatus(dict) {
   if (!req) return;
 
   document.querySelector("[data-status-send]")?.addEventListener("click", async (event) => {
-    const list = LS.get(REQ_KEY, []);
-    const last = list[list.length - 1];
-    if (!last || last.state === "cancelled") return;
-    const btn = event.currentTarget;
-    btn.disabled = true;
-    const offline = !(await checkOnline());
-    const stamp = new Date().toISOString();
-    last.state = offline ? "queued" : "failed";
-    last.events = (last.events || []).concat([{
-      at: stamp,
-      human: false,
-      text: offline ? dict.statusQueuedEvent : dict.statusFailedEvent
-    }]);
-    LS.set(REQ_KEY, list);
+    event.currentTarget.disabled = true;
+    const result = await attemptSend(dict, false);
+    if (!result) return;
     render();
-    flashError(offline ? dict.statusQueuedFlash : dict.statusFailedFlash);
+    flashError(result.state === "queued" ? dict.statusQueuedFlash : dict.statusFailedFlash);
   });
 
   document.querySelector("[data-status-cancel]")?.addEventListener("click", () => {
@@ -4267,3 +4359,4 @@ function initSplash() {
 }
 
 initSplash();
+startRetryWatcher();
