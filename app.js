@@ -3397,6 +3397,39 @@ function currentRequest() {
   return list.length ? list[list.length - 1] : null;
 }
 
+/* navigator.onLine is not enough here: the Android build is served from a
+   loopback server, which keeps reporting an interface even in airplane mode.
+   An opaque no-cors HEAD to a public file settles it either way. */
+function checkOnline(timeoutMs = 2500) {
+  if (!navigator.onLine) return Promise.resolve(false);
+  return new Promise(resolve => {
+    let done = false;
+    const finish = (value) => {
+      if (done) return;
+      done = true;
+      resolve(value);
+    };
+    const controller = typeof AbortController === "function" ? new AbortController() : null;
+    const timer = setTimeout(() => {
+      if (controller) controller.abort();
+      finish(false);
+    }, timeoutMs);
+    fetch("https://aashupokemon.github.io/SarvSeva/manifest.json?probe=" + Date.now(), {
+      mode: "no-cors",
+      cache: "no-store",
+      signal: controller ? controller.signal : undefined
+    })
+      .then(() => {
+        clearTimeout(timer);
+        finish(true);
+      })
+      .catch(() => {
+        clearTimeout(timer);
+        finish(false);
+      });
+  });
+}
+
 function STATUS_COPY(status, dict) {
   switch (status) {
     case "queued":
@@ -3734,12 +3767,14 @@ function wireStatus(dict) {
   const req = currentRequest();
   if (!req) return;
 
-  document.querySelector("[data-status-send]")?.addEventListener("click", () => {
+  document.querySelector("[data-status-send]")?.addEventListener("click", async (event) => {
     const list = LS.get(REQ_KEY, []);
     const last = list[list.length - 1];
     if (!last || last.state === "cancelled") return;
+    const btn = event.currentTarget;
+    btn.disabled = true;
+    const offline = !(await checkOnline());
     const stamp = new Date().toISOString();
-    const offline = !navigator.onLine;
     last.state = offline ? "queued" : "failed";
     last.events = (last.events || []).concat([{
       at: stamp,
