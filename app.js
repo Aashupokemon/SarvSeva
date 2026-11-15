@@ -169,6 +169,110 @@ const i18n = {
     ],
     callLabel: "Call",
     navDirectory: "Verified help",
+    navNeedHelp: "Get help",
+    navOfferHelp: "Offer help",
+    homeNeedTitle: "I need help",
+    homeNeedBody: "Tell us what is happening and where. You review everything before it is shared.",
+    homeOfferTitle: "I can help",
+    homeOfferBody: "Offer time, skills or local knowledge to people near you.",
+    homeServicesLink: "Or look up a verified helpline",
+    needTitle: "Ask for help",
+    needSub: "Three short steps. Nothing is shared until you review and confirm.",
+    needStepOf: "Step {n} of 3",
+    needStep1: "What is this about?",
+    needStep1Hint: "Pick the closest match. You can add detail later.",
+    needStep2: "The essentials",
+    needWhat: "What is happening?",
+    needWhatHint: "One or two sentences. Example: my father has chest pain and we need an ambulance.",
+    needWhere: "Where?",
+    needWhereHint: "A locality, landmark or area. Full address is not required.",
+    needWherePlaceholder: "Example: Sector 12, near the bus depot",
+    needUrgency: "How soon?",
+    needUrgencyNow: "Right now",
+    needUrgencyToday: "Today",
+    needUrgencyWeek: "This week",
+    needContact: "Safe contact number",
+    needContactHint: "Shared only with helpers you approve. Not shown publicly.",
+    needMore: "Add more detail (optional)",
+    needMoreHelp: "Language you prefer, who else is involved, or anything a helper should know before calling.",
+    needLanguage: "Preferred language",
+    needDetails: "Anything else",
+    needStep3: "Check before sharing",
+    needReviewWho: "What will be shared",
+    needReviewNote: "Only the helpers matched to your request see this. SarvSeva does not send police, ambulance or fire services, and this request is not an emergency call.",
+    needConsent: "I understand this goes to community helpers, not to emergency services.",
+    needShare: "Save request",
+    needBack: "Back",
+    needNext: "Continue",
+    needEdit: "Edit",
+    needSaved: "Saved on this phone.",
+    needDraftResume: "You have an unfinished request saved on this phone.",
+    needDraftResumeCta: "Resume it",
+    needDraftDiscard: "Start over",
+    needErrCategory: "Choose what this is about.",
+    needErrWhat: "Add a sentence about what is happening.",
+    needErrWhere: "Add a locality so helpers know roughly where to go.",
+    needErrContact: "Add a number a helper can call.",
+    needErrConsent: "Tick the box to confirm you understand who receives this.",
+    locTitle: "Location",
+    locManual: "Enter an area yourself",
+    locPrecise: "Share my precise location",
+    locExplain: "Precise location is more accurate but identifies you more closely. Area text is shown to matched helpers; precise coordinates are never listed publicly.",
+    locRetention: "Kept with your request until you cancel it or delete it.",
+    locStop: "You can remove sharing at any time from the request screen.",
+    statusTitle: "Your request",
+    statusSaved: "Saved on this phone",
+    statusSavedWhat: "Your request is stored inside this app. It has not been sent to anyone yet.",
+    statusSavedNext: "Keep this phone with you. If this is an emergency, call 112 now.",
+    statusNotSentWarning: "No helper has received this request. SarvSeva is not connected to a dispatch service.",
+    statusTimeline: "What has happened",
+    statusWhatNext: "What to do next",
+    statusAutomated: "Automatic",
+    statusHuman: "Confirmed by a person",
+    statusCancel: "Cancel this request",
+    statusCancelled: "Request cancelled.",
+    statusShare: "Send it to someone you trust",
+    statusShareHint: "Opens your phone's share sheet with the details you wrote.",
+    statusNoRequest: "No request saved on this phone yet.",
+    statusStart: "Start a request",
+    statusLegend: "What the states mean",
+    statusSec1: "Submitted - the app recorded it.",
+    statusSec2: "Acknowledged - a person read it.",
+    statusSec3: "Accepted - a helper agreed to respond.",
+    statusSec4: "Completed - the helper confirmed an outcome.",
+    statusSec5: "Expired or cancelled - nothing further will happen.",
+    offerTitle: "Offer help",
+    offerSub: "Tell us what you can offer and where. We only match you when someone nearby needs it.",
+    offerSkills: "What can you offer?",
+    offerSkillTime: "Time and company",
+    offerSkillFood: "Food or supplies",
+    offerSkillTransport: "Transport",
+    offerSkillMedical: "First aid or medical",
+    offerSkillTranslation: "Language help",
+    offerSkillTech: "Phone or online help",
+    offerAvail: "When are you usually free?",
+    offerAvailDay: "Daytime",
+    offerAvailEve: "Evenings",
+    offerAvailWeekend: "Weekends",
+    offerRadius: "How far can you travel?",
+    offerRadiusNear: "My neighbourhood",
+    offerRadiusCity: "My city",
+    offerRadiusRemote: "Phone and online only",
+    offerSafety: "Safety first",
+    offerSafetyList: [
+      "Do not enter unsafe places or handle hazards.",
+      "Do not transport people you have not spoken to.",
+      "Meet in a public place where you can.",
+      "Share only what you choose. You can stop receiving requests at any time."
+    ],
+    offerSave: "Save my offer",
+    offerSaved: "Offer saved on this phone.",
+    offerNote: "Matching is not live yet. Your offer is stored here and nothing is sent until matching is switched on.",
+    offerSavedWhat: "Your offer is stored inside this app.",
+    notifyTitle: "Updates",
+    notifySms: "Tell me by message when something changes",
+    notifyPrivacy: "Messages will not name what happened - only that there is an update. Open the app to read it.",
+    reportListing: "Report this listing",
     sosLabel: "Emergency?",
     sosAction: "Call 112",
     sosSub: "One number for police, fire and ambulance.",
@@ -183,6 +287,10 @@ const i18n = {
     dirCoverage: "Coverage",
     dirHours: "Hours",
     dirStale: "Needs re-check",
+    dirVerifiedBy: "Checked against",
+    dirScope: "Scope of that check",
+    dirReport: "Report a wrong listing",
+    dirReportSubject: "Wrong listing on SarvSeva",
     dirEmpty: "No service matches that search.",
     dirNote: "If a number does not answer, call 112. To report a wrong listing, use Contact.",
     callSheetTitle: "Call {number}?",
@@ -381,6 +489,110 @@ const i18n = {
     ],
     callLabel: "कॉल",
     navDirectory: "सत्यापित मदद",
+    navNeedHelp: "मदद लें",
+    navOfferHelp: "मदद दें",
+    homeNeedTitle: "मुझे मदद चाहिए",
+    homeNeedBody: "बताएँ क्या हो रहा है और कहाँ। साझा करने से पहले आप सब कुछ देख लेंगे।",
+    homeOfferTitle: "मैं मदद कर सकता/सकती हूँ",
+    homeOfferBody: "अपना समय, हुनर या स्थानीय जानकारी पास के लोगों को दें।",
+    homeServicesLink: "या कोई सत्यापित हेल्पलाइन देखें",
+    needTitle: "मदद माँगें",
+    needSub: "तीन छोटे चरण। जब तक आप जाँचकर पुष्टि नहीं करेंगे, कुछ साझा नहीं होगा।",
+    needStepOf: "चरण {n} में से 3",
+    needStep1: "यह किस बारे में है?",
+    needStep1Hint: "सबसे मिलता-जुलता विकल्प चुनें। बाद में विस्तार जोड़ सकते हैं।",
+    needStep2: "ज़रूरी बातें",
+    needWhat: "क्या हो रहा है?",
+    needWhatHint: "एक-दो वाक्य। उदाहरण: पिताजी को सीने में दर्द है और एम्बुलेंस चाहिए।",
+    needWhere: "कहाँ?",
+    needWhereHint: "मोहल्ला, पहचान की जगह या इलाका। पूरा पता ज़रूरी नहीं।",
+    needWherePlaceholder: "उदाहरण: सेक्टर 12, बस डिपो के पास",
+    needUrgency: "कितनी जल्दी?",
+    needUrgencyNow: "अभी",
+    needUrgencyToday: "आज",
+    needUrgencyWeek: "इस हफ़्ते",
+    needContact: "सुरक्षित संपर्क नंबर",
+    needContactHint: "सिर्फ़ उन मददगारों को, जिन्हें आप स्वीकार करें। सार्वजनिक नहीं।",
+    needMore: "और जानकारी जोड़ें (वैकल्पिक)",
+    needMoreHelp: "पसंदीदा भाषा, साथ में कौन है, या कॉल से पहले जो जानना ज़रूरी हो।",
+    needLanguage: "पसंदीदा भाषा",
+    needDetails: "कुछ और",
+    needStep3: "साझा करने से पहले जाँचें",
+    needReviewWho: "क्या साझा होगा",
+    needReviewNote: "यह सिर्फ़ उन मददगारों को दिखेगा जो आपके अनुरोध से जुड़े हैं। SarvSeva पुलिस, एम्बुलेंस या फायर नहीं भेजता, और यह आपातकालीन कॉल नहीं है।",
+    needConsent: "मैं समझता/समझती हूँ कि यह सामुदायिक मददगारों के पास जाता है, आपातकालीन सेवाओं के पास नहीं।",
+    needShare: "अनुरोध सहेजें",
+    needBack: "पीछे",
+    needNext: "आगे",
+    needEdit: "बदलें",
+    needSaved: "इस फ़ोन पर सहेजा गया।",
+    needDraftResume: "इस फ़ोन पर आपका एक अधूरा अनुरोध सहेजा है।",
+    needDraftResumeCta: "उसे पूरा करें",
+    needDraftDiscard: "नया शुरू करें",
+    needErrCategory: "चुनें कि यह किस बारे में है।",
+    needErrWhat: "एक वाक्य लिखें कि क्या हो रहा है।",
+    needErrWhere: "इलाका लिखें ताकि मददगार जगह समझ सकें।",
+    needErrContact: "वह नंबर लिखें जिस पर मददगार कॉल करें।",
+    needErrConsent: "यह पुष्टि करने के लिए बॉक्स पर टिक करें कि यह किसे मिलता है।",
+    locTitle: "स्थान",
+    locManual: "इलाका खुद लिखें",
+    locPrecise: "मेरी सटीक लोकेशन साझा करें",
+    locExplain: "सटीक लोकेशन ज़्यादा सही होती है, पर आपको ज़्यादा पहचानती है। इलाके का पाठ मिले हुए मददगारों को दिखेगा; सटीक निर्देशांक कभी सार्वजनिक नहीं होते।",
+    locRetention: "जब तक आप रद्द या हटाएँ नहीं, आपके अनुरोध के साथ रहती है।",
+    locStop: "अनुरोध स्क्रीन से आप कभी भी साझा करना बंद कर सकते हैं।",
+    statusTitle: "आपका अनुरोध",
+    statusSaved: "इस फ़ोन पर सहेजा",
+    statusSavedWhat: "आपका अनुरोध इस ऐप के अंदर सहेजा है। यह अभी किसी को नहीं भेजा गया।",
+    statusSavedNext: "यह फ़ोन अपने पास रखें। आपातकाल हो तो अभी 112 पर कॉल करें।",
+    statusNotSentWarning: "यह अनुरोध किसी मददगार तक नहीं पहुँचा। SarvSeva किसी डिस्पैच सेवा से जुड़ा नहीं है।",
+    statusTimeline: "अब तक क्या हुआ",
+    statusWhatNext: "आगे क्या करें",
+    statusAutomated: "स्वचालित",
+    statusHuman: "किसी व्यक्ति ने पुष्टि की",
+    statusCancel: "यह अनुरोध रद्द करें",
+    statusCancelled: "अनुरोध रद्द हुआ।",
+    statusShare: "किसी भरोसेमंद को भेजें",
+    statusShareHint: "आपके फ़ोन का शेयर मेन्यू खुलेगा, उन्हीं विवरणों के साथ।",
+    statusNoRequest: "इस फ़ोन पर अभी कोई अनुरोध नहीं है।",
+    statusStart: "अनुरोध शुरू करें",
+    statusLegend: "इन अवस्थाओं का अर्थ",
+    statusSec1: "जमा - ऐप ने दर्ज किया।",
+    statusSec2: "स्वीकार जाना - किसी व्यक्ति ने पढ़ा।",
+    statusSec3: "अनुरोध लिया - मददगार ने हामी भरी।",
+    statusSec4: "पूरा - मददगार ने नतीजा बताया।",
+    statusSec5: "समय खत्म या रद्द - आगे कुछ नहीं होगा।",
+    offerTitle: "मदद दें",
+    offerSub: "बताएँ आप क्या दे सकते हैं और कहाँ। ज़रूरत पड़ने पर ही हम जोड़ेंगे।",
+    offerSkills: "आप क्या दे सकते हैं?",
+    offerSkillTime: "समय और साथ",
+    offerSkillFood: "खाना या ज़रूरी सामान",
+    offerSkillTransport: "यातायात",
+    offerSkillMedical: "प्राथमिक चिकित्सा",
+    offerSkillTranslation: "भाषा में मदद",
+    offerSkillTech: "फ़ोन या ऑनलाइन मदद",
+    offerAvail: "आमतौर पर कब खाली हैं?",
+    offerAvailDay: "दिन में",
+    offerAvailEve: "शाम को",
+    offerAvailWeekend: "वीकेंड में",
+    offerRadius: "आप कितनी दूर जा सकते हैं?",
+    offerRadiusNear: "मेरा मोहल्ला",
+    offerRadiusCity: "मेरा शहर",
+    offerRadiusRemote: "सिर्फ़ फ़ोन और ऑनलाइन",
+    offerSafety: "सुरक्षा पहले",
+    offerSafetyList: [
+      "असुरक्षित जगहों में न जाएँ, खतरनाक चीज़ों को न छुएँ।",
+      "जिनसे बात नहीं हुई, उन्हें गाड़ी में न ले जाएँ।",
+      "जहाँ हो सके, सार्वजनिक जगह पर मिलें।",
+      "जो चाहें वही साझा करें। आप कभी भी अनुरोध लेना बंद कर सकते हैं।"
+    ],
+    offerSave: "मेरा प्रस्ताव सहेजें",
+    offerSaved: "प्रस्ताव इस फ़ोन पर सहेजा गया।",
+    offerNote: "मिलान अभी चालू नहीं है। आपका प्रस्ताव यहाँ सहेजा है; चालू होने तक कुछ नहीं भेजा जाता।",
+    offerSavedWhat: "आपका प्रस्ताव इस ऐप में सहेजा है।",
+    notifyTitle: "अपडेट",
+    notifySms: "कुछ बदले तो संदेश से बताएँ",
+    notifyPrivacy: "संदेश में यह नहीं लिखा होगा कि क्या हुआ - सिर्फ़ इतना कि अपडेट है। पढ़ने के लिए ऐप खोलें।",
+    reportListing: "इस सूची की शिकायत करें",
     sosLabel: "आपातकाल?",
     sosAction: "112 पर कॉल",
     sosSub: "पुलिस, फायर और एम्बुलेंस के लिए एक ही नंबर।",
@@ -395,6 +607,10 @@ const i18n = {
     dirCoverage: "कवरेज",
     dirHours: "समय",
     dirStale: "फिर जाँच ज़रूरी",
+    dirVerifiedBy: "इससे मिलाकर जाँचा",
+    dirScope: "जाँच का दायरा",
+    dirReport: "गलत सूची की शिकायत",
+    dirReportSubject: "SarvSeva पर गलत सूची",
     dirEmpty: "इस खोज से कोई सेवा नहीं मिली।",
     dirNote: "अगर नंबर न उठे तो 112 पर कॉल करें। गलत जानकारी बताने के लिए संपर्क करें।",
     callSheetTitle: "{number} पर कॉल करें?",
@@ -1133,6 +1349,8 @@ const AID_CASES = [
 ];
 
 const NAV_ITEMS = [
+  { href: "#/need", labelKey: "navNeedHelp", icon: "info" },
+  { href: "#/offer", labelKey: "navOfferHelp", icon: "people" },
   { href: "#/directory", labelKey: "navDirectory", icon: "phone" },
   { href: "#/about", labelKey: "navAbout", icon: "info" },
   { href: "#/login", labelKey: "navJoin", icon: "user" },
@@ -1582,6 +1800,12 @@ function buildScreen(screen, dict, state) {
       return emergencyHtml(dict, state);
     case "directory":
       return directoryHtml(dict, state);
+    case "need":
+      return needHelpHtml(dict, state);
+    case "status":
+      return statusHtml(dict, state);
+    case "offer":
+      return offerHelpHtml(dict, state);
     case "sketch":
       return sketchHtml(dict, state);
     case "aid":
@@ -1624,6 +1848,20 @@ function landingHtml(dict) {
         <span class="sos-sub">${dict.sosSub}</span>
       </div>
       <button type="button" class="btn sos-btn" data-call="112" data-call-name="${dict.sosLabel}">${dict.sosAction}</button>
+    </section>
+
+    <section class="choice-grid reveal" aria-label="${escapeHtml(dict.homeNeedTitle)} / ${escapeHtml(dict.homeOfferTitle)}">
+      <a class="choice-card choice-need" href="#" data-go="need">
+        <span class="choice-title">${escapeHtml(dict.homeNeedTitle)}</span>
+        <span class="choice-body">${escapeHtml(dict.homeNeedBody)}</span>
+        <span class="choice-cta" aria-hidden="true">→</span>
+      </a>
+      <a class="choice-card choice-offer" href="#" data-go="offer">
+        <span class="choice-title">${escapeHtml(dict.homeOfferTitle)}</span>
+        <span class="choice-body">${escapeHtml(dict.homeOfferBody)}</span>
+        <span class="choice-cta" aria-hidden="true">→</span>
+      </a>
+      <a class="choice-services" href="#" data-go="directory">${escapeHtml(dict.homeServicesLink)}</a>
     </section>
 
     <section class="hero-shell reveal">
@@ -2174,9 +2412,13 @@ function directoryCard(dict, state, item) {
         <div><dt>${escapeHtml(dict.dirHours)}</dt><dd>${escapeHtml(hours)}</dd></div>
         <div><dt>${escapeHtml(dict.dirCheckLabel)}</dt><dd>${escapeHtml(formatDate(item.verified, state.locale))}</dd></div>
       </dl>
+      <p class="dir-trust">
+        ${escapeHtml(dict.dirVerifiedBy)} <a class="dir-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.sourceName)}</a>.
+        ${escapeHtml(dict.dirScope)}: ${escapeHtml(coverage)}.
+      </p>
       <div class="dir-actions">
         <button type="button" class="btn btn-primary" data-call="${escapeHtml(item.number)}" data-call-name="${escapeHtml(name)}">${escapeHtml(dict.callLabel)} ${escapeHtml(item.number)}</button>
-        <a class="dir-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.dirSource)}: ${escapeHtml(item.sourceName)}</a>
+        <a class="dir-report" href="mailto:sarvseva@gmail.com?subject=${encodeURIComponent(dict.dirReportSubject + ": " + name + " " + item.number)}">${escapeHtml(dict.dirReport)}</a>
       </div>
     </article>
   `;
@@ -2322,6 +2564,540 @@ function openCallSheet(number, label, dict) {
   document.addEventListener("keydown", sheetKeydown);
 }
 
+/* ------------------------------------------------------------------
+   Local persistence - guest-first, nothing leaves the device yet
+   ------------------------------------------------------------------ */
+const LS = {
+  get(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    } catch (err) {
+      return fallback;
+    }
+  },
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (err) {
+      /* storage full or blocked */
+    }
+  },
+  del(key) {
+    try {
+      localStorage.removeItem(key);
+    } catch (err) {
+      /* ignore */
+    }
+  }
+};
+
+const DRAFT_KEY = "sarvseva:draft";
+const REQ_KEY = "sarvseva:requests";
+const OFFER_KEY = "sarvseva:offer";
+
+const NEED_CATS = ["emergency", "safety", "health", "basic-needs", "legal", "children", "women", "elderly"];
+const URGENCIES = [
+  { id: "now", keyEn: "needUrgencyNow", keyHi: "needUrgencyNow", risk: true },
+  { id: "today", keyEn: "needUrgencyToday", keyHi: "needUrgencyToday" },
+  { id: "week", keyEn: "needUrgencyWeek", keyHi: "needUrgencyWeek" }
+];
+
+let needDraft = LS.get(DRAFT_KEY, null);
+let needResumeDismissed = false;
+let needErrors = [];
+
+function emptyDraft() {
+  return {
+    step: 1,
+    category: "",
+    what: "",
+    locality: "",
+    precise: false,
+    urgency: "today",
+    language: "",
+    details: "",
+    contact: "",
+    sms: false,
+    consent: false
+  };
+}
+
+function saveNeedDraft() {
+  if (!needDraft) return;
+  LS.set(DRAFT_KEY, needDraft);
+}
+
+function draftHasContent(d) {
+  return !!(d && (d.category || d.what || d.locality || d.contact));
+}
+
+function needField(dict, id, label, hint, value, opts = {}) {
+  const err = needErrors.includes(id);
+  const describedBy = [hint ? id + "-hint" : "", err ? id + "-err" : ""].filter(Boolean).join(" ");
+  return `
+    <div class="field${err ? " has-error" : ""}">
+      <label class="field-label" for="${id}">${escapeHtml(label)}</label>
+      ${hint ? `<p class="field-hint" id="${id}-hint">${escapeHtml(hint)}</p>` : ""}
+      ${opts.textarea
+        ? `<textarea class="input" id="${id}" rows="${opts.rows || 3}" ${describedBy ? `aria-describedby="${describedBy}"` : ""} ${err ? 'aria-invalid="true"' : ""} placeholder="${escapeHtml(opts.placeholder || "")}">${escapeHtml(value)}</textarea>`
+        : `<input class="input" id="${id}" type="${opts.type || "text"}" ${opts.inputmode ? `inputmode="${opts.inputmode}"` : ""} ${describedBy ? `aria-describedby="${describedBy}"` : ""} ${err ? 'aria-invalid="true"' : ""} value="${escapeHtml(value)}" placeholder="${escapeHtml(opts.placeholder || "")}">`}
+      ${err ? `<p class="field-error" id="${id}-err" role="alert">${escapeHtml(needErrText(dict, id))}</p>` : ""}
+    </div>
+  `;
+}
+
+function needErrText(dict, id) {
+  switch (id) {
+    case "category": return dict.needErrCategory;
+    case "what": return dict.needErrWhat;
+    case "locality": return dict.needErrWhere;
+    case "contact": return dict.needErrContact;
+    case "consent": return dict.needErrConsent;
+    default: return "";
+  }
+}
+
+function chipGroup(dict, attr, items, selected, legend) {
+  return `
+    <fieldset class="field">
+      <legend class="field-label">${escapeHtml(legend)}</legend>
+      <div class="chip-row" role="group">
+        ${items.map(item => {
+          const on = Array.isArray(selected) ? selected.includes(item.id) : selected === item.id;
+          return `<button type="button" class="chip${on ? " is-on" : ""}" ${attr}="${escapeHtml(item.id)}" aria-pressed="${on}">${escapeHtml(item.label)}</button>`;
+        }).join("")}
+      </div>
+    </fieldset>
+  `;
+}
+
+function needHelpHtml(dict, state) {
+  if (!needDraft) needDraft = emptyDraft();
+  const d = needDraft;
+  const showResume = d.step === 1 && draftHasContent(d) && !needResumeDismissed;
+
+  const steps = [
+    `<div class="step-head"><span class="eyebrow">${escapeHtml(dict.needStepOf.replace("{n}", "1"))}</span></div>
+     <h2 class="section-h2">${escapeHtml(dict.needStep1)}</h2>
+     <p class="field-hint">${escapeHtml(dict.needStep1Hint)}</p>
+     <div class="field${needErrors.includes("category") ? " has-error" : ""}">
+       <div class="chip-row" role="group" aria-label="${escapeHtml(dict.needStep1)}">
+         ${NEED_CATS.map(id => {
+           const cat = CATEGORIES.find(c => c.id === id);
+           const label = state.locale === "hi" ? cat.labelHi : cat.labelEn;
+           const on = d.category === id;
+           return `<button type="button" class="chip${on ? " is-on" : ""}" data-need-cat="${id}" aria-pressed="${on}">${escapeHtml(label)}</button>`;
+         }).join("")}
+       </div>
+       ${needErrors.includes("category") ? `<p class="field-error" role="alert">${escapeHtml(dict.needErrCategory)}</p>` : ""}
+     </div>`,
+
+    `<div class="step-head"><span class="eyebrow">${escapeHtml(dict.needStepOf.replace("{n}", "2"))}</span></div>
+     <h2 class="section-h2">${escapeHtml(dict.needStep2)}</h2>
+     ${needField(dict, "need-what", dict.needWhat, dict.needWhatHint, d.what, { textarea: true, rows: 3, placeholder: dict.needWhatHint })}
+     <fieldset class="field">
+       <legend class="field-label">${escapeHtml(dict.locTitle)}</legend>
+       <p class="field-hint">${escapeHtml(dict.needWhereHint)}</p>
+       ${needField(dict, "need-locality", dict.needWhere, "", d.locality, { placeholder: dict.needWherePlaceholder })}
+       <label class="check-row" for="need-precise">
+         <input type="checkbox" id="need-precise" ${d.precise ? "checked" : ""}>
+         <span>${escapeHtml(dict.locPrecise)}</span>
+       </label>
+       <p class="field-hint">${escapeHtml(dict.locExplain)}</p>
+       <p class="field-hint">${escapeHtml(dict.locRetention)} ${escapeHtml(dict.locStop)}</p>
+     </fieldset>
+     ${chipGroup(dict, "data-urgency", URGENCIES.map(u => ({ id: u.id, label: dict[u.keyEn] })), d.urgency, dict.needUrgency)}
+     ${needField(dict, "need-contact", dict.needContact, dict.needContactHint, d.contact, { type: "tel", inputmode: "tel" })}
+     <details class="more" ${d.language || d.details ? "open" : ""}>
+       <summary>${escapeHtml(dict.needMore)}</summary>
+       <p class="field-hint">${escapeHtml(dict.needMoreHelp)}</p>
+       ${needField(dict, "need-language", dict.needLanguage, "", d.language, { placeholder: "Hindi, English, …" })}
+       ${needField(dict, "need-details", dict.needDetails, "", d.details, { textarea: true, rows: 2 })}
+     </details>`,
+
+    `<div class="step-head"><span class="eyebrow">${escapeHtml(dict.needStepOf.replace("{n}", "3"))}</span></div>
+     <h2 class="section-h2">${escapeHtml(dict.needStep3)}</h2>
+     <div class="review">
+       <div class="review-row"><span class="review-key">${escapeHtml(dict.needStep1)}</span><span class="review-val">${escapeHtml(catLabel(d.category, state))}</span><button type="button" class="review-edit" data-need-edit="1">${escapeHtml(dict.needEdit)}</button></div>
+       <div class="review-row"><span class="review-key">${escapeHtml(dict.needWhat)}</span><span class="review-val">${escapeHtml(d.what)}</span><button type="button" class="review-edit" data-need-edit="2">${escapeHtml(dict.needEdit)}</button></div>
+       <div class="review-row"><span class="review-key">${escapeHtml(dict.needWhere)}</span><span class="review-val">${escapeHtml(d.locality)}${d.precise ? " · " + escapeHtml(dict.locPrecise) : ""}</span><button type="button" class="review-edit" data-need-edit="2">${escapeHtml(dict.needEdit)}</button></div>
+       <div class="review-row"><span class="review-key">${escapeHtml(dict.needUrgency)}</span><span class="review-val">${escapeHtml(dict["needUrgency" + d.urgency.charAt(0).toUpperCase() + d.urgency.slice(1)] || d.urgency)}</span><button type="button" class="review-edit" data-need-edit="2">${escapeHtml(dict.needEdit)}</button></div>
+       <div class="review-row"><span class="review-key">${escapeHtml(dict.needContact)}</span><span class="review-val">${escapeHtml(d.contact)}</span><button type="button" class="review-edit" data-need-edit="2">${escapeHtml(dict.needEdit)}</button></div>
+     </div>
+     <div class="notice notice-amber">${escapeHtml(dict.needReviewNote)}</div>
+     <label class="check-row${needErrors.includes("consent") ? " has-error" : ""}" for="need-consent">
+       <input type="checkbox" id="need-consent" ${d.consent ? "checked" : ""} ${needErrors.includes("consent") ? 'aria-invalid="true"' : ""}>
+       <span>${escapeHtml(dict.needConsent)}</span>
+     </label>
+     ${needErrors.includes("consent") ? `<p class="field-error" role="alert">${escapeHtml(dict.needErrConsent)}</p>` : ""}
+     <fieldset class="field">
+       <legend class="field-label">${escapeHtml(dict.notifyTitle)}</legend>
+       <label class="check-row" for="need-sms">
+         <input type="checkbox" id="need-sms" ${d.sms ? "checked" : ""}>
+         <span>${escapeHtml(dict.notifySms)}</span>
+       </label>
+       <p class="field-hint">${escapeHtml(dict.notifyPrivacy)}</p>
+     </fieldset>`
+  ];
+
+  const step = Math.min(Math.max(d.step, 1), 3);
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <h1 class="card-title">${dict.needTitle}</h1>
+      <p class="card-sub">${dict.needSub}</p>
+      ${showResume ? `<div class="notice notice-soft">${escapeHtml(dict.needDraftResume)}
+        <div class="notice-actions"><button type="button" class="btn btn-ghost" data-need-resume>${escapeHtml(dict.needDraftResumeCta)}</button><button type="button" class="btn btn-ghost" data-need-fresh>${escapeHtml(dict.needDraftDiscard)}</button></div></div>` : ""}
+      <div class="stepper" aria-hidden="true">${[1, 2, 3].map(n => `<span class="stepper-dot${n <= step ? " is-on" : ""}"></span>`).join("")}</div>
+      ${steps[step - 1]}
+      <div class="wizard-actions">
+        ${step > 1 ? `<button type="button" class="btn btn-ghost" data-need-back>${escapeHtml(dict.needBack)}</button>` : ""}
+        ${step < 3
+          ? `<button type="button" class="btn btn-primary" data-need-next>${escapeHtml(dict.needNext)}</button>`
+          : `<button type="button" class="btn btn-primary btn-lg" data-need-submit>${escapeHtml(dict.needShare)}</button>`}
+      </div>
+    </section>
+  `;
+}
+
+/* ---- status model: every state says what happened and what to do next ---- */
+function currentRequest() {
+  const list = LS.get(REQ_KEY, []);
+  return list.length ? list[list.length - 1] : null;
+}
+
+function statusHtml(dict, state) {
+  const req = currentRequest();
+  const back = backLink(dict, state);
+  if (!req) {
+    return `
+      <section class="card flow">
+        ${back}
+        <h1 class="card-title">${dict.statusTitle}</h1>
+        <p class="card-sub">${dict.statusNoRequest}</p>
+        <a class="btn btn-primary btn-lg" href="#" data-go="need">${dict.statusStart}</a>
+      </section>`;
+  }
+  const events = (req.events || []).map(ev => `
+    <li class="timeline-item">
+      <span class="timeline-dot" aria-hidden="true"></span>
+      <span class="timeline-body">
+        <span class="timeline-text">${escapeHtml(ev.text)}</span>
+        <span class="timeline-meta">${escapeHtml(formatDate(ev.at.slice(0, 10), state.locale))} · ${escapeHtml(ev.at.slice(11, 16))} · ${escapeHtml(ev.human ? dict.statusHuman : dict.statusAutomated)}</span>
+      </span>
+    </li>`).join("");
+
+  return `
+    <section class="card flow">
+      ${back}
+      <h1 class="card-title">${dict.statusTitle}</h1>
+      <div class="status-card${req.state === "cancelled" ? " is-cancelled" : ""}">
+        <span class="status-pill">${escapeHtml(req.state === "cancelled" ? dict.statusCancelled : dict.statusSaved)}</span>
+        <p class="status-what">${escapeHtml(req.state === "cancelled" ? dict.statusCancelled : dict.statusSavedWhat)}</p>
+        <p class="status-next"><strong>${escapeHtml(dict.statusWhatNext)}:</strong> ${escapeHtml(req.state === "cancelled" ? dict.statusStart : dict.statusSavedNext)}</p>
+        ${req.state === "cancelled" ? "" : `<p class="status-warn">${escapeHtml(dict.statusNotSentWarning)}</p>`}
+      </div>
+      <h2 class="group-title">${escapeHtml(dict.statusTimeline)}</h2>
+      <ol class="timeline">${events}</ol>
+      <div class="status-actions">
+        <button type="button" class="btn btn-ghost" data-status-share>${escapeHtml(dict.statusShare)}</button>
+        ${req.state === "cancelled" ? "" : `<button type="button" class="btn btn-ghost danger" data-status-cancel>${escapeHtml(dict.statusCancel)}</button>`}
+      </div>
+      <details class="more">
+        <summary>${escapeHtml(dict.statusLegend)}</summary>
+        <ul class="legend-list">
+          <li>${escapeHtml(dict.statusSec1)}</li>
+          <li>${escapeHtml(dict.statusSec2)}</li>
+          <li>${escapeHtml(dict.statusSec3)}</li>
+          <li>${escapeHtml(dict.statusSec4)}</li>
+          <li>${escapeHtml(dict.statusSec5)}</li>
+        </ul>
+      </details>
+    </section>`;
+}
+
+/* ---- offer help ---- */
+const OFFER_SKILLS = ["time", "food", "transport", "medical", "translation", "tech"];
+const OFFER_AVAIL = ["day", "eve", "weekend"];
+const OFFER_RADIUS = ["near", "city", "remote"];
+let offerDraft = LS.get(OFFER_KEY, null) || { skills: [], avail: [], radius: "near", locality: "" };
+
+function offerHelpHtml(dict, state) {
+  const skills = OFFER_SKILLS.map(id => ({
+    id,
+    label: dict["offerSkill" + id.charAt(0).toUpperCase() + id.slice(1)]
+  }));
+  const avail = OFFER_AVAIL.map(id => ({
+    id,
+    label: dict["offerAvail" + id.charAt(0).toUpperCase() + id.slice(1)]
+  }));
+  const radius = OFFER_RADIUS.map(id => ({
+    id,
+    label: dict["offerRadius" + id.charAt(0).toUpperCase() + id.slice(1)]
+  }));
+
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <h1 class="card-title">${dict.offerTitle}</h1>
+      <p class="card-sub">${dict.offerSub}</p>
+      ${chipGroup(dict, "data-offer-skill", skills, offerDraft.skills, dict.offerSkills)}
+      ${chipGroup(dict, "data-offer-avail", avail, offerDraft.avail, dict.offerAvail)}
+      ${chipGroup(dict, "data-offer-radius", radius, [offerDraft.radius], dict.offerRadius)}
+      ${needField(dict, "offer-locality", dict.needWhere, dict.needWhereHint, offerDraft.locality || "", { placeholder: dict.needWherePlaceholder })}
+      <div class="notice notice-soft">
+        <strong>${escapeHtml(dict.offerSafety)}</strong>
+        <ul class="legend-list">${dict.offerSafetyList.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ul>
+      </div>
+      <div class="notice notice-amber">${escapeHtml(dict.offerNote)}</div>
+      <button type="button" class="btn btn-primary btn-lg" data-offer-save>${escapeHtml(dict.offerSave)}</button>
+    </section>`;
+}
+
+function wireOfferHelp(dict) {
+  const sync = () => LS.set(OFFER_KEY, offerDraft);
+  document.querySelectorAll("[data-offer-skill]").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const id = chip.getAttribute("data-offer-skill");
+      const i = offerDraft.skills.indexOf(id);
+      if (i === -1) offerDraft.skills.push(id); else offerDraft.skills.splice(i, 1);
+      chip.classList.toggle("is-on", offerDraft.skills.includes(id));
+      chip.setAttribute("aria-pressed", String(offerDraft.skills.includes(id)));
+      sync();
+    });
+  });
+  document.querySelectorAll("[data-offer-avail]").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const id = chip.getAttribute("data-offer-avail");
+      const i = offerDraft.avail.indexOf(id);
+      if (i === -1) offerDraft.avail.push(id); else offerDraft.avail.splice(i, 1);
+      chip.classList.toggle("is-on", offerDraft.avail.includes(id));
+      chip.setAttribute("aria-pressed", String(offerDraft.avail.includes(id)));
+      sync();
+    });
+  });
+  document.querySelectorAll("[data-offer-radius]").forEach(chip => {
+    chip.addEventListener("click", () => {
+      offerDraft.radius = chip.getAttribute("data-offer-radius");
+      document.querySelectorAll("[data-offer-radius]").forEach(c => {
+        const on = c === chip;
+        c.classList.toggle("is-on", on);
+        c.setAttribute("aria-pressed", String(on));
+      });
+      sync();
+    });
+  });
+  const loc = document.getElementById("offer-locality");
+  if (loc) loc.addEventListener("input", () => { offerDraft.locality = loc.value; sync(); });
+  document.querySelector("[data-offer-save]")?.addEventListener("click", () => {
+    sync();
+    flashOk(dict.offerSaved);
+  });
+}
+
+function wireNeedHelp(dict, state) {
+  if (!needDraft) needDraft = emptyDraft();
+  const d = needDraft;
+  const sync = () => saveNeedDraft();
+
+  const bindings = [
+    ["need-what", "what"],
+    ["need-locality", "locality"],
+    ["need-contact", "contact"],
+    ["need-language", "language"],
+    ["need-details", "details"]
+  ];
+  bindings.forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("input", () => {
+      d[key] = el.value;
+      sync();
+    });
+  });
+
+  const precise = document.getElementById("need-precise");
+  if (precise) precise.addEventListener("change", () => { d.precise = precise.checked; sync(); });
+  const consent = document.getElementById("need-consent");
+  if (consent) consent.addEventListener("change", () => { d.consent = consent.checked; sync(); });
+  const sms = document.getElementById("need-sms");
+  if (sms) sms.addEventListener("change", () => { d.sms = sms.checked; sync(); });
+
+  document.querySelectorAll("[data-need-cat]").forEach(chip => {
+    chip.addEventListener("click", () => {
+      d.category = chip.getAttribute("data-need-cat");
+      needErrors = needErrors.filter(e => e !== "category");
+      document.querySelectorAll("[data-need-cat]").forEach(c => {
+        const on = c === chip;
+        c.classList.toggle("is-on", on);
+        c.setAttribute("aria-pressed", String(on));
+      });
+      sync();
+    });
+  });
+
+  document.querySelectorAll("[data-urgency]").forEach(chip => {
+    chip.addEventListener("click", () => {
+      d.urgency = chip.getAttribute("data-urgency");
+      document.querySelectorAll("[data-urgency]").forEach(c => {
+        const on = c === chip;
+        c.classList.toggle("is-on", on);
+        c.setAttribute("aria-pressed", String(on));
+      });
+      sync();
+    });
+  });
+
+  document.querySelectorAll("[data-need-edit]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      d.step = Number(btn.getAttribute("data-need-edit"));
+      needResumeDismissed = true;
+      sync();
+      render();
+    });
+  });
+
+  const focusFirstError = () => {
+    const invalid = document.querySelector("[aria-invalid='true']");
+    if (invalid && invalid.focus) {
+      invalid.focus();
+      return;
+    }
+    const box = document.querySelector(".has-error");
+    const control = box && box.querySelector("button, input, select, textarea, summary");
+    if (control && control.focus) control.focus();
+  };
+
+  const validateStep = () => {
+    needErrors = [];
+    if (d.step === 1 && !d.category) needErrors.push("category");
+    if (d.step === 2) {
+      if ((d.what || "").trim().length < 8) needErrors.push("what");
+      if ((d.locality || "").trim().length < 2) needErrors.push("locality");
+      const digits = (d.contact || "").replace(/[^0-9]/g, "");
+      if (digits.length < 10) needErrors.push("contact");
+    }
+    if (d.step === 3 && !d.consent) needErrors.push("consent");
+    return needErrors.length === 0;
+  };
+
+  document.querySelector("[data-need-next]")?.addEventListener("click", () => {
+    if (!validateStep()) {
+      render();
+      focusFirstError();
+      return;
+    }
+    d.step = Math.min(d.step + 1, 3);
+    needResumeDismissed = true;
+    sync();
+    render();
+    document.querySelector(".card-title")?.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+
+  document.querySelector("[data-need-back]")?.addEventListener("click", () => {
+    needErrors = [];
+    d.step = Math.max(1, d.step - 1);
+    sync();
+    render();
+  });
+
+  document.querySelector("[data-need-resume]")?.addEventListener("click", () => {
+    needResumeDismissed = true;
+    d.step = Math.min(Math.max(d.step, 1), 3);
+    render();
+  });
+
+  document.querySelector("[data-need-fresh]")?.addEventListener("click", () => {
+    needDraft = emptyDraft();
+    needErrors = [];
+    needResumeDismissed = true;
+    saveNeedDraft();
+    render();
+  });
+
+  document.querySelector("[data-need-submit]")?.addEventListener("click", () => {
+    if (!validateStep()) {
+      render();
+      focusFirstError();
+      return;
+    }
+    const now = new Date();
+    const stamp = now.toISOString();
+    const request = {
+      id: "REQ-" + now.getTime().toString(36).toUpperCase(),
+      createdAt: stamp,
+      category: d.category,
+      what: d.what.trim(),
+      locality: d.locality.trim(),
+      precise: !!d.precise,
+      urgency: d.urgency,
+      language: d.language.trim(),
+      details: d.details.trim(),
+      contact: d.contact.trim(),
+      sms: !!d.sms,
+      state: "saved",
+      sent: false,
+      events: [
+        { at: stamp, human: false, text: saveStateText(dict) }
+      ]
+    };
+    const list = LS.get(REQ_KEY, []);
+    list.push(request);
+    LS.set(REQ_KEY, list);
+    LS.del(DRAFT_KEY);
+    needDraft = null;
+    needErrors = [];
+    state.prev = "need";
+    state.screen = "status";
+    try { history.replaceState(null, "", "#/status"); } catch (err) { /* ignore */ }
+    render();
+    flashOk(dict.needSaved);
+  });
+}
+
+function saveStateText(dict) {
+  return dict.statusSavedWhat;
+}
+
+function wireStatus(dict) {
+  const req = currentRequest();
+  if (!req) return;
+
+  document.querySelector("[data-status-cancel]")?.addEventListener("click", () => {
+    const list = LS.get(REQ_KEY, []);
+    const last = list[list.length - 1];
+    if (!last) return;
+    last.state = "cancelled";
+    last.events = (last.events || []).concat([{
+      at: new Date().toISOString(),
+      human: false,
+      text: dict.statusCancelled
+    }]);
+    LS.set(REQ_KEY, list);
+    render();
+    flashOk(dict.statusCancelled);
+  });
+
+  document.querySelector("[data-status-share]")?.addEventListener("click", async () => {
+    const text = `${req.what}\n${req.locality}\n${req.contact}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "SarvSeva request", text });
+        return;
+      } catch (err) {
+        /* user cancelled or unsupported */
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      flashOk(dict.callSheetCopied);
+    } catch (err) {
+      flashError(dict.callSheetFallback);
+    }
+  });
+}
+
 function categoriesHtml(dict, state) {
   return `
     <div class="categories" role="list">
@@ -2429,6 +3205,9 @@ function wireScreen(screen, dict, state) {
   };
 
   if (screen === "directory") wireDirectory(dict, state);
+  if (screen === "need") wireNeedHelp(dict, state);
+  if (screen === "status") wireStatus(dict, state);
+  if (screen === "offer") wireOfferHelp(dict, state);
 
   document.querySelectorAll(".category-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -2665,7 +3444,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
   render();
 });
 
-const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "sketch", "aid", "about", "sdg", "initiatives", "careers", "contact"];
+const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "sdg", "initiatives", "careers", "contact"];
 
 function screenFromHash() {
   const name = String(location.hash || "").replace(/^#\/?/, "");
@@ -2706,8 +3485,8 @@ function syncNetStatus() {
   netStatusEl.hidden = !offline;
   netStatusEl.textContent = offline
     ? hindi
-      ? "आप ऑफ़लाइन हैं — सहेजा हुआ कॉन्टेंट दिख रहा है।"
-      : "You are offline — showing saved content."
+      ? "आप ऑफ़लाइन हैं — सहेजा हुआ कॉन्टेंट दिख रहा है। आप जो लिखेंगे वह इस फ़ोन में सहेजा जाएगा, अभी किसी को नहीं भेजा जाएगा।"
+      : "You are offline — showing saved content. Anything you write is saved on this phone, not sent to anyone yet."
     : "";
 }
 
