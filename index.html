@@ -6,8 +6,11 @@
   <title>SarvSeva - Help that reaches you.</title>
   <meta name="theme-color" content="#06222c">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="assets/sarvseva-icon-192.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/sarvseva-icon-192.png">
+  <link rel="icon" href="assets/sarvseva-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/sarvseva-favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/sarvseva-favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="apple-touch-icon" href="assets/sarvseva-apple-touch-180.png">
+  <link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -33,7 +36,7 @@
 
     <div class="brand">
       <span class="brand-chip">
-        <img class="brand-logo" src="assets/sarvseva-mark.png" alt="SarvSeva logo" width="672" height="410" decoding="async">
+        <img class="brand-logo" src="assets/sarvseva-mark.svg" alt="SarvSeva" width="288" height="288" decoding="async">
       </span>
       <span class="brand-name">SarvSeva</span>
     </div>
@@ -57,6 +60,7 @@
 
 
   </header>
+  <div class="net-status" id="net-status" role="status" aria-live="polite" hidden></div>
 
   <main id="main" class="container" role="main"></main>
 

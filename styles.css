@@ -2359,3 +2359,136 @@ body {
     display: none;
   }
 }
+
+/* ============================================================
+   SarvSeva brand system — Phase 0
+   Tokens, self-hosted type, focus and target-size accessibility.
+   ============================================================ */
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("assets/fonts/plus-jakarta-sans-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/inter-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/inter-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans Devanagari";
+  src: url("assets/fonts/noto-devanagari-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans Devanagari";
+  src: url("assets/fonts/noto-devanagari-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Brand tokens from the optimisation brief */
+  --brand-teal: #116b65;
+  --brand-green: #55a99a;
+  --brand-amber: #f2b765;
+  --brand-coral: #e87568;
+  --brand-ivory: #fff8ef;
+  --brand-charcoal: #243b40;
+  --brand-red: #d93636;
+
+  /* AA-safe text inks: the tokens above fail contrast as text on ivory */
+  --ink-green: #2e7d6e;
+  --ink-amber: #8a5a12;
+  --ink-coral: #b4402f;
+
+  /* Type: Inter for interface, Plus Jakarta Sans for brand moments,
+     Noto Sans Devanagari carries Hindi automatically via fallback. */
+  --font: "Inter", "Noto Sans Devanagari", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Noto Sans Devanagari", "Inter",
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+}
+
+h1,
+h2,
+h3,
+.brand-name,
+.tab,
+.footer-note {
+  font-family: var(--font-display);
+}
+
+/* Keyboard focus must always be visible, on every interactive control. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--brand-amber);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Icon-only controls need a comfortable target for thumbs and switch access. */
+.icon-btn,
+.dock-btn,
+.tab {
+  min-height: 44px;
+}
+.tab {
+  min-width: 44px;
+}
+
+.brand-chip {
+  background: var(--brand-ivory);
+}
+
+/* Offline / weak-network banner */
+.net-status {
+  position: relative;
+  z-index: 20;
+  width: fit-content;
+  margin: 10px auto 0;
+  max-width: min(92vw, 420px);
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--brand-charcoal);
+  color: var(--brand-ivory);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.8);
+}
+.net-status[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .net-status {
+    transition: none;
+  }
+}
