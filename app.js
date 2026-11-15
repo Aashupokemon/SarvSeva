@@ -2863,9 +2863,9 @@ function searchByLocation(dict) {
     },
     error => {
       hospitalState.items = [];
-      setHospitalStatus(dict, error && error.code === 1 ? dict.hospDenied : dict.hospLocError);
+      setHospitalStatus(dict, error && error.code === 1 ? "hospDenied" : "hospLocError");
     },
-    { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 }
+    { enableHighAccuracy: false, timeout: 20000, maximumAge: 120000 }
   );
 }
 

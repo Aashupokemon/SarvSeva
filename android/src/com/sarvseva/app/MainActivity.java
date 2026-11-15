@@ -1,8 +1,10 @@
 package com.sarvseva.app;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -11,6 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowInsets;
+import android.webkit.GeolocationPermissions;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -20,9 +24,12 @@ public class MainActivity extends Activity {
     private static final String APP_BACKGROUND = "#06222c";
     private static final int MIN_TOP_DP = 36;
     private static final int MAX_TOP_DP = 64;
+    private static final int LOCATION_REQUEST = 4711;
 
     private WebView webView;
     private AssetServer server;
+    private GeolocationPermissions.Callback locationCallback;
+    private String locationOrigin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,9 @@ public class MainActivity extends Activity {
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
+        // The hospital finder asks the page for a location; the page keeps the
+        // coordinates, so nothing is stored or sent anywhere by the app itself.
+        settings.setGeolocationEnabled(true);
         settings.setAllowFileAccess(false);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(false);
@@ -81,6 +91,23 @@ public class MainActivity extends Activity {
         });
         // Reserve room before the first insets arrive, in case the callback is
         // late or never fires on a particular ROM.
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+                locationCallback = callback;
+                locationOrigin = origin;
+                if (hasLocationPermission()) {
+                    callback.invoke(origin, true, false);
+                    clearLocationRequest();
+                    return;
+                }
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                }, LOCATION_REQUEST);
+            }
+        });
+
         webView.setPadding(0, dip(MIN_TOP_DP), 0, 0);
 
         applySystemBarInsets(webView);
@@ -114,6 +141,37 @@ public class MainActivity extends Activity {
                 return insets;
             }
         });
+    }
+
+    private boolean hasLocationPermission() {
+        return checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void clearLocationRequest() {
+        locationCallback = null;
+        locationOrigin = null;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode != LOCATION_REQUEST) {
+            return;
+        }
+        boolean granted = false;
+        for (int result : grantResults) {
+            if (result == PackageManager.PERMISSION_GRANTED) {
+                granted = true;
+                break;
+            }
+        }
+        if (locationCallback != null && locationOrigin != null) {
+            // Denying is a normal answer: the page falls back to typing an area
+            // and points people at 108.
+            locationCallback.invoke(locationOrigin, granted, false);
+        }
+        clearLocationRequest();
     }
 
     @Override
