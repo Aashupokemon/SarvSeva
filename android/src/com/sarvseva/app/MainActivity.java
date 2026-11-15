@@ -1,13 +1,17 @@
 package com.sarvseva.app;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowInsets;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -57,7 +61,24 @@ public class MainActivity extends Activity {
         settings.setAllowFileAccess(false);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(false);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                // The page is served by the in-process loopback server; everything
+                // else (tel:, sms:, mailto:, https) belongs to another app.
+                String url = request.getUrl().toString();
+                if (url.startsWith("http://127.0.0.1:")) {
+                    return false;
+                }
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                } catch (ActivityNotFoundException e) {
+                    // No dialler installed; the page already tells the user to
+                    // type the number and offers a copy action.
+                }
+                return true;
+            }
+        });
         // Reserve room before the first insets arrive, in case the callback is
         // late or never fires on a particular ROM.
         webView.setPadding(0, dip(MIN_TOP_DP), 0, 0);
