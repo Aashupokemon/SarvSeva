@@ -225,6 +225,23 @@ const i18n = {
     statusSavedWhat: "Your request is stored inside this app. It has not been sent to anyone yet.",
     statusSavedNext: "Keep this phone with you. If this is an emergency, call 112 now.",
     statusNotSentWarning: "No helper has received this request. SarvSeva is not connected to a dispatch service.",
+    statusSend: "Send this request",
+    statusSendAgain: "Try sending again",
+    statusSendHint: "Sending is a separate step. Nothing leaves this phone unless you press this.",
+    statusQueued: "Queued - not sent",
+    statusQueuedWhat: "You tried to send this while offline. It is waiting inside this app and has not reached anyone.",
+    statusQueuedNext: "It will not send by itself. When you have a connection, press try sending again - or call 112 if this is urgent.",
+    statusQueuedEvent: "Send attempted while offline. Queued on this phone; nothing was sent.",
+    statusQueuedFlash: "Queued. Nothing was sent.",
+    statusFailed: "Could not send",
+    statusFailedWhat: "The send attempt did not go through, so nothing was delivered.",
+    statusFailedNext: "Delivery is not switched on in this build. Your request is still saved here - call 112 if this is urgent.",
+    statusFailedEvent: "Send attempt failed. Nothing was delivered.",
+    statusFailedFlash: "Send failed. Nothing was delivered.",
+    homeResumeTitle: "You have a saved request",
+    homeResumeBody: "Reopen it to see what happened and what to do next.",
+    homeResumeCta: "View my request",
+    needExisting: "You already have a saved request.",
     statusTimeline: "What has happened",
     statusWhatNext: "What to do next",
     statusAutomated: "Automatic",
@@ -567,6 +584,23 @@ const i18n = {
     statusSavedWhat: "आपका अनुरोध इस ऐप के अंदर सहेजा है। यह अभी किसी को नहीं भेजा गया।",
     statusSavedNext: "यह फ़ोन अपने पास रखें। आपातकाल हो तो अभी 112 पर कॉल करें।",
     statusNotSentWarning: "यह अनुरोध किसी मददगार तक नहीं पहुँचा। SarvSeva किसी डिस्पैच सेवा से जुड़ा नहीं है।",
+    statusSend: "यह अनुरोध भेजें",
+    statusSendAgain: "दोबारा भेजने की कोशिश करें",
+    statusSendHint: "भेजना अलग कदम है। जब तक आप यह न दबाएँ, कुछ भी फ़ोन से बाहर नहीं जाता।",
+    statusQueued: "कतार में - भेजा नहीं गया",
+    statusQueuedWhat: "आपने ऑफ़लाइन रहते भेजने की कोशिश की। यह ऐप के अंदर कतार में है और किसी तक नहीं पहुँचा।",
+    statusQueuedNext: "यह अपने आप नहीं भेजा जाएगा। कनेक्शन आने पर दोबारा भेजें - और अगर ज़रूरी हो तो 112 पर कॉल करें।",
+    statusQueuedEvent: "ऑफ़लाइन रहते भेजने की कोशिश हुई। इस फ़ोन पर कतार में; कुछ नहीं भेजा गया।",
+    statusQueuedFlash: "कतार में रखा गया। कुछ नहीं भेजा गया।",
+    statusFailed: "भेजा नहीं जा सका",
+    statusFailedWhat: "भेजने की कोशिश पूरी नहीं हुई, इसलिए कुछ भी नहीं पहुँचा।",
+    statusFailedNext: "इस बिल्ड में डिलीवरी चालू नहीं है। आपका अनुरोध यहीं सहेजा है - ज़रूरी हो तो 112 पर कॉल करें।",
+    statusFailedEvent: "भेजने की कोशिश विफल रही। कुछ नहीं पहुँचा।",
+    statusFailedFlash: "भेजना विफल। कुछ नहीं पहुँचा।",
+    homeResumeTitle: "आपका एक अनुरोध सहेजा है",
+    homeResumeBody: "उसे फिर खोलकर देखें कि क्या हुआ और आगे क्या करें।",
+    homeResumeCta: "मेरा अनुरोध देखें",
+    needExisting: "आपका एक अनुरोध पहले से सहेजा है।",
     statusTimeline: "अब तक क्या हुआ",
     statusWhatNext: "आगे क्या करें",
     statusAutomated: "स्वचालित",
@@ -1902,6 +1936,8 @@ const pillarIcons = [
 ];
 
 function landingHtml(dict) {
+  const lastReq = currentRequest();
+  const resume = lastReq && lastReq.state !== "cancelled";
   const pillars = [
     [dict.pillar1Title, dict.pillar1Body],
     [dict.pillar2Title, dict.pillar2Body],
@@ -1928,6 +1964,11 @@ function landingHtml(dict) {
         <span class="choice-cta" aria-hidden="true">→</span>
       </a>
       <a class="choice-services" href="#" data-go="directory">${escapeHtml(dict.homeServicesLink)}</a>
+      ${resume ? `<a class="choice-resume" href="#" data-go="status">
+        <span class="choice-resume-title">${escapeHtml(dict.homeResumeTitle)}</span>
+        <span class="choice-resume-body">${escapeHtml(dict.homeResumeBody)}</span>
+        <span class="choice-resume-cta">${escapeHtml(dict.homeResumeCta)} →</span>
+      </a>` : ""}
     </section>
 
     <section class="hero-shell reveal">
@@ -3338,6 +3379,7 @@ function needHelpHtml(dict, state) {
       ${showResume ? `<div class="notice notice-soft">${escapeHtml(dict.needDraftResume)}
         <div class="notice-actions"><button type="button" class="btn btn-ghost" data-need-resume>${escapeHtml(dict.needDraftResumeCta)}</button><button type="button" class="btn btn-ghost" data-need-fresh>${escapeHtml(dict.needDraftDiscard)}</button></div></div>` : ""}
       <div class="stepper" aria-hidden="true">${[1, 2, 3].map(n => `<span class="stepper-dot${n <= step ? " is-on" : ""}"></span>`).join("")}</div>
+      ${currentRequest() ? `<p class="field-hint need-existing">${escapeHtml(dict.needExisting)} <a href="#" data-go="status">${escapeHtml(dict.homeResumeCta)}</a></p>` : ""}
       ${steps[step - 1]}
       <div class="wizard-actions">
         ${step > 1 ? `<button type="button" class="btn btn-ghost" data-need-back>${escapeHtml(dict.needBack)}</button>` : ""}
@@ -3353,6 +3395,39 @@ function needHelpHtml(dict, state) {
 function currentRequest() {
   const list = LS.get(REQ_KEY, []);
   return list.length ? list[list.length - 1] : null;
+}
+
+function STATUS_COPY(status, dict) {
+  switch (status) {
+    case "queued":
+      return {
+        pill: dict.statusQueued,
+        what: dict.statusQueuedWhat,
+        next: dict.statusQueuedNext,
+        warn: dict.statusNotSentWarning
+      };
+    case "failed":
+      return {
+        pill: dict.statusFailed,
+        what: dict.statusFailedWhat,
+        next: dict.statusFailedNext,
+        warn: dict.statusNotSentWarning
+      };
+    case "cancelled":
+      return {
+        pill: dict.statusCancelled,
+        what: dict.statusCancelled,
+        next: dict.statusStart,
+        warn: ""
+      };
+    default:
+      return {
+        pill: dict.statusSaved,
+        what: dict.statusSavedWhat,
+        next: dict.statusSavedNext,
+        warn: dict.statusNotSentWarning
+      };
+  }
 }
 
 function statusHtml(dict, state) {
@@ -3376,21 +3451,28 @@ function statusHtml(dict, state) {
       </span>
     </li>`).join("");
 
+  const copy = STATUS_COPY(req.state, dict);
+  const canSend = req.state !== "cancelled";
+  const sendLabel = req.state === "queued" || req.state === "failed" ? dict.statusSendAgain : dict.statusSend;
   return `
     <section class="card flow">
       ${back}
       <h1 class="card-title">${dict.statusTitle}</h1>
-      <div class="status-card${req.state === "cancelled" ? " is-cancelled" : ""}">
-        <span class="status-pill">${escapeHtml(req.state === "cancelled" ? dict.statusCancelled : dict.statusSaved)}</span>
-        <p class="status-what">${escapeHtml(req.state === "cancelled" ? dict.statusCancelled : dict.statusSavedWhat)}</p>
-        <p class="status-next"><strong>${escapeHtml(dict.statusWhatNext)}:</strong> ${escapeHtml(req.state === "cancelled" ? dict.statusStart : dict.statusSavedNext)}</p>
-        ${req.state === "cancelled" ? "" : `<p class="status-warn">${escapeHtml(dict.statusNotSentWarning)}</p>`}
+      <div class="status-card is-${escapeHtml(req.state)}">
+        <span class="status-pill is-${escapeHtml(req.state)}">${escapeHtml(copy.pill)}</span>
+        <p class="status-what">${escapeHtml(copy.what)}</p>
+        <p class="status-next"><strong>${escapeHtml(dict.statusWhatNext)}:</strong> ${escapeHtml(copy.next)}</p>
+        ${copy.warn ? `<p class="status-warn">${escapeHtml(copy.warn)}</p>` : ""}
       </div>
+      ${canSend ? `<div class="status-send">
+        <p class="field-hint">${escapeHtml(dict.statusSendHint)}</p>
+        <button type="button" class="btn btn-primary btn-lg" data-status-send>${escapeHtml(sendLabel)}</button>
+      </div>` : ""}
       <h2 class="group-title">${escapeHtml(dict.statusTimeline)}</h2>
       <ol class="timeline">${events}</ol>
       <div class="status-actions">
         <button type="button" class="btn btn-ghost" data-status-share>${escapeHtml(dict.statusShare)}</button>
-        ${req.state === "cancelled" ? "" : `<button type="button" class="btn btn-ghost danger" data-status-cancel>${escapeHtml(dict.statusCancel)}</button>`}
+        ${canSend ? `<button type="button" class="btn btn-ghost danger" data-status-cancel>${escapeHtml(dict.statusCancel)}</button>` : ""}
       </div>
       <details class="more">
         <summary>${escapeHtml(dict.statusLegend)}</summary>
@@ -3651,6 +3733,23 @@ function saveStateText(dict) {
 function wireStatus(dict) {
   const req = currentRequest();
   if (!req) return;
+
+  document.querySelector("[data-status-send]")?.addEventListener("click", () => {
+    const list = LS.get(REQ_KEY, []);
+    const last = list[list.length - 1];
+    if (!last || last.state === "cancelled") return;
+    const stamp = new Date().toISOString();
+    const offline = !navigator.onLine;
+    last.state = offline ? "queued" : "failed";
+    last.events = (last.events || []).concat([{
+      at: stamp,
+      human: false,
+      text: offline ? dict.statusQueuedEvent : dict.statusFailedEvent
+    }]);
+    LS.set(REQ_KEY, list);
+    render();
+    flashError(offline ? dict.statusQueuedFlash : dict.statusFailedFlash);
+  });
 
   document.querySelector("[data-status-cancel]")?.addEventListener("click", () => {
     const list = LS.get(REQ_KEY, []);

@@ -3312,3 +3312,63 @@ details.more[open] > summary {
 .site-footer {
   padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
 }
+
+/* ---- queued / failed send states and the restart re-open card ---- */
+.choice-resume {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px dashed rgba(242, 183, 101, 0.55);
+  background: rgba(242, 183, 101, 0.08);
+  text-decoration: none;
+  color: inherit;
+}
+.choice-resume-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.choice-resume-body {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+.choice-resume-cta {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--brand-amber);
+  margin-top: 2px;
+}
+.status-card.is-failed {
+  border-left-color: #d93636;
+}
+.status-card.is-queued {
+  border-left-color: var(--brand-amber);
+}
+.status-pill.is-failed {
+  background: rgba(217, 54, 54, 0.18);
+  border-color: rgba(217, 54, 54, 0.45);
+  color: #ffb4ac;
+}
+.status-pill.is-cancelled {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--line);
+  color: var(--text-dim);
+}
+.status-send {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.status-send .btn {
+  width: 100%;
+}
+.need-existing a {
+  color: var(--brand-green);
+  text-underline-offset: 3px;
+}
+[data-theme="light"] .status-pill.is-failed {
+  color: #8d2118;
+}
