@@ -245,6 +245,26 @@ const i18n = {
     homeResumeTitle: "You have a saved request",
     homeResumeBody: "Reopen it to see what happened and what to do next.",
     homeResumeCta: "View my request",
+    hospEyebrow: "Emergency care",
+    hospTitle: "Find a hospital near you",
+    hospSub: "Search an area, or share your location once. Nearest hospitals come first.",
+    hospPlaceholder: "Area, landmark or hospital name",
+    hospSearch: "Search",
+    hospLocate: "Use my location",
+    hospLocating: "Getting your location...",
+    hospSearching: "Searching within 10 km...",
+    hospCount: "{n} hospitals within 10 km",
+    hospNearYou: "near you",
+    hospEmpty: "No hospitals found within 10 km in OpenStreetMap. Call 108 for an ambulance.",
+    hospDenied: "Location is off for this app. Type an area instead, or call 108.",
+    hospLocError: "Could not get your location. Type an area instead, or call 108.",
+    hospOffline: "Hospital search needs a connection. Call 108, or use the verified directory.",
+    hospError: "The map service did not answer. Try again in a moment, or call 108.",
+    hospBadArea: "That area was not found. Try a landmark or a city name.",
+    hospAway: "{d} away",
+    hospDirections: "Directions",
+    hospPrivacy: "Only a rounded location (about 100 m) is sent to OpenStreetMap, and SarvSeva stores nothing.",
+    hospNote: "OpenStreetMap data, not checked by SarvSeva. Hours, beds and emergency capacity are unknown - call 108 for an ambulance.",
     needExisting: "You already have a saved request.",
     statusTimeline: "What has happened",
     statusWhatNext: "What to do next",
@@ -608,6 +628,26 @@ const i18n = {
     homeResumeTitle: "आपका एक अनुरोध सहेजा है",
     homeResumeBody: "उसे फिर खोलकर देखें कि क्या हुआ और आगे क्या करें।",
     homeResumeCta: "मेरा अनुरोध देखें",
+    hospEyebrow: "आपातकालीन देखभाल",
+    hospTitle: "अपने पास अस्पताल खोजें",
+    hospSub: "कोई इलाका खोजें, या एक बार अपनी लोकेशन साझा करें। सबसे नज़दीकी अस्पताल पहले।",
+    hospPlaceholder: "इलाका, पहचान की जगह या अस्पताल का नाम",
+    hospSearch: "खोजें",
+    hospLocate: "मेरी लोकेशन इस्तेमाल करें",
+    hospLocating: "आपकी लोकेशन ले रहे हैं...",
+    hospSearching: "10 किमी के भीतर खोज रहे हैं...",
+    hospCount: "10 किमी के भीतर {n} अस्पताल",
+    hospNearYou: "आपके पास",
+    hospEmpty: "OpenStreetMap में 10 किमी के भीतर कोई अस्पताल नहीं मिला। एम्बुलेंस के लिए 108 पर कॉल करें।",
+    hospDenied: "इस ऐप के लिए लोकेशन बंद है। इलाका लिखकर खोजें, या 108 पर कॉल करें।",
+    hospLocError: "आपकी लोकेशन नहीं मिल सकी। इलाका लिखकर खोजें, या 108 पर कॉल करें।",
+    hospOffline: "अस्पताल खोजने के लिए कनेक्शन चाहिए। 108 पर कॉल करें या जाँची निर्देशिका देखें।",
+    hospError: "मैप सेवा ने जवाब नहीं दिया। थोड़ी देर बाद कोशिश करें, या 108 पर कॉल करें।",
+    hospBadArea: "वह इलाका नहीं मिला। किसी पहचान की जगह या शहर का नाम लिखें।",
+    hospAway: "{d} दूर",
+    hospDirections: "रास्ता",
+    hospPrivacy: "OpenStreetMap को सिर्फ़ गोल किया हुआ स्थान (लगभग 100 मी) जाता है, और SarvSeva कुछ सहेजती नहीं।",
+    hospNote: "OpenStreetMap का डेटा, SarvSeva से जाँचा हुआ नहीं। समय, बेड और आपातकालीन सुविधा की जानकारी नहीं है - एम्बुलेंस के लिए 108 पर कॉल करें।",
     needExisting: "आपका एक अनुरोध पहले से सहेजा है।",
     statusTimeline: "अब तक क्या हुआ",
     statusWhatNext: "आगे क्या करें",
@@ -1997,6 +2037,8 @@ function landingHtml(dict) {
       </div>
     </section>
 
+    ${hospitalsHtml(dict)}
+
     <section class="about-panel reveal">
       <span class="eyebrow">${dict.aboutEyebrow}</span>
       <h2 class="section-h2">${dict.aboutTitle}</h2>
@@ -2613,6 +2655,229 @@ function termsHtml(dict, state) {
       </div>
     </section>
   `;
+}
+
+/* ------------------------------------------------------------------
+   Hospital finder: OpenStreetMap search around a point
+   ------------------------------------------------------------------ */
+const HOSPITAL = {
+  photon: "https://photon.komoot.io/api/",
+  geocoder: "https://nominatim.openstreetmap.org/search",
+  radiusKm: 10,
+  maxResults: 12,
+  cacheMs: 5 * 60 * 1000
+};
+
+const hospitalState = { statusKey: "", count: 0, label: "", items: [], cache: {} };
+
+function distanceKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const toRad = value => (value * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
+
+function hospitalDistanceLabel(km) {
+  return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
+}
+
+function hospitalPlace(props) {
+  return [props.street, props.district, props.city, props.state]
+    .filter(Boolean)
+    .filter((value, index, all) => all.indexOf(value) === index)
+    .slice(0, 2)
+    .join(", ");
+}
+
+function hospitalResultsHtml(dict) {
+  if (!hospitalState.items.length) return "";
+  return `<ol class="hosp-list">${hospitalState.items.map(item => `
+    <li class="hosp-item">
+      <div class="hosp-main">
+        <p class="hosp-name">${escapeHtml(item.name)}</p>
+        <p class="hosp-meta">${escapeHtml(dict.hospAway.replace("{d}", hospitalDistanceLabel(item.distanceKm)))}${item.place ? " · " + escapeHtml(item.place) : ""}</p>
+      </div>
+      <a class="hosp-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=${item.lat},${item.lon}" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.hospDirections)}</a>
+    </li>`).join("")}</ol>`;
+}
+
+function hospitalsHtml(dict) {
+  return `
+    <section class="hospital-panel reveal" id="hospital-finder">
+      <span class="eyebrow">${escapeHtml(dict.hospEyebrow)}</span>
+      <h2 class="section-h2">${escapeHtml(dict.hospTitle)}</h2>
+      <p class="lead">${escapeHtml(dict.hospSub)}</p>
+      <form class="hospital-form" id="hospital-form" role="search">
+        <label class="sr-only" for="hosp-q">${escapeHtml(dict.hospPlaceholder)}</label>
+        <input class="input" id="hosp-q" type="search" placeholder="${escapeHtml(dict.hospPlaceholder)}" autocomplete="off">
+        <div class="hospital-actions">
+          <button type="submit" class="btn btn-primary">${escapeHtml(dict.hospSearch)}</button>
+          <button type="button" class="btn btn-ghost" id="hosp-locate">${escapeHtml(dict.hospLocate)}</button>
+        </div>
+      </form>
+      <p class="hospital-status" id="hosp-status" role="status" aria-live="polite">${escapeHtml(hospitalMessage(dict))}</p>
+      <div class="hospital-results" id="hosp-results">${hospitalResultsHtml(dict)}</div>
+      <p class="field-hint">${escapeHtml(dict.hospPrivacy)}</p>
+      <p class="field-hint">${escapeHtml(dict.hospNote)}</p>
+    </section>
+  `;
+}
+
+function hospitalMessage(dict) {
+  const key = hospitalState.statusKey;
+  if (!key) return "";
+  if (key === "count") {
+    return `${dict.hospCount.replace("{n}", String(hospitalState.count))} · ${hospitalState.label}`;
+  }
+  return dict[key] || "";
+}
+
+function setHospitalStatus(dict, key) {
+  hospitalState.statusKey = key;
+  const statusEl = document.getElementById("hosp-status");
+  if (statusEl) statusEl.textContent = hospitalMessage(dict);
+  const resultsEl = document.getElementById("hosp-results");
+  if (resultsEl) resultsEl.innerHTML = hospitalResultsHtml(dict);
+}
+
+async function fetchHospitalsNear(lat, lon) {
+  const params = new URLSearchParams({
+    q: "hospital",
+    lat: lat.toFixed(3),
+    lon: lon.toFixed(3),
+    limit: "40",
+    osm_tag: "amenity:hospital",
+    location_bias_scale: "0.1"
+  });
+  const controller = typeof AbortController === "function" ? new AbortController() : null;
+  const timer = window.setTimeout(() => { if (controller) controller.abort(); }, 15000);
+  try {
+    const response = await fetch(`${HOSPITAL.photon}?${params.toString()}`, {
+      headers: { Accept: "application/json" },
+      signal: controller ? controller.signal : undefined
+    });
+    if (!response.ok) throw new Error("photon-" + response.status);
+    const data = await response.json();
+    return (data.features || [])
+      .map(feature => {
+        const [lon2, lat2] = feature.geometry.coordinates;
+        const props = feature.properties || {};
+        return {
+          name: props.name || "Unnamed hospital",
+          place: hospitalPlace(props),
+          lat: lat2,
+          lon: lon2,
+          distanceKm: distanceKm(lat, lon, lat2, lon2)
+        };
+      })
+      .filter(item => item.distanceKm <= HOSPITAL.radiusKm)
+      .sort((a, b) => a.distanceKm - b.distanceKm)
+      .slice(0, HOSPITAL.maxResults);
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
+
+async function geocodeArea(text) {
+  const params = new URLSearchParams({ q: text, format: "jsonv2", limit: "1", addressdetails: "0" });
+  const controller = typeof AbortController === "function" ? new AbortController() : null;
+  const timer = window.setTimeout(() => { if (controller) controller.abort(); }, 12000);
+  try {
+    const response = await fetch(`${HOSPITAL.geocoder}?${params.toString()}`, {
+      headers: { Accept: "application/json" },
+      signal: controller ? controller.signal : undefined
+    });
+    if (!response.ok) throw new Error("nominatim-" + response.status);
+    const data = await response.json();
+    if (!Array.isArray(data) || !data.length) return null;
+    return { lat: Number(data[0].lat), lon: Number(data[0].lon), label: data[0].display_name };
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
+
+async function searchHospitalsNear(dict, lat, lon, label) {
+  const key = `${lat.toFixed(2)},${lon.toFixed(2)}`;
+  const cached = hospitalState.cache[key];
+  if (cached && Date.now() - cached.at < HOSPITAL.cacheMs) {
+    hospitalState.items = cached.items;
+    hospitalState.label = label;
+    hospitalState.count = cached.items.length;
+    setHospitalStatus(dict, cached.items.length ? "count" : "hospEmpty");
+    return;
+  }
+
+  hospitalState.items = [];
+  setHospitalStatus(dict, "hospSearching");
+  try {
+    const items = await fetchHospitalsNear(lat, lon);
+    hospitalState.cache[key] = { at: Date.now(), items };
+    hospitalState.items = items;
+    hospitalState.label = label;
+    hospitalState.count = items.length;
+    setHospitalStatus(dict, items.length ? "count" : "hospEmpty");
+  } catch (err) {
+    hospitalState.items = [];
+    setHospitalStatus(dict, "hospError");
+  }
+}
+
+async function searchByArea(dict, text) {
+  const query = text.trim();
+  if (!query) return;
+  if (!(await checkOnline())) {
+    hospitalState.items = [];
+    setHospitalStatus(dict, "hospOffline");
+    return;
+  }
+  setHospitalStatus(dict, "hospSearching");
+  let place = null;
+  try {
+    place = await geocodeArea(query);
+  } catch (err) {
+    hospitalState.items = [];
+    setHospitalStatus(dict, "hospError");
+    return;
+  }
+  if (!place) {
+    hospitalState.items = [];
+    setHospitalStatus(dict, "hospBadArea");
+    return;
+  }
+  await searchHospitalsNear(dict, place.lat, place.lon, query);
+}
+
+function searchByLocation(dict) {
+  if (!navigator.geolocation) {
+    hospitalState.items = [];
+    setHospitalStatus(dict, "hospLocError");
+    return;
+  }
+  setHospitalStatus(dict, "hospLocating");
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      searchHospitalsNear(dict, position.coords.latitude, position.coords.longitude, dict.hospNearYou);
+    },
+    error => {
+      hospitalState.items = [];
+      setHospitalStatus(dict, error && error.code === 1 ? dict.hospDenied : dict.hospLocError);
+    },
+    { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 }
+  );
+}
+
+function wireHospitals(dict) {
+  const form = document.getElementById("hospital-form");
+  if (!form) return;
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const input = document.getElementById("hosp-q");
+    searchByArea(dict, input ? input.value : "");
+  });
+  document.getElementById("hosp-locate")?.addEventListener("click", () => searchByLocation(dict));
 }
 
 function aboutHtml(dict, state) {
@@ -4018,6 +4283,7 @@ function wireScreen(screen, dict, state) {
     );
   };
 
+  if (screen === "landing") wireHospitals(dict);
   if (screen === "directory") wireDirectory(dict, state);
   if (screen === "need") wireNeedHelp(dict, state);
   if (screen === "status") wireStatus(dict, state);

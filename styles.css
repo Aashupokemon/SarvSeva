@@ -3609,3 +3609,112 @@ body.splash-open {
 .status-retry-fail {
   margin: 0;
 }
+
+/* ============================================================
+   Hospital finder on the home screen
+   ============================================================ */
+
+.hospital-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hospital-panel .section-h2 {
+  margin: 0;
+}
+.hospital-panel .lead {
+  margin: 0;
+}
+.hospital-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 2px;
+}
+.hospital-form .input {
+  width: 100%;
+  min-height: 48px;
+}
+.hospital-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hospital-actions .btn {
+  flex: 1 1 150px;
+  min-height: 48px;
+}
+.hospital-status {
+  margin: 0;
+  min-height: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+.hospital-results:empty {
+  display: none;
+}
+.hosp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hosp-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+.hosp-main {
+  min-width: 0;
+}
+.hosp-name {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.hosp-meta {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-faint);
+  overflow-wrap: anywhere;
+}
+.hosp-link {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--brand-teal);
+  text-underline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+[data-theme="light"] .hospital-panel,
+[data-theme="light"] .hosp-item {
+  background: #fffdf8;
+}
