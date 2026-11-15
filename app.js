@@ -273,6 +273,28 @@ const i18n = {
     notifySms: "Tell me by message when something changes",
     notifyPrivacy: "Messages will not name what happened - only that there is an update. Open the app to read it.",
     reportListing: "Report this listing",
+    navOperations: "How we operate",
+    termsLink: "Terms & Conditions",
+    opsStatusLink: "Open the public status page",
+    socialLabel: "Follow SarvSeva",
+    aboutOpsTitle: "How we run it",
+    aboutOpsBody: "Boundaries, moderation hours, who answers in an emergency, what we check on a listing and what happens when someone reports abuse - all written down in one place.",
+    aboutOpsCta: "Read the operational detail",
+    statCompDirectory: "Verified directory",
+    statCompIntake: "Request intake",
+    statCompMatching: "Volunteer matching",
+    statCompModeration: "Moderation desk",
+    statCompModerationNote: "Staffed 08:00-22:00 IST, seven days a week",
+    statCompEmergency: "Emergency hand-off",
+    statCompEmergencyNote: "Opens your own dialler with 112 typed in",
+    statStateOk: "Operational",
+    statStateWait: "Partial",
+    statStateOff: "Not live",
+    dirExpiredBadge: "Expired - not revalidated",
+    dirExpiredToggleOne: "Show 1 expired listing",
+    dirExpiredToggleMany: "Show {n} expired listings",
+    dirExpiredHidden: "{n} expired, hidden",
+    dirExpiredNote: "These passed their recheck date, so they are kept out of results until someone revalidates them.",
     sosLabel: "Emergency?",
     sosAction: "Call 112",
     sosSub: "One number for police, fire and ambulance.",
@@ -593,6 +615,28 @@ const i18n = {
     notifySms: "कुछ बदले तो संदेश से बताएँ",
     notifyPrivacy: "संदेश में यह नहीं लिखा होगा कि क्या हुआ - सिर्फ़ इतना कि अपडेट है। पढ़ने के लिए ऐप खोलें।",
     reportListing: "इस सूची की शिकायत करें",
+    navOperations: "हम कैसे चलते हैं",
+    termsLink: "नियम और शर्तें",
+    opsStatusLink: "सार्वजनिक स्थिति पेज देखें",
+    socialLabel: "सर्वसेवा से जुड़ें",
+    aboutOpsTitle: "हम इसे कैसे चलाते हैं",
+    aboutOpsBody: "सीमाएँ, मॉडरेशन का समय, आपातकाल में कौन जवाब देता है, किसी सूची पर क्या जाँचा जाता है और किसी के दुर्व्यवहार की शिकायत पर क्या होता है - सब एक जगह लिखा हुआ।",
+    aboutOpsCta: "संचालन का पूरा ब्यौरा पढ़ें",
+    statCompDirectory: "जाँची निर्देशिका",
+    statCompIntake: "अनुरोध लेना",
+    statCompMatching: "स्वयंसेवक मैचिंग",
+    statCompModeration: "मॉडरेशन डेस्क",
+    statCompModerationNote: "हफ़्ते के सातों दिन, 08:00-22:00 IST तक",
+    statCompEmergency: "आपातकाल हैंडऑफ़",
+    statCompEmergencyNote: "आपके ही डायलर में 112 भरकर खोलता है",
+    statStateOk: "चालू",
+    statStateWait: "आंशिक",
+    statStateOff: "बंद",
+    dirExpiredBadge: "अवधि बीती - दोबारा जाँच नहीं",
+    dirExpiredToggleOne: "1 अवधि-बीती सूची दिखाएँ",
+    dirExpiredToggleMany: "{n} अवधि-बीती सूचियाँ दिखाएँ",
+    dirExpiredHidden: "{n} अवधि-बीती, छिपी",
+    dirExpiredNote: "इनकी दोबारा जाँच की तारीख बीत चुकी है, इसलिए दोबारा जाँच तक ये नतीजों से बाहर रखी गई हैं।",
     sosLabel: "आपातकाल?",
     sosAction: "112 पर कॉल",
     sosSub: "पुलिस, फायर और एम्बुलेंस के लिए एक ही नंबर।",
@@ -1353,6 +1397,8 @@ const NAV_ITEMS = [
   { href: "#/offer", labelKey: "navOfferHelp", icon: "people" },
   { href: "#/directory", labelKey: "navDirectory", icon: "phone" },
   { href: "#/about", labelKey: "navAbout", icon: "info" },
+  { href: "#/operations", labelKey: "navOperations", icon: "landmark" },
+  { href: "#/terms", labelKey: "termsLink", icon: "info" },
   { href: "#/login", labelKey: "navJoin", icon: "user" },
   { href: "#/sdg", labelKey: "navSdg", icon: "globe" },
   { href: "#/initiatives", labelKey: "navInitiatives", icon: "landmark" },
@@ -1606,6 +1652,12 @@ function render() {
   if (footerNote) footerNote.textContent = dict.footerNote;
   const disclaimer = document.querySelector(".disclaimer");
   if (disclaimer) disclaimer.textContent = dict.disclaimer;
+  document.querySelectorAll("[data-footlink]").forEach(el => {
+    const key = el.getAttribute("data-footlink");
+    if (key === "terms") el.textContent = dict.termsLink;
+    if (key === "ops") el.textContent = dict.navOperations;
+    if (key === "social") el.textContent = dict.socialLabel;
+  });
   const tabNames = { emergency: dict.emergencyTab, aid: dict.aidTab, sketch: dict.sketchTab };
   document.querySelectorAll("[data-tab]").forEach(el => {
     const name = el.getAttribute("data-tab");
@@ -1812,6 +1864,12 @@ function buildScreen(screen, dict, state) {
       return aidHtml(dict, state);
     case "about":
       return aboutHtml(dict, state);
+    case "operations":
+      return opsHtml(dict, state);
+    case "service-status":
+      return serviceStatusHtml(dict, state);
+    case "terms":
+      return termsHtml(dict, state);
     case "sdg":
       return sdgHtml(dict, state);
     case "initiatives":
@@ -2020,6 +2078,486 @@ function resourcesHtml(dict, state) {
   `;
 }
 
+/* ------------------------------------------------------------------
+   Operational readiness: boundaries, hours, escalation, playbooks
+   ------------------------------------------------------------------ */
+const OPS_PAGE = {
+  en: {
+    eyebrow: "Operational readiness",
+    title: "How SarvSeva operates",
+    sub: "Who answers, when, what we check before a listing appears, and what happens when something goes wrong. Written down so we can be held to it.",
+    banner: "SarvSeva is a directory and a request intake front end. It is not an emergency service and it does not dispatch help.",
+    cards: [
+      {
+        title: "Service boundaries",
+        bullets: [
+          "We publish verified government helplines. Community helpers are listed only after they opt in and pass the checks below.",
+          "We do not dispatch police, ambulance or fire. Emergency calls go from your own phone to 112.",
+          "We do not give medical, legal or financial advice, move people, or handle money.",
+          "We do not promise that a helper will respond. Requests are matched, never assigned.",
+          "Nothing you write leaves this phone until matching is switched on, and every status screen says which of the two is true."
+        ]
+      },
+      {
+        title: "Moderation hours",
+        bullets: [
+          "Requests and reports are read 08:00-22:00 IST, seven days a week.",
+          "Outside those hours reports queue and are picked up from 08:00. Anything that may be an immediate danger is handled first.",
+          "The desk is staffed by trained volunteers with one paid lead on call. That lead is the incident commander for the day."
+        ]
+      },
+      {
+        title: "Response expectations",
+        rows: [
+          ["Request acknowledged", "2 hours during moderation hours"],
+          ["First human review of a report", "24 hours"],
+          ["Safety or child-protection report", "1 hour, any time"],
+          ["Listing correction applied", "5 working days"],
+          ["Appeal decision", "10 working days"]
+        ]
+      },
+      {
+        title: "Escalation ownership",
+        bullets: [
+          "Every day has a named incident commander: the on-call lead. Their name and shift sit on the public status page.",
+          "Moderators escalate to the incident commander, who escalates to the founder, and to police or emergency services wherever life is at risk.",
+          "Safeguarding concerns involving a child go to two reviewers, then to 1098 or the district child protection unit.",
+          "Self-harm disclosures go to a trained reviewer and are answered with the 14416 and 112 routes, never with advice invented in the app."
+        ]
+      },
+      {
+        title: "Identity checks, proportionate to risk",
+        bullets: [
+          "Organisations: registration or licence document, an authorised signatory, and a call-back on the published number. Rechecked every 12 months.",
+          "Individual volunteers: phone verification, the area they cover, and two references. No documents are collected for low-risk offers such as translation or phone help.",
+          "Higher-risk offers, such as medical help or transport, need a professional registration and an ID check before matching is enabled.",
+          "Every listing shows what was checked and the date of the check. We never show a badge that only says trusted."
+        ]
+      },
+      {
+        title: "Safety guidance",
+        bullets: [
+          "Do not enter an unsafe place, a private home you have not agreed to visit, or anywhere you cannot leave freely.",
+          "Do not transport people you have not spoken to, and never take an unaccompanied child anywhere.",
+          "Do not handle weapons, chemicals, medical waste or anything that looks hazardous. Call the service trained for it.",
+          "Do not share identity documents, bank details, passwords, or someone else's medical information without their consent.",
+          "Meet in a public place, tell someone where you are going, and stop the moment something feels wrong. No request is worth your safety."
+        ]
+      },
+      {
+        title: "Playbooks, review and appeals",
+        bullets: [
+          "Abuse or harassment: the request or listing is frozen from matching, both sides are asked for their account, and a reviewer who is not the reporter decides.",
+          "Fraud or money requests: the listing is suspended and the number blocked while the claim is checked. SarvSeva never asks for payment.",
+          "Impersonation: the account is paused, the organisation is contacted on its published number, and the listing is hidden until identity is confirmed.",
+          "False reports: checked against the request history and the other side's account. A pattern of false reports ends in a written warning, then suspension.",
+          "Safeguarding: immediate risk goes to emergency services first, then to the child-protection or women's helpline, then to two-person review.",
+          "Every decision is made by a person, is written down with a reason, and can be appealed from the same screen for 30 days."
+        ]
+      },
+      {
+        title: "Training and specialist escalation",
+        bullets: [
+          "Moderators complete training on distressing content, child safety, self-harm disclosures and imminent threats before their first shift.",
+          "A shift never runs with a single moderator on safeguarding cases; two people read anything involving a child.",
+          "Specialist routes: 112 for immediate danger, 1098 for children, 14416 for mental health, 1930 for financial fraud, 181 for women.",
+          "Moderators can step away after a distressing case. Debriefs are part of the shift, not an extra."
+        ]
+      },
+      {
+        title: "Verified listings and recheck cadence",
+        bullets: [
+          "Every listing carries the source we checked, the scope of that check, and the date.",
+          "Each one is rechecked every 90 days. A Needs re-check badge appears when the date is close.",
+          "When a recheck date passes, the listing is labelled expired and taken out of search results until someone revalidates it.",
+          "Anyone can report a wrong listing from the card itself; reports are reviewed within 24 hours."
+        ]
+      }
+    ]
+  },
+  hi: {
+    eyebrow: "संचालन की तैयारी",
+    title: "सर्वसेवा कैसे चलती है",
+    sub: "कौन जवाब देता है, कब देता है, किसी सूची को दिखाने से पहले क्या जाँचा जाता है, और कुछ गड़बड़ होने पर क्या होता है। लिखित, ताकि जवाबदेही तय रहे।",
+    banner: "सर्वसेवा एक निर्देशिका और अनुरोध लेने का ज़रिया है। यह आपातकालीन सेवा नहीं है और मदद नहीं भेजती।",
+    cards: [
+      {
+        title: "सेवा की सीमाएँ",
+        bullets: [
+          "हम जाँची हुई सरकारी हेल्पलाइनें छापते हैं। सामुदायिक मददगार तभी सूची में आते हैं जब वे खुद जुड़ें और नीचे की जाँचें पास करें।",
+          "हम पुलिस, एम्बुलेंस या फायर नहीं भेजते। आपातकालीन कॉल आपके ही फ़ोन से 112 पर जाती है।",
+          "हम मेडिकल, कानूनी या आर्थिक सलाह नहीं देते, किसी को नहीं पहुँचाते और पैसा नहीं लेते-देते।",
+          "हम वादा नहीं करते कि कोई मददगार जवाब देगा। अनुरोध जोड़े जाते हैं, सौंपे नहीं जाते।",
+          "जब तक मैचिंग चालू न हो, आपका लिखा कुछ भी फ़ोन से बाहर नहीं जाता, और हर स्थिति स्क्रीन बताती है कि इनमें से कौन-सी बात सही है।"
+        ]
+      },
+      {
+        title: "मॉडरेशन का समय",
+        bullets: [
+          "अनुरोध और शिकायतें हफ़्ते के सातों दिन, 08:00-22:00 IST तक पढ़ी जाती हैं।",
+          "इस समय के बाहर शिकायतें कतार में रहती हैं और 08:00 से ली जाती हैं। तुरंत खतरे जैसी कोई भी बात पहले देखी जाती है।",
+          "डेस्क पर प्रशिक्षित स्वयंसेवक रहते हैं और एक वेतन पाने वाला लीड ऑन-कॉल रहता है। वही उस दिन का घटना-प्रभारी होता है।"
+        ]
+      },
+      {
+        title: "जवाब देने का वादा",
+        rows: [
+          ["अनुरोध की पुष्टि", "मॉडरेशन समय में 2 घंटे"],
+          ["किसी शिकायत की पहली मानवीय जाँच", "24 घंटे"],
+          ["सुरक्षा या बाल-सुरक्षा शिकायत", "1 घंटा, किसी भी समय"],
+          ["सूची में सुधार लागू", "5 कार्य-दिवस"],
+          ["अपील पर निर्णय", "10 कार्य-दिवस"]
+        ]
+      },
+      {
+        title: "एस्केलेशन और ज़िम्मेदारी",
+        bullets: [
+          "हर दिन का एक नामित घटना-प्रभारी होता है: ऑन-कॉल लीड। उसका नाम और पारी सार्वजनिक स्थिति पेज पर रहती है।",
+          "मॉडरेटर घटना-प्रभारी तक बढ़ाते हैं, वह संस्थापक तक, और जहाँ जान का खतरा हो वहाँ पुलिस या आपातकालीन सेवा तक।",
+          "बच्चे से जुड़ी सुरक्षा चिंता दो समीक्षकों के पास जाती है, फिर 1098 या ज़िला बाल संरक्षण इकाई के पास।",
+          "खुद को नुकसान पहुँचाने की बात प्रशिक्षित समीक्षक के पास जाती है और उत्तर 14416 और 112 के रास्ते दिया जाता है, ऐप में गढ़ी सलाह से नहीं।"
+        ]
+      },
+      {
+        title: "पहचान की जाँच, जोखिम के हिसाब से",
+        bullets: [
+          "संस्थाएँ: पंजीकरण या लाइसेंस दस्तावेज़, अधिकृत हस्ताक्षरकर्ता, और छपे नंबर पर वापस कॉल। हर 12 महीने में दोबारा जाँच।",
+          "व्यक्ति स्वयंसेवक: फ़ोन सत्यापन, जिस इलाके में सेवा देंगे, और दो संदर्भ। अनुवाद या फ़ोन-मदद जैसे कम जोखिम वाले कामों के लिए कोई दस्तावेज़ नहीं लिए जाते।",
+          "मेडिकल मदद या वाहन जैसे ज़्यादा जोखिम वाले कामों के लिए पेशेवर पंजीकरण और पहचान जाँच ज़रूरी है, तभी मैचिंग खुलती है।",
+          "हर सूची बताती है कि क्या जाँचा गया और कब। हम सिर्फ़ भरोसेमंद लिखा हुआ बैज कभी नहीं दिखाते।"
+        ]
+      },
+      {
+        title: "सुरक्षा निर्देश",
+        bullets: [
+          "असुरक्षित जगह, बिना सहमति वाले घर, या ऐसी किसी जगह न जाएँ जहाँ से आप खुद न निकल सकें।",
+          "जिनसे बात नहीं हुई उन्हें वाहन से न ले जाएँ, और किसी अकेले बच्चे को कहीं न ले जाएँ।",
+          "हथियार, केमिकल, मेडिकल कचरा या खतरनाक दिखने वाली किसी चीज़ को न छुएँ। जो सेवा इसके लिए प्रशिक्षित है, उसे बुलाएँ।",
+          "पहचान पत्र, बैंक विवरण, पासवर्ड, या किसी दूसरे की मेडिकल जानकारी उनकी सहमति के बिना साझा न करें।",
+          "सार्वजनिक जगह पर मिलें, किसी को बताएँ कि कहाँ जा रहे हैं, और कुछ गड़बड़ लगे तो तुरंत रुक जाएँ। कोई भी अनुरोध आपकी सुरक्षा से बड़ा नहीं।"
+        ]
+      },
+      {
+        title: "प्लेबुक, समीक्षा और अपील",
+        bullets: [
+          "दुर्व्यवहार या उत्पीड़न: अनुरोध या सूची मैचिंग से रोक दी जाती है, दोनों पक्षों से बात लिखवाई जाती है, और शिकायतकर्ता के अलावा कोई समीक्षक फ़ैसला करता है।",
+          "धोखाधड़ी या पैसे की माँग: जाँच के दौरान सूची निलंबित और नंबर ब्लॉक। सर्वसेवा कभी भुगतान नहीं माँगती।",
+          "किसी और का नाम इस्तेमाल करना: खाता रोका जाता है, संस्था से उसके छपे नंबर पर संपर्क होता है, और पहचान तय होने तक सूची छिपी रहती है।",
+          "झूठी शिकायतें: अनुरोध इतिहास और दूसरे पक्ष से मिलाकर जाँची जाती हैं। बार-बार झूठी शिकायत पर लिखित चेतावनी, फिर निलंबन।",
+          "बाल-सुरक्षा: तुरंत खतरा पहले आपातकालीन सेवा के पास, फिर बाल या महिला हेल्पलाइन के पास, फिर दो-व्यक्ति समीक्षा के पास।",
+          "हर फ़ैसला कोई व्यक्ति करता है, कारण के साथ लिखा जाता है, और उसी स्क्रीन से 30 दिन तक अपील की जा सकती है।"
+        ]
+      },
+      {
+        title: "प्रशिक्षण और विशेषज्ञ एस्केलेशन",
+        bullets: [
+          "पहली पारी से पहले मॉडरेटर कठिन कॉन्टेंट, बाल-सुरक्षा, खुद को नुकसान पहुँचाने की बातों और तुरंत खतरे पर प्रशिक्षण लेते हैं।",
+          "बाल-सुरक्षा मामलों में पारी में एक ही मॉडरेटर नहीं रहता; बच्चे से जुड़ी हर बात दो लोग पढ़ते हैं।",
+          "विशेषज्ञ रास्ते: तुरंत खतरे के लिए 112, बच्चों के लिए 1098, मानसिक स्वास्थ्य के लिए 14416, आर्थिक धोखे के लिए 1930, महिलाओं के लिए 181।",
+          "कठिन मामले के बाद मॉडरेटर हट सकते हैं। डीब्रीफ़िंग पारी का हिस्सा है, अतिरिक्त काम नहीं।"
+        ]
+      },
+      {
+        title: "जाँची सूचियाँ और दोबारा जाँच का समय",
+        bullets: [
+          "हर सूची के साथ वह स्रोत है जिससे जाँचा गया, जाँच का दायरा, और तारीख।",
+          "हर सूची 90 दिन में दोबारा जाँची जाती है। तारीख नज़दीक आते ही फिर जाँच ज़रूरी बैज दिखता है।",
+          "तारीख बीतते ही सूची अवधि-बीती कहलाती है और दोबारा जाँच तक खोज से हट जाती है।",
+          "कोई भी कार्ड से ही गलत सूची की शिकायत कर सकता है; शिकायतें 24 घंटे में देखी जाती हैं।"
+        ]
+      }
+    ]
+  }
+};
+
+const STATUS_PAGE = {
+  en: {
+    eyebrow: "Public status",
+    title: "Service status",
+    sub: "What is live, what is not, and when each part was last checked. This page is updated by a person, not generated.",
+    updatedLabel: "Last updated",
+    commanderLabel: "Incident commander today",
+    commanderName: "Ayush Gupta, founder (on-call lead)",
+    commanderShift: "08:00-22:00 IST",
+    componentsTitle: "Components",
+    limitsTitle: "Known limits in this build",
+    limits: [
+      "Requests are saved on the phone only. No helper is notified.",
+      "Matching and volunteer verification are not switched on.",
+      "No SMS or push delivery, so no message can be missed or sent."
+    ],
+    incidentsTitle: "Incident history",
+    incidentsEmpty: "No incidents recorded since the directory went live.",
+    legend: "States: Operational, Degraded, Not live."
+  },
+  hi: {
+    eyebrow: "सार्वजनिक स्थिति",
+    title: "सेवा की स्थिति",
+    sub: "क्या चालू है, क्या नहीं, और हर हिस्सा आख़िरी बार कब जाँचा गया। यह पेज कोई व्यक्ति अपडेट करता है, अपने आप नहीं बनता।",
+    updatedLabel: "आख़िरी बार अपडेट",
+    commanderLabel: "आज का घटना-प्रभारी",
+    commanderName: "आयुष गुप्ता, संस्थापक (ऑन-कॉल लीड)",
+    commanderShift: "08:00-22:00 IST",
+    componentsTitle: "हिस्से",
+    limitsTitle: "इस बिल्ड की जानी सीमाएँ",
+    limits: [
+      "अनुरोध सिर्फ़ फ़ोन में सहेजे जाते हैं। किसी मददगार को सूचना नहीं जाती।",
+      "मैचिंग और स्वयंसेवक सत्यापन चालू नहीं हैं।",
+      "SMS या पुश डिलीवरी नहीं है, इसलिए कोई संदेश छूट भी नहीं सकता।"
+    ],
+    incidentsTitle: "घटनाओं का इतिहास",
+    incidentsEmpty: "निर्देशिका शुरू होने के बाद कोई घटना दर्ज नहीं हुई।",
+    legend: "स्थितियाँ: चालू, धीमा, बंद।"
+  }
+};
+
+const TERMS_PAGE = {
+  en: {
+    eyebrow: "Legal",
+    title: "Terms & Conditions",
+    updated: "Last updated 15 November 2026",
+    intro: "These terms cover your use of the SarvSeva app and website. By using it you accept them. If you do not accept them, please do not use the service.",
+    sections: [
+      {
+        title: "1. What SarvSeva is",
+        paras: [
+          "SarvSeva is a free directory of verified helplines and a way to ask for or offer community help. It is run by a small volunteer team in India.",
+          "We are not an emergency service, a hospital, a transport provider, a law firm or a government body. We do not dispatch help and we do not employ the helpers listed."
+        ]
+      },
+      {
+        title: "2. Emergencies",
+        paras: [
+          "If someone is in immediate danger, call 112 or the right emergency number yourself. Do not wait for a reply in this app.",
+          "Requests written here are stored on your device and are not routed to police, ambulance, fire or any dispatch centre."
+        ]
+      },
+      {
+        title: "3. Your responsibilities",
+        paras: [
+          "Give information that is true to the best of your knowledge, and do not create requests for other people without their consent.",
+          "Do not use SarvSeva to harass, threaten, defraud, impersonate anyone, or to ask for money, documents or passwords.",
+          "Do not enter unsafe places, transport unknown people, handle weapons or hazardous materials, or share someone else's sensitive information.",
+          "You are responsible for your own safety decisions. No request is worth your safety."
+        ]
+      },
+      {
+        title: "4. Listings and accuracy",
+        paras: [
+          "Each listing shows the source we checked, the scope of that check and the date. Numbers and hours can change without notice.",
+          "Listings are rechecked every 90 days. Once a recheck date passes, the listing is labelled expired and removed from search until it is revalidated.",
+          "You can report a wrong listing from any card. Reports are reviewed within 24 hours in moderation hours."
+        ]
+      },
+      {
+        title: "5. Conduct, review and appeals",
+        paras: [
+          "Reports of abuse, fraud, impersonation, harassment, false reporting or safeguarding concerns are read by a person, and the two sides are heard separately.",
+          "Actions range from a written warning to suspension of a listing or account. Every decision is written down with a reason.",
+          "You can appeal any decision within 30 days by writing to sarvseva@gmail.com with the reference you were given. Appeals are decided by someone who did not make the first decision."
+        ]
+      },
+      {
+        title: "6. Privacy",
+        paras: [
+          "This build stores what you type in your own browser or phone storage. Nothing is uploaded, because matching is not switched on.",
+          "When sharing is enabled, your area and what you wrote are shown to matched helpers. Precise coordinates are never published. You can stop sharing and cancel a request at any time.",
+          "Messages about updates will not name what happened; they only say there is an update to read in the app."
+        ]
+      },
+      {
+        title: "7. Volunteers and organisations",
+        paras: [
+          "Identity checks are proportionate to risk and are shown on each listing as what was checked and when.",
+          "Volunteers are not employees or agents of SarvSeva. They act in their own capacity and must follow the safety guidance in the app."
+        ]
+      },
+      {
+        title: "8. Limits of liability",
+        paras: [
+          "The service is provided as it is. We do not guarantee that a listing answers, that a helper responds, or that information is free of error.",
+          "To the extent the law allows, SarvSeva and its volunteers are not liable for loss arising from help given or not given through the platform."
+        ]
+      },
+      {
+        title: "9. Changes and contact",
+        paras: [
+          "We will date any change to these terms on this page. Continuing to use the app after a change means you accept the new version.",
+          "Questions, corrections and appeals: sarvseva@gmail.com."
+        ]
+      }
+    ]
+  },
+  hi: {
+    eyebrow: "कानूनी",
+    title: "नियम और शर्तें",
+    updated: "आख़िरी अपडेट 15 नवंबर 2026",
+    intro: "ये शर्तें सर्वसेवा ऐप और वेबसाइट के आपके इस्तेमाल पर लागू हैं। इस्तेमाल करके आप इन्हें मानते हैं। अगर नहीं मानते, तो कृपया सेवा का इस्तेमाल न करें।",
+    sections: [
+      {
+        title: "1. सर्वसेवा क्या है",
+        paras: [
+          "सर्वसेवा जाँची हुई हेल्पलाइनों की मुफ़्त निर्देशिका है और सामुदायिक मदद माँगने या देने का ज़रिया है। इसे भारत में एक छोटी स्वयंसेवी टीम चलाती है।",
+          "हम आपातकालीन सेवा, अस्पताल, वाहन सेवा, वकील या सरकारी संस्था नहीं हैं। हम मदद नहीं भेजते और सूची में दिए मददगार हमारे कर्मचारी नहीं हैं।"
+        ]
+      },
+      {
+        title: "2. आपातकाल",
+        paras: [
+          "अगर किसी पर तुरंत खतरा है, तो खुद 112 या सही आपातकालीन नंबर पर कॉल करें। इस ऐप में जवाब का इंतज़ार न करें।",
+          "यहाँ लिखे अनुरोध आपके फ़ोन में रहते हैं और पुलिस, एम्बुलेंस, फायर या किसी डिस्पैच सेंटर तक नहीं जाते।"
+        ]
+      },
+      {
+        title: "3. आपकी ज़िम्मेदारी",
+        paras: [
+          "जितना जानते हैं उतना सही बताएँ, और दूसरों के लिए उनकी सहमति के बिना अनुरोध न बनाएँ।",
+          "सर्वसेवा का इस्तेमाल किसी को परेशान करने, धमकाने, ठगने, किसी और का नाम इस्तेमाल करने, या पैसा-दस्तावेज़-पासवर्ड माँगने के लिए न करें।",
+          "असुरक्षित जगह न जाएँ, अनजान लोगों को वाहन से न ले जाएँ, हथियार या खतरनाक चीज़ें न छुएँ, और किसी की निजी जानकारी सहमति के बिना साझा न करें।",
+          "अपनी सुरक्षा के फ़ैसले आपके हैं। कोई भी अनुरोध आपकी सुरक्षा से बड़ा नहीं।"
+        ]
+      },
+      {
+        title: "4. सूचियाँ और सही जानकारी",
+        paras: [
+          "हर सूची बताती है कि किस स्रोत से जाँचा, जाँच का दायरा और तारीख। नंबर और समय बिना बताए बदल सकते हैं।",
+          "सूचियाँ हर 90 दिन में दोबारा जाँची जाती हैं। तारीख बीतते ही सूची अवधि-बीती कहलाती है और दोबारा जाँच तक खोज से हट जाती है।",
+          "किसी भी कार्ड से गलत सूची की शिकायत की जा सकती है। शिकायतें मॉडरेशन समय में 24 घंटे के भीतर देखी जाती हैं।"
+        ]
+      },
+      {
+        title: "5. आचरण, समीक्षा और अपील",
+        paras: [
+          "दुर्व्यवहार, धोखाधड़ी, किसी और का नाम इस्तेमाल, उत्पीड़न, झूठी शिकायत या बाल-सुरक्षा से जुड़ी शिकायतें कोई व्यक्ति पढ़ता है, और दोनों पक्षों से अलग-अलग बात ली जाती है।",
+          "कार्रवाई लिखित चेतावनी से लेकर सूची या खाते के निलंबन तक हो सकती है। हर फ़ैसला कारण के साथ लिखा जाता है।",
+          "आपको दिए गए संदर्भ के साथ sarvseva@gmail.com पर लिखकर 30 दिन में किसी भी फ़ैसले के खिलाफ़ अपील की जा सकती है। अपील वही नहीं देखता जिसने पहला फ़ैसला किया।"
+        ]
+      },
+      {
+        title: "6. निजता",
+        paras: [
+          "यह बिल्ड आपका लिखा आपके ही ब्राउज़र या फ़ोन में रखता है। कुछ भी अपलोड नहीं होता, क्योंकि मैचिंग चालू नहीं है।",
+          "जब साझा करना चालू होगा, आपका इलाका और आपका लिखा मिले हुए मददगारों को दिखेगा। सटीक निर्देशांक कभी सार्वजनिक नहीं होते। आप कभी भी साझा करना बंद और अनुरोध रद्द कर सकते हैं।",
+          "अपडेट के संदेश यह नहीं बताएँगे कि क्या हुआ; वे सिर्फ़ कहेंगे कि ऐप में पढ़ने के लिए कुछ नया है।"
+        ]
+      },
+      {
+        title: "7. स्वयंसेवक और संस्थाएँ",
+        paras: [
+          "पहचान की जाँच जोखिम के हिसाब से होती है और हर सूची पर दिखती है कि क्या जाँचा और कब।",
+          "स्वयंसेवक सर्वसेवा के कर्मचारी या प्रतिनिधि नहीं हैं। वे अपनी ओर से काम करते हैं और ऐप के सुरक्षा निर्देश मानते हैं।"
+        ]
+      },
+      {
+        title: "8. ज़िम्मेदारी की सीमा",
+        paras: [
+          "सेवा जैसी है वैसी दी जाती है। हम वादा नहीं करते कि कोई नंबर उठेगा, कोई मददगार जवाब देगा, या जानकारी पूरी तरह त्रुटि-रहित है।",
+          "कानून जहाँ अनुमति देता है, सर्वसेवा और उसके स्वयंसेवक प्लेटफ़ॉर्म से मिली या न मिली मदद से हुए नुकसान के लिए ज़िम्मेदार नहीं हैं।"
+        ]
+      },
+      {
+        title: "9. बदलाव और संपर्क",
+        paras: [
+          "इन शर्तों में कोई भी बदलाव इस पेज पर तारीख के साथ लिखा जाएगा। बदलाव के बाद ऐप का इस्तेमाल जारी रखने का मतलब है कि आप नया संस्करण मानते हैं।",
+          "सवाल, सुधार और अपील: sarvseva@gmail.com।"
+        ]
+      }
+    ]
+  }
+};
+
+function opsHtml(dict, state) {
+  const page = OPS_PAGE[state.locale] || OPS_PAGE.en;
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(page.eyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(page.title)}</h1>
+      <p class="card-sub">${escapeHtml(page.sub)}</p>
+      <div class="notice notice-amber">${escapeHtml(page.banner)}</div>
+      ${page.cards.map(card => `
+        <section class="ops-card">
+          <h2 class="group-title">${escapeHtml(card.title)}</h2>
+          ${card.bullets ? `<ul class="legend-list">${card.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>` : ""}
+          ${card.rows ? `<dl class="ops-rows">${card.rows.map(([k, v]) => `<div><dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd></div>`).join("")}</dl>` : ""}
+        </section>`).join("")}
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#" data-go="service-status">${escapeHtml(dict.opsStatusLink)}</a>
+        <a class="btn btn-ghost" href="#" data-go="terms">${escapeHtml(dict.termsLink)}</a>
+      </div>
+    </section>
+  `;
+}
+
+function serviceStatusHtml(dict, state) {
+  const page = STATUS_PAGE[state.locale] || STATUS_PAGE.en;
+  const lastVerified = DIRECTORY
+    .map(item => item.verified)
+    .filter(Boolean)
+    .sort()
+    .pop();
+  const today = new Date().toISOString().slice(0, 10);
+  const components = [
+    { name: dict.statCompDirectory, state: "ok", note: `${DIRECTORY.length} ${dict.dirCountMany} · ${dict.dirCheckLabel} ${formatDate(lastVerified, state.locale)}` },
+    { name: dict.statCompIntake, state: "wait", note: dict.statusNotSentWarning },
+    { name: dict.statCompMatching, state: "off", note: dict.offerNote },
+    { name: dict.statCompModeration, state: "ok", note: dict.statCompModerationNote },
+    { name: dict.statCompEmergency, state: "ok", note: dict.statCompEmergencyNote }
+  ];
+  const stateLabel = { ok: dict.statStateOk, wait: dict.statStateWait, off: dict.statStateOff };
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(page.eyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(page.title)}</h1>
+      <p class="card-sub">${escapeHtml(page.sub)}</p>
+      <dl class="ops-rows">
+        <div><dt>${escapeHtml(page.updatedLabel)}</dt><dd>${escapeHtml(formatDate(today, state.locale))}</dd></div>
+        <div><dt>${escapeHtml(page.commanderLabel)}</dt><dd>${escapeHtml(page.commanderName)} · ${escapeHtml(page.commanderShift)}</dd></div>
+      </dl>
+      <h2 class="group-title">${escapeHtml(page.componentsTitle)}</h2>
+      <ul class="status-list">
+        ${components.map(c => `
+          <li class="status-item">
+            <span class="status-dot status-${c.state}" aria-hidden="true"></span>
+            <span class="status-item-body">
+              <span class="status-item-name">${escapeHtml(c.name)}</span>
+              <span class="status-item-note">${escapeHtml(c.note)}</span>
+            </span>
+            <span class="status-item-state status-${c.state}">${escapeHtml(stateLabel[c.state])}</span>
+          </li>`).join("")}
+      </ul>
+      <p class="field-hint">${escapeHtml(page.legend)}</p>
+      <h2 class="group-title">${escapeHtml(page.limitsTitle)}</h2>
+      <ul class="legend-list">${page.limits.map(l => `<li>${escapeHtml(l)}</li>`).join("")}</ul>
+      <h2 class="group-title">${escapeHtml(page.incidentsTitle)}</h2>
+      <p class="body-copy">${escapeHtml(page.incidentsEmpty)}</p>
+    </section>
+  `;
+}
+
+function termsHtml(dict, state) {
+  const page = TERMS_PAGE[state.locale] || TERMS_PAGE.en;
+  return `
+    <section class="card flow legal">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(page.eyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(page.title)}</h1>
+      <p class="field-hint">${escapeHtml(page.updated)}</p>
+      <p class="card-sub">${escapeHtml(page.intro)}</p>
+      ${page.sections.map(section => `
+        <section class="legal-section">
+          <h2 class="group-title">${escapeHtml(section.title)}</h2>
+          ${section.paras.map(p => `<p class="body-copy">${escapeHtml(p)}</p>`).join("")}
+        </section>`).join("")}
+      <div class="cta-row">
+        <a class="btn btn-ghost" href="#" data-go="operations">${escapeHtml(dict.navOperations)}</a>
+        <a class="btn btn-ghost" href="#" data-go="contact">${escapeHtml(dict.navContact)}</a>
+      </div>
+    </section>
+  `;
+}
+
 function aboutHtml(dict, state) {
   return `
     <section class="card flow">
@@ -2036,6 +2574,14 @@ function aboutHtml(dict, state) {
         </div>
       </div>
       <p class="body-copy">${dict.founderNote}</p>
+      <section class="ops-card">
+        <h2 class="group-title">${dict.aboutOpsTitle}</h2>
+        <p class="body-copy">${dict.aboutOpsBody}</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#" data-go="operations">${dict.aboutOpsCta}</a>
+          <a class="btn btn-ghost" href="#" data-go="service-status">${dict.opsStatusLink}</a>
+        </div>
+      </section>
       <p class="hint-line">${dict.musicCredit}</p>
     </section>
   `;
@@ -2370,9 +2916,25 @@ function formatDate(iso, locale) {
   });
 }
 
+/* Listings are rechecked every 90 days. A listing inside the last 30 days of
+   that window is flagged, and one past the date is expired: labelled, and kept
+   out of results until someone revalidates it. */
+const RECHECK_WARN_DAYS = 30;
+
+function daysUntil(dateIso) {
+  const then = new Date(dateIso + "T00:00:00").getTime();
+  if (!Number.isFinite(then)) return NaN;
+  return (then - Date.now()) / 86400000;
+}
+
+function isExpired(item) {
+  const days = daysUntil(item.review);
+  return Number.isFinite(days) && days < 0;
+}
+
 function isStale(item) {
-  const review = new Date(item.review + "T00:00:00").getTime();
-  return Number.isFinite(review) && review < Date.now();
+  const days = daysUntil(item.review);
+  return Number.isFinite(days) && days >= 0 && days <= RECHECK_WARN_DAYS;
 }
 
 function catLabel(id, state) {
@@ -2399,12 +2961,13 @@ function directoryCard(dict, state, item) {
   const coverage = state.locale === "hi" ? item.coverageHi : item.coverageEn;
   const hours = state.locale === "hi" ? item.hoursHi : item.hoursEn;
   const stale = isStale(item);
+  const expired = isExpired(item);
   return `
-    <article class="dir-card${item.primary ? " is-primary" : ""}">
+    <article class="dir-card${item.primary ? " is-primary" : ""}${expired ? " is-expired" : ""}">
       <div class="dir-head">
         <span class="dir-num">${escapeHtml(item.number)}</span>
         <span class="dir-name">${escapeHtml(name)}</span>
-        ${stale ? `<span class="badge badge-stale">${escapeHtml(dict.dirStale)}</span>` : ""}
+        ${expired ? `<span class="badge badge-expired">${escapeHtml(dict.dirExpiredBadge)}</span>` : stale ? `<span class="badge badge-stale">${escapeHtml(dict.dirStale)}</span>` : ""}
       </div>
       <p class="dir-desc">${escapeHtml(desc)}</p>
       <dl class="dir-meta">
@@ -2427,7 +2990,19 @@ function directoryCard(dict, state, item) {
 function directoryListHtml(dict, state) {
   const items = filteredDirectory();
   if (!items.length) return `<p class="dir-empty">${escapeHtml(dict.dirEmpty)}</p>`;
-  return items.map(item => directoryCard(dict, state, item)).join("");
+  const live = items.filter(item => !isExpired(item));
+  const expired = items.filter(item => isExpired(item));
+  const liveHtml = live.length
+    ? live.map(item => directoryCard(dict, state, item)).join("")
+    : `<p class="dir-empty">${escapeHtml(dict.dirEmpty)}</p>`;
+  const expiredHtml = expired.length
+    ? `<details class="expired-block">
+        <summary>${escapeHtml((expired.length === 1 ? dict.dirExpiredToggleOne : dict.dirExpiredToggleMany).replace("{n}", String(expired.length)))}</summary>
+        <p class="field-hint">${escapeHtml(dict.dirExpiredNote)}</p>
+        ${expired.map(item => directoryCard(dict, state, item)).join("")}
+      </details>`
+    : "";
+  return liveHtml + expiredHtml;
 }
 
 function directoryHtml(dict, state) {
@@ -2459,8 +3034,13 @@ function wireDirectory(dict, state) {
 
   const paint = () => {
     list.innerHTML = directoryListHtml(dict, state);
-    const n = filteredDirectory().length;
-    if (count) count.textContent = `${n} ${n === 1 ? dict.dirCountOne : dict.dirCountMany}`;
+    const all = filteredDirectory();
+    const n = all.filter(item => !isExpired(item)).length;
+    const hidden = all.length - n;
+    if (count) {
+      const base = `${n} ${n === 1 ? dict.dirCountOne : dict.dirCountMany}`;
+      count.textContent = hidden ? `${base} · ${dict.dirExpiredHidden.replace("{n}", String(hidden))}` : base;
+    }
   };
   paint();
 
@@ -3444,7 +4024,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
   render();
 });
 
-const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "sdg", "initiatives", "careers", "contact"];
+const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "operations", "service-status", "terms", "sdg", "initiatives", "careers", "contact"];
 
 function screenFromHash() {
   const name = String(location.hash || "").replace(/^#\/?/, "");
