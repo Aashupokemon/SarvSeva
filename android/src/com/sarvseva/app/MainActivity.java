@@ -86,6 +86,7 @@ public class MainActivity extends Activity {
         applySystemBarInsets(webView);
 
         setContentView(webView);
+        android.util.Log.i("SarvSeva", "serving on port " + server.getPort());
         webView.loadUrl("http://127.0.0.1:" + server.getPort() + "/index.html");
     }
 

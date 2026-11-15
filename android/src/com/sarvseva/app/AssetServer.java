@@ -28,8 +28,31 @@ public class AssetServer {
         return socket.getLocalPort();
     }
 
+    /**
+     * A fixed port keeps the page origin stable, so the WebView's localStorage
+     * (saved requests, drafts, offers) survives a restart. An ephemeral port
+     * would look like a different site on every launch.
+     */
+    private static final int PREFERRED_PORT = 47823;
+
     public void start() throws IOException {
-        socket = new ServerSocket(0, 50, InetAddress.getByName("127.0.0.1"));
+        ServerSocket created = null;
+        for (int attempt = 0; attempt < 20 && created == null; attempt++) {
+            try {
+                created = new ServerSocket(PREFERRED_PORT, 50, InetAddress.getByName("127.0.0.1"));
+            } catch (IOException busy) {
+                // A restarting process can hold the port for a moment.
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                }
+                if (attempt == 19) {
+                    created = new ServerSocket(0, 50, InetAddress.getByName("127.0.0.1"));
+                }
+            }
+        }
+        socket = created;
         Thread accept = new Thread(new Runnable() {
             @Override
             public void run() {
