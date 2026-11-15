@@ -253,9 +253,9 @@ const i18n = {
     hospLocate: "Use my location",
     hospLocating: "Getting your location...",
     hospSearching: "Searching within 10 km...",
-    hospCount: "{n} hospitals within 10 km",
+    hospCount: "Hospitals within {r} km: {n}",
     hospNearYou: "near you",
-    hospEmpty: "No hospitals found within 10 km in OpenStreetMap. Call 108 for an ambulance.",
+    hospEmpty: "No hospitals found within {r} km in OpenStreetMap. Call 108 for an ambulance.",
     hospDenied: "Location is off for this app. Type an area instead, or call 108.",
     hospLocError: "Could not get your location. Type an area instead, or call 108.",
     hospOffline: "Hospital search needs a connection. Call 108, or use the verified directory.",
@@ -265,6 +265,137 @@ const i18n = {
     hospDirections: "Directions",
     hospPrivacy: "Only a rounded location (about 100 m) is sent to OpenStreetMap, and SarvSeva stores nothing.",
     hospNote: "OpenStreetMap data, not checked by SarvSeva. Hours, beds and emergency capacity are unknown - call 108 for an ambulance.",
+    tabHome: "Home",
+    tabFind: "Find",
+    tabSos: "SOS",
+    tabServices: "Services",
+    tabProfile: "Profile",
+    nearbySearching: "Searching within {r} km...",
+    nearbyLocating: "Getting your location...",
+    nearbyDenied: "Location is off for this app. Type an area instead.",
+    nearbyLocError: "Could not get your location. Type an area instead.",
+    nearbyOffline: "This needs a connection. Call 112 if it is urgent, and try again when you are online.",
+    nearbyError: "The map service did not answer. Try again in a moment.",
+    nearbyBadArea: "That area was not found. Try a landmark or a city name.",
+    nearbyNearYou: "near you",
+    nearbyAway: "{d} away",
+    nearbyDirections: "Directions",
+    nearbyPrivacy: "Only a rounded location (about 100 m) is sent to OpenStreetMap, and SarvSeva stores nothing.",
+    pharmEyebrow: "Medical stores",
+    pharmTitle: "Find a medical store near you",
+    pharmSub: "Search an area, or share your location once. Closest stores come first.",
+    pharmPlaceholder: "Area, landmark or store name",
+    pharmCount: "Medical stores within {r} km: {n}",
+    pharmEmpty: "No medical stores found within {r} km in OpenStreetMap. Ask at the nearest hospital.",
+    pharmNote: "OpenStreetMap data, not checked by SarvSeva. Stock, timings and licences are unknown - call before you go.",
+    pharmCallNote: "SarvSeva does not sell or deliver medicines. A pharmacist can advise on over-the-counter items.",
+    policeEyebrow: "Police",
+    policeTitle: "Nearest police station",
+    policeSub: "Search an area, or share your location once. If a crime is happening now, call 112 first.",
+    policePlaceholder: "Area, landmark or thana name",
+    policeCount: "Police stations within {r} km: {n}",
+    policeEmpty: "No police stations found within {r} km in OpenStreetMap. Call 112.",
+    policeNote: "OpenStreetMap data, not checked by SarvSeva. A station may have moved or closed - call 100 to confirm.",
+    policeCall112: "Call 112 (emergency)",
+    policeCall100: "Call 100 (police)",
+    svcEyebrow: "Everything in one place",
+    svcTitle: "Services",
+    svcSub: "Emergency and everyday health services, each on its own page.",
+    svcAmb: "Ambulance",
+    svcAmbBlurb: "Call 108, 102 or a private service.",
+    svcAir: "Air ambulance",
+    svcAirBlurb: "For long-distance critical transfers.",
+    svcPharm: "Medical stores",
+    svcPharmBlurb: "Find a pharmacy near you.",
+    svcPolice: "Police station",
+    svcPoliceBlurb: "The nearest one, with directions.",
+    svcAdvice: "Medical advice",
+    svcAdviceBlurb: "What to do, and when to go in.",
+    svcMeds: "Common medicines",
+    svcMedsBlurb: "Uses, cautions, and prescription marks.",
+    svcInsurance: "Insurance",
+    svcInsuranceBlurb: "Health, accident and life cover, explained.",
+    svcDemoNote: "SarvSeva does not dispatch ambulances, book beds or sell insurance. Every action here either calls a service or explains what to do.",
+    sosEyebrow: "Emergency",
+    sosTitle: "SOS",
+    sosLead: "One tap calls 112. The buttons below send your location to someone you trust.",
+    sosCall: "Call emergency services",
+    sosSms: "Send SMS with location",
+    sosWhatsapp: "Share on WhatsApp",
+    sosLocHint: "Adding your location to the message...",
+    sosLocReady: "Your message now includes a map link with your location.",
+    sosLocFail: "Location is off, so the message has no map link. Add it yourself if you can.",
+    sosMessage: "SOS - I need help. My location:",
+    sosContactTitle: "Emergency contact",
+    sosContactSub: "Saved on this phone only. Nothing is sent to SarvSeva.",
+    sosContactName: "Name",
+    sosContactPhone: "Phone number",
+    sosContactSave: "Save contact",
+    sosCallContact: "Call",
+    sosContactNote: "This contact is not called automatically. You still have to press Call.",
+    sosHonest: "SarvSeva cannot dispatch help. Calling 112 connects you to the police, fire or ambulance control room for your area.",
+    ambEyebrow: "Ambulance",
+    ambTitle: "Book an ambulance",
+    ambLead: "The government numbers are free. Private services reach faster in some cities and charge money.",
+    amb108Title: "Emergency ambulance",
+    amb108Body: "Free, state-run, for any medical emergency.",
+    amb102Title: "Pregnancy and child care",
+    amb102Body: "Free ambulance for delivery, pregnancy and sick children.",
+    amb112Title: "Police, fire and ambulance",
+    amb112Body: "One number if you are not sure which service you need.",
+    ambPrivateTitle: "Private ambulance",
+    ambPrivateBody: "Private operators reach faster in many cities and charge per trip. Ask the price and which hospital they will take you to before you get in.",
+    ambHonest: "SarvSeva does not dispatch an ambulance. These buttons call the service directly.",
+    airEyebrow: "Critical transfer",
+    airTitle: "Air ambulance",
+    airLead: "An aircraft with a doctor and intensive-care equipment, for moving a critical patient between cities.",
+    airWarn: "Air transfers are arranged by phone, cost lakhs, and need a hospital to accept the patient. They are not a first response - call 108 first.",
+    airWhenTitle: "When it is used",
+    airWhen: ["A head, spine or chest injury far from a trauma centre", "A patient who cannot travel by road or on a normal flight", "An organ being moved between hospitals", "A city where the needed ICU or specialist is not available"],
+    airHowTitle: "How it is arranged",
+    airHow: ["The treating hospital makes the referral and speaks to the receiving hospital", "The operator confirms the aircraft, medical crew and landing site", "Payment or the insurer's approval is settled before the flight", "A ground ambulance covers both ends of the journey"],
+    airProvidersTitle: "Operators",
+    airProviderNote: "Numbers and websites are taken from the operators' own sites. SarvSeva takes no commission and cannot confirm availability or price.",
+    airHonest: "If the patient is in immediate danger, call 108 now. Air transfer can be discussed once they are stable.",
+    airSite: "Website",
+    advEyebrow: "Medical advice",
+    advTitle: "What to do right now",
+    advLead: "Plain guidance on the next step, and what not to wait on.",
+    advNoDiagnosis: "SarvSeva does not diagnose or prescribe. A doctor, or a nurse on the 104 helpline, can.",
+    advEmergencyTitle: "Call 108 or go to an emergency department",
+    advEmergency: ["Chest pain or pressure, especially spreading to the arm or jaw", "Sudden weakness, a drooping face or slurred speech", "Trouble breathing, or blue lips", "Heavy bleeding that does not stop with pressure", "Unconscious, fitting, or confused after a head injury", "A baby under three months with fever", "Poisoning or a suspected overdose", "A large or deep burn"],
+    advHelplinesTitle: "Talk to someone",
+    adv104Name: "Health helpline 104",
+    adv104Body: "Free medical advice from trained staff, in your state's language.",
+    advTeleManasName: "Tele-MANAS 14416",
+    advTeleManasBody: "Free mental health support, 24x7.",
+    advWhenTitle: "Worth a same-day visit",
+    advWhen: ["Fever above 39 degrees C, or lasting more than three days", "Vomiting or loose motions that stop you drinking", "A wound that is red, hot or leaking pus", "A new severe headache or a change in vision", "A child who is drowsy, feeding poorly or passing little urine"],
+    advFirstAid: "First aid steps",
+    advCall108: "Call 108",
+    advCall112: "Call 112",
+    advNote: "These are general signs, not a diagnosis. If you are unsure, call 104 or go to the nearest hospital - it is better to be seen.",
+    medEyebrow: "Medicines",
+    medTitle: "Common medicines",
+    medLead: "What each one is for, the main caution, and whether it needs a prescription.",
+    medRx: "Prescription needed",
+    medOtc: "No prescription",
+    medCaution: "Caution",
+    medDisclaimer: "Read the pack before use. Doses differ for children, pregnancy and long-term conditions, so ask a pharmacist or doctor instead of guessing.",
+    medAsk: "Never take an antibiotic or a strong painkiller because someone else's strip helped them.",
+    insEyebrow: "Protection",
+    insTitle: "Insurance that pays when something goes wrong",
+    insLead: "One hospital stay can wipe out years of savings. These are the products that stop that, and where to read about them.",
+    insProductsTitle: "The main products",
+    insBeforeTitle: "Check before you buy",
+    insBefore: ["Waiting period for pre-existing illnesses, often two to four years", "Room-rent and disease-wise caps that limit what is paid", "Network hospitals, if you want cashless treatment", "Whether day-care and ambulance charges are covered", "Claim settlement ratio and the insurer's complaint record"],
+    insGovTitle: "Government schemes",
+    insProvidersTitle: "Insurers and comparison sites",
+    insProviderNote: "These links go to the companies' own websites. SarvSeva is not an insurer or an agent and earns nothing from them.",
+    insGrievanceTitle: "If a claim is refused",
+    insGrievance: "Complain to the insurer first, then to IRDAI's grievance system. IRDAI's helpline is 155255, and the Insurance Ombudsman handles disputes for free.",
+    insVisit: "Open",
+    insHonest: "Compare at least two quotes, and read what is excluded before you pay.",
     needExisting: "You already have a saved request.",
     statusTimeline: "What has happened",
     statusWhatNext: "What to do next",
@@ -636,9 +767,9 @@ const i18n = {
     hospLocate: "मेरी लोकेशन इस्तेमाल करें",
     hospLocating: "आपकी लोकेशन ले रहे हैं...",
     hospSearching: "10 किमी के भीतर खोज रहे हैं...",
-    hospCount: "10 किमी के भीतर {n} अस्पताल",
+    hospCount: "{r} किमी के भीतर अस्पताल: {n}",
     hospNearYou: "आपके पास",
-    hospEmpty: "OpenStreetMap में 10 किमी के भीतर कोई अस्पताल नहीं मिला। एम्बुलेंस के लिए 108 पर कॉल करें।",
+    hospEmpty: "OpenStreetMap में {r} किमी के भीतर कोई अस्पताल नहीं मिला। एम्बुलेंस के लिए 108 पर कॉल करें।",
     hospDenied: "इस ऐप के लिए लोकेशन बंद है। इलाका लिखकर खोजें, या 108 पर कॉल करें।",
     hospLocError: "आपकी लोकेशन नहीं मिल सकी। इलाका लिखकर खोजें, या 108 पर कॉल करें।",
     hospOffline: "अस्पताल खोजने के लिए कनेक्शन चाहिए। 108 पर कॉल करें या जाँची निर्देशिका देखें।",
@@ -648,6 +779,137 @@ const i18n = {
     hospDirections: "रास्ता",
     hospPrivacy: "OpenStreetMap को सिर्फ़ गोल किया हुआ स्थान (लगभग 100 मी) जाता है, और SarvSeva कुछ सहेजती नहीं।",
     hospNote: "OpenStreetMap का डेटा, SarvSeva से जाँचा हुआ नहीं। समय, बेड और आपातकालीन सुविधा की जानकारी नहीं है - एम्बुलेंस के लिए 108 पर कॉल करें।",
+    tabHome: "होम",
+    tabFind: "खोजें",
+    tabSos: "एसओएस",
+    tabServices: "सेवाएँ",
+    tabProfile: "प्रोफ़ाइल",
+    nearbySearching: "{r} किमी के भीतर खोज रहे हैं...",
+    nearbyLocating: "आपकी लोकेशन ले रहे हैं...",
+    nearbyDenied: "इस ऐप के लिए लोकेशन बंद है। इलाका लिखकर खोजें।",
+    nearbyLocError: "आपकी लोकेशन नहीं मिल सकी। इलाका लिखकर खोजें।",
+    nearbyOffline: "इसके लिए कनेक्शन चाहिए। ज़रूरी हो तो 112 पर कॉल करें, और ऑनलाइन होने पर फिर कोशिश करें।",
+    nearbyError: "मैप सेवा ने जवाब नहीं दिया। थोड़ी देर बाद कोशिश करें।",
+    nearbyBadArea: "वह इलाका नहीं मिला। किसी पहचान की जगह या शहर का नाम लिखें।",
+    nearbyNearYou: "आपके पास",
+    nearbyAway: "{d} दूर",
+    nearbyDirections: "रास्ता",
+    nearbyPrivacy: "OpenStreetMap को सिर्फ़ गोल किया हुआ स्थान (लगभग 100 मी) जाता है, और SarvSeva कुछ सहेजती नहीं।",
+    pharmEyebrow: "दवा की दुकानें",
+    pharmTitle: "अपने पास दवा की दुकान खोजें",
+    pharmSub: "कोई इलाका खोजें, या एक बार अपनी लोकेशन साझा करें। सबसे नज़दीकी दुकान पहले।",
+    pharmPlaceholder: "इलाका, पहचान की जगह या दुकान का नाम",
+    pharmCount: "{r} किमी के भीतर दवा की दुकानें: {n}",
+    pharmEmpty: "OpenStreetMap में {r} किमी के भीतर कोई दवा की दुकान नहीं मिली। नज़दीकी अस्पताल में पूछें।",
+    pharmNote: "OpenStreetMap का डेटा, SarvSeva से जाँचा हुआ नहीं। स्टॉक, समय और लाइसेंस की जानकारी नहीं है - जाने से पहले कॉल करें।",
+    pharmCallNote: "SarvSeva दवाइयाँ न बेचती है न पहुँचाती है। बिना पर्चे वाली दवाओं पर फ़ार्मासिस्ट सलाह दे सकते हैं।",
+    policeEyebrow: "पुलिस",
+    policeTitle: "सबसे नज़दीकी पुलिस थाना",
+    policeSub: "कोई इलाका खोजें, या एक बार अपनी लोकेशन साझा करें। अपराध अभी हो रहा हो तो पहले 112 पर कॉल करें।",
+    policePlaceholder: "इलाका, पहचान की जगह या थाने का नाम",
+    policeCount: "{r} किमी के भीतर पुलिस थाने: {n}",
+    policeEmpty: "OpenStreetMap में {r} किमी के भीतर कोई पुलिस थाना नहीं मिला। 112 पर कॉल करें।",
+    policeNote: "OpenStreetMap का डेटा, SarvSeva से जाँचा हुआ नहीं। थाना बदल या बंद हो सकता है - पुष्टि के लिए 100 पर कॉल करें।",
+    policeCall112: "112 पर कॉल करें (आपातकाल)",
+    policeCall100: "100 पर कॉल करें (पुलिस)",
+    svcEyebrow: "सब कुछ एक जगह",
+    svcTitle: "सेवाएँ",
+    svcSub: "आपातकालीन और रोज़मर्रा की स्वास्थ्य सेवाएँ, हर एक अपने पेज पर।",
+    svcAmb: "एम्बुलेंस",
+    svcAmbBlurb: "108, 102 या निजी सेवा को कॉल करें।",
+    svcAir: "एयर एम्बुलेंस",
+    svcAirBlurb: "लंबी दूरी के गंभीर मरीज़ के लिए।",
+    svcPharm: "दवा की दुकानें",
+    svcPharmBlurb: "अपने पास की फ़ार्मेसी खोजें।",
+    svcPolice: "पुलिस थाना",
+    svcPoliceBlurb: "सबसे नज़दीकी थाना, रास्ते के साथ।",
+    svcAdvice: "डॉक्टरी सलाह",
+    svcAdviceBlurb: "क्या करें, और कब अस्पताल जाएँ।",
+    svcMeds: "आम दवाइयाँ",
+    svcMedsBlurb: "किस काम की, सावधानी, और पर्चा ज़रूरी या नहीं।",
+    svcInsurance: "बीमा",
+    svcInsuranceBlurb: "स्वास्थ्य, दुर्घटना और जीवन बीमा, आसान भाषा में।",
+    svcDemoNote: "SarvSeva एम्बुलेंस नहीं भेजती, बेड नहीं बुक करती और बीमा नहीं बेचती। यहाँ हर काम या तो सेवा को कॉल करता है या बताता है कि क्या करना है।",
+    sosEyebrow: "आपातकाल",
+    sosTitle: "एसओएस",
+    sosLead: "एक टैप में 112 पर कॉल। नीचे के बटन आपकी लोकेशन किसी भरोसेमंद को भेजते हैं।",
+    sosCall: "आपातकालीन सेवा को कॉल करें",
+    sosSms: "लोकेशन के साथ एसएमएस भेजें",
+    sosWhatsapp: "व्हाट्सएप पर भेजें",
+    sosLocHint: "संदेश में आपकी लोकेशन जोड़ी जा रही है...",
+    sosLocReady: "अब संदेश में आपकी लोकेशन का मैप लिंक जुड़ गया है।",
+    sosLocFail: "लोकेशन बंद है, इसलिए संदेश में मैप लिंक नहीं है। हो सके तो खुद जोड़ें।",
+    sosMessage: "एसओएस - मुझे मदद चाहिए। मेरी लोकेशन:",
+    sosContactTitle: "आपातकालीन संपर्क",
+    sosContactSub: "सिर्फ़ इस फ़ोन में सहेजा जाता है। SarvSeva को कुछ नहीं भेजा जाता।",
+    sosContactName: "नाम",
+    sosContactPhone: "फ़ोन नंबर",
+    sosContactSave: "संपर्क सहेजें",
+    sosCallContact: "कॉल",
+    sosContactNote: "इस संपर्क पर अपने आप कॉल नहीं जाता। कॉल बटन आपको दबाना होगा।",
+    sosHonest: "SarvSeva मदद नहीं भेज सकती। 112 पर कॉल करने से आपके इलाके के पुलिस, फ़ायर या एम्बुलेंस कंट्रोल रूम से बात जुड़ती है।",
+    ambEyebrow: "एम्बुलेंस",
+    ambTitle: "एम्बुलेंस बुलाएँ",
+    ambLead: "सरकारी नंबर मुफ़्त हैं। कुछ शहरों में निजी सेवा जल्दी पहुँचती है और पैसे लेती है।",
+    amb108Title: "आपातकालीन एम्बुलेंस",
+    amb108Body: "मुफ़्त, सरकारी, किसी भी मेडिकल आपातकाल के लिए।",
+    amb102Title: "गर्भावस्था और बच्चों की देखभाल",
+    amb102Body: "डिलीवरी, गर्भावस्था और बीमार बच्चों के लिए मुफ़्त एम्बुलेंस।",
+    amb112Title: "पुलिस, फ़ायर और एम्बुलेंस",
+    amb112Body: "एक ही नंबर, जब पता न हो कौन सी सेवा चाहिए।",
+    ambPrivateTitle: "निजी एम्बुलेंस",
+    ambPrivateBody: "कई शहरों में निजी ऑपरेटर जल्दी पहुँचते हैं और प्रति ट्रिप पैसे लेते हैं। बैठने से पहले कीमत और किस अस्पताल ले जाएँगे, दोनों पूछें।",
+    ambHonest: "SarvSeva एम्बुलेंस नहीं भेजती। ये बटन सीधे सेवा को कॉल करते हैं।",
+    airEyebrow: "गंभीर स्थानांतरण",
+    airTitle: "एयर एम्बुलेंस",
+    airLead: "डॉक्टर और आईसीयू उपकरण वाला विमान, गंभीर मरीज़ को एक शहर से दूसरे शहर ले जाने के लिए।",
+    airWarn: "एयर ट्रांसफ़र फ़ोन पर तय होता है, लाखों रुपये का होता है, और मरीज़ को लेने के लिए अस्पताल तैयार होना चाहिए। यह पहली मदद नहीं है - पहले 108 पर कॉल करें।",
+    airWhenTitle: "कब इस्तेमाल होता है",
+    airWhen: ["सिर, रीढ़ या सीने की चोट और ट्रॉमा सेंटर दूर हो", "मरीज़ सड़क या सामान्य फ़्लाइट से न जा सके", "अंग को एक अस्पताल से दूसरे अस्पताल भेजना हो", "जिस शहर में ज़रूरी आईसीयू या विशेषज्ञ न हो"],
+    airHowTitle: "कैसे तय होता है",
+    airHow: ["इलाज करने वाला अस्पताल रेफ़रल करता है और दूसरे अस्पताल से बात करता है", "ऑपरेटर विमान, मेडिकल टीम और लैंडिंग की जगह तय करता है", "उड़ान से पहले भुगतान या बीमा की मंज़ूरी तय होती है", "दोनों सिरों पर ज़मीन की एम्बुलेंस होती है"],
+    airProvidersTitle: "ऑपरेटर",
+    airProviderNote: "नंबर और वेबसाइट ऑपरेटरों की अपनी साइट से लिए गए हैं। SarvSeva कोई कमीशन नहीं लेती और उपलब्धता या कीमत की पुष्टि नहीं कर सकती।",
+    airHonest: "मरीज़ खतरे में हो तो अभी 108 पर कॉल करें। एयर ट्रांसफ़र की बात मरीज़ के स्थिर होने के बाद करें।",
+    airSite: "वेबसाइट",
+    advEyebrow: "डॉक्टरी सलाह",
+    advTitle: "अभी क्या करें",
+    advLead: "अगला कदम क्या है, और किस चीज़ पर देर न करें - सीधी बात।",
+    advNoDiagnosis: "SarvSeva निदान या पर्चा नहीं देती। यह डॉक्टर या 104 हेल्पलाइन की नर्स कर सकते हैं।",
+    advEmergencyTitle: "108 पर कॉल करें या आपातकालीन विभाग जाएँ",
+    advEmergency: ["सीने में दर्द या भारीपन, खासकर बाँह या जबड़े तक फैले", "अचानक कमज़ोरी, मुँह का टेढ़ा होना या बोलने में दिक्कत", "साँस लेने में तकलीफ़, होंठ नीले", "भारी खून बहना जो दबाने से भी न रुके", "बेहोशी, दौरा, या सिर की चोट के बाद भ्रम", "तीन महीने से छोटे बच्चे को बुखार", "ज़हर या ज़रूरत से ज़्यादा दवा", "बड़ा या गहरा जला हुआ हिस्सा"],
+    advHelplinesTitle: "किसी से बात करें",
+    adv104Name: "स्वास्थ्य हेल्पलाइन 104",
+    adv104Body: "प्रशिक्षित स्टाफ से मुफ़्त सलाह, आपके राज्य की भाषा में।",
+    advTeleManasName: "टेली-मानस 14416",
+    advTeleManasBody: "मुफ़्त मानसिक स्वास्थ्य सहायता, चौबीसों घंटे।",
+    advWhenTitle: "उसी दिन डॉक्टर को दिखाएँ",
+    advWhen: ["39 डिग्री से ज़्यादा बुखार, या तीन दिन से ज़्यादा रहे", "उल्टी या दस्त जिससे पानी पीना भी मुश्किल हो", "घाव में लाली, गर्मी या मवाद", "अचानक तेज़ सिरदर्द या नज़र में बदलाव", "बच्चा सुस्त हो, ठीक से दूध न पीए या पेशाब कम करे"],
+    advFirstAid: "प्राथमिक उपचार के कदम",
+    advCall108: "108 पर कॉल",
+    advCall112: "112 पर कॉल",
+    advNote: "ये आम संकेत हैं, कोई निदान नहीं। पक्का न हो तो 104 पर कॉल करें या नज़दीकी अस्पताल जाएँ - दिखा देना बेहतर है।",
+    medEyebrow: "दवाइयाँ",
+    medTitle: "आम दवाइयाँ",
+    medLead: "कौन सी दवा किस काम की, मुख्य सावधानी, और पर्चा ज़रूरी है या नहीं।",
+    medRx: "पर्चा ज़रूरी",
+    medOtc: "पर्चा ज़रूरी नहीं",
+    medCaution: "सावधानी",
+    medDisclaimer: "इस्तेमाल से पहले पैक पढ़ें। बच्चों, गर्भावस्था और लंबी बीमारियों में मात्रा अलग होती है, इसलिए अंदाज़े से न दें - फ़ार्मासिस्ट या डॉक्टर से पूछें।",
+    medAsk: "किसी और की दवा से फ़ायदा हुआ हो, इसलिए खुद को एंटीबायोटिक या तेज़ दर्द की दवा कभी न लें।",
+    insEyebrow: "सुरक्षा",
+    insTitle: "बीमा, जो मुश्किल में काम आए",
+    insLead: "एक अस्पताल में भर्ती होना सालों की बचत खत्म कर सकता है। ये वे बीमा उत्पाद हैं जो ऐसा होने से रोकते हैं, और इनके बारे में कहाँ पढ़ें।",
+    insProductsTitle: "मुख्य बीमा उत्पाद",
+    insBeforeTitle: "खरीदने से पहले जाँचें",
+    insBefore: ["पहले से बीमारी के लिए इंतज़ार की अवधि, अक्सर दो से चार साल", "कमरे के किराए और बीमारी के हिसाब से सीमा, जो भुगतान घटाती है", "नेटवर्क अस्पताल, अगर कैशलेस इलाज चाहिए", "डे-केयर और एम्बुलेंस का खर्च बीमे में है या नहीं", "क्लेम निपटान अनुपात और कंपनी की शिकायतों का रिकॉर्ड"],
+    insGovTitle: "सरकारी योजनाएँ",
+    insProvidersTitle: "बीमा कंपनियाँ और तुलना साइट",
+    insProviderNote: "ये लिंक कंपनियों की अपनी वेबसाइट पर जाते हैं। SarvSeva न बीमा कंपनी है न एजेंट, और इनसे कुछ नहीं कमाती।",
+    insGrievanceTitle: "क्लेम ठुकराया जाए तो",
+    insGrievance: "पहले बीमा कंपनी में शिकायत करें, फिर IRDAI की शिकायत प्रणाली में। IRDAI हेल्पलाइन 155255 है, और बीमा ऑम्बुड्समैन विवाद मुफ़्त में देखता है।",
+    insVisit: "खोलें",
+    insHonest: "कम से कम दो कोटेशन मिलाएँ, और पैसे देने से पहले पढ़ें कि क्या बाहर रखा गया है।",
     needExisting: "आपका एक अनुरोध पहले से सहेजा है।",
     statusTimeline: "अब तक क्या हुआ",
     statusWhatNext: "आगे क्या करें",
@@ -1752,12 +2014,42 @@ function render() {
     }
   });
   renderChrome(dict, state);
+  syncTabbar(dict, state);
   if (state.screen !== lastRenderedScreen) {
     lastRenderedScreen = state.screen;
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   }
+}
+
+const TAB_PARENT = {
+  landing: "landing",
+  find: "find",
+  sos: "sos",
+  services: "services",
+  ambulance: "services",
+  "air-ambulance": "services",
+  pharmacy: "services",
+  police: "services",
+  advice: "services",
+  medicines: "services",
+  insurance: "services",
+  me: "me"
+};
+
+function syncTabbar(dict, state) {
+  const parent = TAB_PARENT[state.screen] || "";
+  document.querySelectorAll(".tabbar .tab").forEach(tab => {
+    const id = tab.getAttribute("data-tab");
+    const active = id === parent;
+    tab.classList.toggle("is-active", active);
+    if (active) tab.setAttribute("aria-current", "page");
+    else tab.removeAttribute("aria-current");
+    const label = tab.querySelector(".tab-label");
+    if (label && tab.dataset.labelKey) label.textContent = dict[tab.dataset.labelKey] || label.textContent;
+    if (label && tab.dataset.labelKey) tab.setAttribute("aria-label", dict[tab.dataset.labelKey] || label.textContent);
+  });
 }
 
 let lastRenderedScreen = null;
@@ -1928,6 +2220,26 @@ function initChrome() {
 
 function buildScreen(screen, dict, state) {
   switch (screen) {
+    case "find":
+      return findHtml(dict, state);
+    case "sos":
+      return sosHtml(dict, state);
+    case "services":
+      return servicesHtml(dict, state);
+    case "ambulance":
+      return ambulanceHtml(dict, state);
+    case "air-ambulance":
+      return airAmbulanceHtml(dict, state);
+    case "pharmacy":
+      return pharmacyHtml(dict, state);
+    case "police":
+      return policeHtml(dict, state);
+    case "advice":
+      return adviceHtml(dict, state);
+    case "medicines":
+      return medicinesHtml(dict, state);
+    case "insurance":
+      return insuranceHtml(dict, state);
     case "login":
       return loginHtml(dict, state);
     case "otp":
@@ -2036,8 +2348,6 @@ function landingHtml(dict) {
         </button>
       </div>
     </section>
-
-    ${hospitalsHtml(dict)}
 
     <section class="about-panel reveal">
       <span class="eyebrow">${dict.aboutEyebrow}</span>
@@ -2658,17 +2968,25 @@ function termsHtml(dict, state) {
 }
 
 /* ------------------------------------------------------------------
-   Hospital finder: OpenStreetMap search around a point
+   Nearby search: OpenStreetMap around a point
+   (hospitals, medical stores, police stations)
    ------------------------------------------------------------------ */
-const HOSPITAL = {
+const NEARBY = {
   photon: "https://photon.komoot.io/api/",
   geocoder: "https://nominatim.openstreetmap.org/search",
-  radiusKm: 10,
-  maxResults: 12,
-  cacheMs: 5 * 60 * 1000
+  cacheMs: 5 * 60 * 1000,
+  kinds: {
+    hospital: { tag: "amenity:hospital", queries: ["hospital"], radiusKm: 10, max: 12, eyebrow: "hospEyebrow", title: "hospTitle", sub: "hospSub", placeholder: "hospPlaceholder", count: "hospCount", empty: "hospEmpty", note: "hospNote" },
+    pharmacy: { tag: "amenity:pharmacy", queries: ["medical", "pharmacy"], radiusKm: 8, max: 12, eyebrow: "pharmEyebrow", title: "pharmTitle", sub: "pharmSub", placeholder: "pharmPlaceholder", count: "pharmCount", empty: "pharmEmpty", note: "pharmNote" },
+    police: { tag: "amenity:police", queries: ["police"], radiusKm: 10, max: 12, eyebrow: "policeEyebrow", title: "policeTitle", sub: "policeSub", placeholder: "policePlaceholder", count: "policeCount", empty: "policeEmpty", note: "policeNote" }
+  }
 };
 
-const hospitalState = { statusKey: "", count: 0, label: "", items: [], cache: {} };
+const nearbyState = {
+  hospital: { statusKey: "", radiusKm: 10, count: 0, label: "", items: [], cache: {} },
+  pharmacy: { statusKey: "", radiusKm: 8, count: 0, label: "", items: [], cache: {} },
+  police: { statusKey: "", radiusKm: 10, count: 0, label: "", items: [], cache: {} }
+};
 
 function distanceKm(lat1, lon1, lat2, lon2) {
   const R = 6371;
@@ -2680,11 +2998,11 @@ function distanceKm(lat1, lon1, lat2, lon2) {
   return 2 * R * Math.asin(Math.sqrt(a));
 }
 
-function hospitalDistanceLabel(km) {
+function nearbyDistanceLabel(km) {
   return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
 }
 
-function hospitalPlace(props) {
+function nearbyPlace(props) {
   return [props.street, props.district, props.city, props.state]
     .filter(Boolean)
     .filter((value, index, all) => all.indexOf(value) === index)
@@ -2692,93 +3010,108 @@ function hospitalPlace(props) {
     .join(", ");
 }
 
-function hospitalResultsHtml(dict) {
-  if (!hospitalState.items.length) return "";
-  return `<ol class="hosp-list">${hospitalState.items.map(item => `
+function nearbyMessage(dict, kind) {
+  const st = nearbyState[kind];
+  const cfg = NEARBY.kinds[kind];
+  if (!st.statusKey) return "";
+  if (st.statusKey === "count") {
+    return `${dict[cfg.count].replace("{n}", String(st.count)).replace("{r}", String(st.radiusKm))} · ${st.label}`;
+  }
+  if (st.statusKey === "empty") return dict[cfg.empty].replace("{r}", String(st.radiusKm));
+  if (st.statusKey === "searching") return dict.nearbySearching.replace("{r}", String(cfg.radiusKm));
+  return dict[st.statusKey] || "";
+}
+
+function nearbyResultsHtml(dict, kind) {
+  const st = nearbyState[kind];
+  if (!st.items.length) return "";
+  return `<ol class="hosp-list">${st.items.map(item => `
     <li class="hosp-item">
       <div class="hosp-main">
         <p class="hosp-name">${escapeHtml(item.name)}</p>
-        <p class="hosp-meta">${escapeHtml(dict.hospAway.replace("{d}", hospitalDistanceLabel(item.distanceKm)))}${item.place ? " · " + escapeHtml(item.place) : ""}</p>
+        <p class="hosp-meta">${escapeHtml(dict.nearbyAway.replace("{d}", nearbyDistanceLabel(item.distanceKm)))}${item.place ? " · " + escapeHtml(item.place) : ""}</p>
       </div>
-      <a class="hosp-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=${item.lat},${item.lon}" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.hospDirections)}</a>
+      <a class="hosp-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=${item.lat},${item.lon}" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.nearbyDirections)}</a>
     </li>`).join("")}</ol>`;
 }
 
-function hospitalsHtml(dict) {
+function nearbyHtml(dict, kind) {
+  const cfg = NEARBY.kinds[kind];
   return `
-    <section class="hospital-panel reveal" id="hospital-finder">
-      <span class="eyebrow">${escapeHtml(dict.hospEyebrow)}</span>
-      <h2 class="section-h2">${escapeHtml(dict.hospTitle)}</h2>
-      <p class="lead">${escapeHtml(dict.hospSub)}</p>
-      <form class="hospital-form" id="hospital-form" role="search">
-        <label class="sr-only" for="hosp-q">${escapeHtml(dict.hospPlaceholder)}</label>
-        <input class="input" id="hosp-q" type="search" placeholder="${escapeHtml(dict.hospPlaceholder)}" autocomplete="off">
-        <div class="hospital-actions">
-          <button type="submit" class="btn btn-primary">${escapeHtml(dict.hospSearch)}</button>
-          <button type="button" class="btn btn-ghost" id="hosp-locate">${escapeHtml(dict.hospLocate)}</button>
-        </div>
-      </form>
-      <p class="hospital-status" id="hosp-status" role="status" aria-live="polite">${escapeHtml(hospitalMessage(dict))}</p>
-      <div class="hospital-results" id="hosp-results">${hospitalResultsHtml(dict)}</div>
-      <p class="field-hint">${escapeHtml(dict.hospPrivacy)}</p>
-      <p class="field-hint">${escapeHtml(dict.hospNote)}</p>
-    </section>
+    <span class="eyebrow">${escapeHtml(dict[cfg.eyebrow])}</span>
+    <h1 class="card-title">${escapeHtml(dict[cfg.title])}</h1>
+    <p class="card-sub">${escapeHtml(dict[cfg.sub])}</p>
+    <form class="hospital-form" id="nearby-form" role="search">
+      <label class="sr-only" for="nearby-q">${escapeHtml(dict[cfg.placeholder])}</label>
+      <input class="input" id="nearby-q" type="search" placeholder="${escapeHtml(dict[cfg.placeholder])}" autocomplete="off">
+      <div class="hospital-actions">
+        <button type="submit" class="btn btn-primary">${escapeHtml(dict.hospSearch)}</button>
+        <button type="button" class="btn btn-ghost" id="nearby-locate">${escapeHtml(dict.hospLocate)}</button>
+      </div>
+    </form>
+    <p class="hospital-status" id="nearby-status" role="status" aria-live="polite">${escapeHtml(nearbyMessage(dict, kind))}</p>
+    <div class="hospital-results" id="nearby-results">${nearbyResultsHtml(dict, kind)}</div>
+    <p class="field-hint">${escapeHtml(dict.nearbyPrivacy)}</p>
+    <p class="field-hint">${escapeHtml(dict[cfg.note])}</p>
   `;
 }
 
-function hospitalMessage(dict) {
-  const key = hospitalState.statusKey;
-  if (!key) return "";
-  if (key === "count") {
-    return `${dict.hospCount.replace("{n}", String(hospitalState.count))} · ${hospitalState.label}`;
-  }
-  return dict[key] || "";
+function setNearbyStatus(kind, dict, key) {
+  nearbyState[kind].statusKey = key;
+  const statusEl = document.getElementById("nearby-status");
+  if (statusEl) statusEl.textContent = nearbyMessage(dict, kind);
+  const resultsEl = document.getElementById("nearby-results");
+  if (resultsEl) resultsEl.innerHTML = nearbyResultsHtml(dict, kind);
 }
 
-function setHospitalStatus(dict, key) {
-  hospitalState.statusKey = key;
-  const statusEl = document.getElementById("hosp-status");
-  if (statusEl) statusEl.textContent = hospitalMessage(dict);
-  const resultsEl = document.getElementById("hosp-results");
-  if (resultsEl) resultsEl.innerHTML = hospitalResultsHtml(dict);
-}
+async function fetchNearby(kind, lat, lon) {
+  const cfg = NEARBY.kinds[kind];
+  const span = 0.3;
+  const bbox = [lon - span, lat - span, lon + span, lat + span].map(v => v.toFixed(4)).join(",");
+  const results = new Map();
 
-async function fetchHospitalsNear(lat, lon) {
-  const params = new URLSearchParams({
-    q: "hospital",
-    lat: lat.toFixed(3),
-    lon: lon.toFixed(3),
-    limit: "40",
-    osm_tag: "amenity:hospital",
-    location_bias_scale: "0.1"
-  });
-  const controller = typeof AbortController === "function" ? new AbortController() : null;
-  const timer = window.setTimeout(() => { if (controller) controller.abort(); }, 15000);
-  try {
-    const response = await fetch(`${HOSPITAL.photon}?${params.toString()}`, {
-      headers: { Accept: "application/json" },
-      signal: controller ? controller.signal : undefined
+  for (const term of cfg.queries) {
+    const params = new URLSearchParams({
+      q: term,
+      lat: lat.toFixed(3),
+      lon: lon.toFixed(3),
+      limit: "40",
+      osm_tag: cfg.tag,
+      location_bias_scale: "0.1",
+      bbox
     });
-    if (!response.ok) throw new Error("photon-" + response.status);
-    const data = await response.json();
-    return (data.features || [])
-      .map(feature => {
+    const controller = typeof AbortController === "function" ? new AbortController() : null;
+    const timer = window.setTimeout(() => { if (controller) controller.abort(); }, 15000);
+    try {
+      const response = await fetch(`${NEARBY.photon}?${params.toString()}`, {
+        headers: { Accept: "application/json" },
+        signal: controller ? controller.signal : undefined
+      });
+      if (!response.ok) throw new Error("photon-" + response.status);
+      const data = await response.json();
+      (data.features || []).forEach(feature => {
         const [lon2, lat2] = feature.geometry.coordinates;
         const props = feature.properties || {};
-        return {
-          name: props.name || "Unnamed hospital",
-          place: hospitalPlace(props),
+        const distance = distanceKm(lat, lon, lat2, lon2);
+        if (distance > cfg.radiusKm) return;
+        const key = `${lat2.toFixed(5)},${lon2.toFixed(5)}`;
+        if (results.has(key)) return;
+        results.set(key, {
+          name: props.name || (kind === "police" ? "Police station" : kind === "pharmacy" ? "Medical store" : "Unnamed place"),
+          place: nearbyPlace(props),
           lat: lat2,
           lon: lon2,
-          distanceKm: distanceKm(lat, lon, lat2, lon2)
-        };
-      })
-      .filter(item => item.distanceKm <= HOSPITAL.radiusKm)
-      .sort((a, b) => a.distanceKm - b.distanceKm)
-      .slice(0, HOSPITAL.maxResults);
-  } finally {
-    window.clearTimeout(timer);
+          distanceKm: distance
+        });
+      });
+    } finally {
+      window.clearTimeout(timer);
+    }
   }
+
+  return [...results.values()]
+    .sort((a, b) => a.distanceKm - b.distanceKm)
+    .slice(0, cfg.max);
 }
 
 async function geocodeArea(text) {
@@ -2786,7 +3119,7 @@ async function geocodeArea(text) {
   const controller = typeof AbortController === "function" ? new AbortController() : null;
   const timer = window.setTimeout(() => { if (controller) controller.abort(); }, 12000);
   try {
-    const response = await fetch(`${HOSPITAL.geocoder}?${params.toString()}`, {
+    const response = await fetch(`${NEARBY.geocoder}?${params.toString()}`, {
       headers: { Accept: "application/json" },
       signal: controller ? controller.signal : undefined
     });
@@ -2799,85 +3132,619 @@ async function geocodeArea(text) {
   }
 }
 
-async function searchHospitalsNear(dict, lat, lon, label) {
+async function searchNearbyAt(kind, dict, lat, lon, label) {
+  const st = nearbyState[kind];
   const key = `${lat.toFixed(2)},${lon.toFixed(2)}`;
-  const cached = hospitalState.cache[key];
-  if (cached && Date.now() - cached.at < HOSPITAL.cacheMs) {
-    hospitalState.items = cached.items;
-    hospitalState.label = label;
-    hospitalState.count = cached.items.length;
-    setHospitalStatus(dict, cached.items.length ? "count" : "hospEmpty");
+  const cached = st.cache[key];
+  if (cached && Date.now() - cached.at < NEARBY.cacheMs) {
+    st.items = cached.items;
+    st.label = label;
+    st.count = cached.items.length;
+    st.radiusKm = NEARBY.kinds[kind].radiusKm;
+    setNearbyStatus(kind, dict, cached.items.length ? "count" : "empty");
     return;
   }
 
-  hospitalState.items = [];
-  setHospitalStatus(dict, "hospSearching");
+  st.items = [];
+  setNearbyStatus(kind, dict, "searching");
   try {
-    const items = await fetchHospitalsNear(lat, lon);
-    hospitalState.cache[key] = { at: Date.now(), items };
-    hospitalState.items = items;
-    hospitalState.label = label;
-    hospitalState.count = items.length;
-    setHospitalStatus(dict, items.length ? "count" : "hospEmpty");
+    const items = await fetchNearby(kind, lat, lon);
+    st.cache[key] = { at: Date.now(), items };
+    st.items = items;
+    st.label = label;
+    st.count = items.length;
+    st.radiusKm = NEARBY.kinds[kind].radiusKm;
+    setNearbyStatus(kind, dict, items.length ? "count" : "empty");
   } catch (err) {
-    hospitalState.items = [];
-    setHospitalStatus(dict, "hospError");
+    st.items = [];
+    setNearbyStatus(kind, dict, "nearbyError");
   }
 }
 
-async function searchByArea(dict, text) {
+async function searchNearbyByArea(kind, dict, text) {
   const query = text.trim();
   if (!query) return;
+  const st = nearbyState[kind];
   if (!(await checkOnline())) {
-    hospitalState.items = [];
-    setHospitalStatus(dict, "hospOffline");
+    st.items = [];
+    setNearbyStatus(kind, dict, "nearbyOffline");
     return;
   }
-  setHospitalStatus(dict, "hospSearching");
+  setNearbyStatus(kind, dict, "searching");
   let place = null;
   try {
     place = await geocodeArea(query);
   } catch (err) {
-    hospitalState.items = [];
-    setHospitalStatus(dict, "hospError");
+    st.items = [];
+    setNearbyStatus(kind, dict, "nearbyError");
     return;
   }
   if (!place) {
-    hospitalState.items = [];
-    setHospitalStatus(dict, "hospBadArea");
+    st.items = [];
+    setNearbyStatus(kind, dict, "nearbyBadArea");
     return;
   }
-  await searchHospitalsNear(dict, place.lat, place.lon, query);
+  await searchNearbyAt(kind, dict, place.lat, place.lon, query);
 }
 
-function searchByLocation(dict) {
+function searchNearbyByLocation(kind, dict) {
+  const st = nearbyState[kind];
   if (!navigator.geolocation) {
-    hospitalState.items = [];
-    setHospitalStatus(dict, "hospLocError");
+    st.items = [];
+    setNearbyStatus(kind, dict, "nearbyLocError");
     return;
   }
-  setHospitalStatus(dict, "hospLocating");
+  setNearbyStatus(kind, dict, "nearbyLocating");
   navigator.geolocation.getCurrentPosition(
     position => {
-      searchHospitalsNear(dict, position.coords.latitude, position.coords.longitude, dict.hospNearYou);
+      searchNearbyAt(kind, dict, position.coords.latitude, position.coords.longitude, dict.nearbyNearYou);
     },
     error => {
-      hospitalState.items = [];
-      setHospitalStatus(dict, error && error.code === 1 ? dict.hospDenied : dict.hospLocError);
+      st.items = [];
+      setNearbyStatus(kind, dict, error && error.code === 1 ? "nearbyDenied" : "nearbyLocError");
     },
     { enableHighAccuracy: false, timeout: 20000, maximumAge: 120000 }
   );
 }
 
-function wireHospitals(dict) {
-  const form = document.getElementById("hospital-form");
+function wireNearby(kind, dict) {
+  const form = document.getElementById("nearby-form");
   if (!form) return;
   form.addEventListener("submit", event => {
     event.preventDefault();
-    const input = document.getElementById("hosp-q");
-    searchByArea(dict, input ? input.value : "");
+    const input = document.getElementById("nearby-q");
+    searchNearbyByArea(kind, dict, input ? input.value : "");
   });
-  document.getElementById("hosp-locate")?.addEventListener("click", () => searchByLocation(dict));
+  document.getElementById("nearby-locate")?.addEventListener("click", () => searchNearbyByLocation(kind, dict));
+}
+
+/* ------------------------------------------------------------------
+   Tab pages: SOS, services, ambulance, air ambulance, pharmacies,
+   police, medical advice, medicines, insurance
+   ------------------------------------------------------------------ */
+
+const SERVICES = [
+  { href: "#/ambulance", title: "svcAmb", blurb: "svcAmbBlurb", icon: "ambulance" },
+  { href: "#/air-ambulance", title: "svcAir", blurb: "svcAirBlurb", icon: "plane" },
+  { href: "#/pharmacy", title: "svcPharm", blurb: "svcPharmBlurb", icon: "pill" },
+  { href: "#/police", title: "svcPolice", blurb: "svcPoliceBlurb", icon: "shield" },
+  { href: "#/advice", title: "svcAdvice", blurb: "svcAdviceBlurb", icon: "chat" },
+  { href: "#/medicines", title: "svcMeds", blurb: "svcMedsBlurb", icon: "meds" },
+  { href: "#/insurance", title: "svcInsurance", blurb: "svcInsuranceBlurb", icon: "umbrella" }
+];
+
+const SERVICE_ICONS = {
+  ambulance: '<path d="M3 16.5V7.6c0-.6.5-1.1 1.1-1.1h8.3c.6 0 1.1.5 1.1 1.1v8.9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 10h3.2l3.3 3.4v3.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="7" cy="17.6" r="1.9" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="17.6" r="1.9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.2 9v4M6.2 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  plane: '<path d="M3 13.5l17-7.5c.6-.3 1.2.4.8 1l-3.6 6.2-1.4 5.4c-.2.7-1.1.7-1.3 0l-1.2-4.2-4.3-1.9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>',
+  pill: '<rect x="3.2" y="9.4" width="17.6" height="7.2" rx="3.6" transform="rotate(-35 12 13)" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.4 7.6l5 5.8" stroke="currentColor" stroke-width="1.5"/>',
+  shield: '<path d="M12 3.6l7 2.6v5.2c0 4-3 7.1-7 8.9-4-1.8-7-4.9-7-8.9V6.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.2 12l2 2 3.6-3.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
+  chat: '<path d="M4 6.5h16v9.6H12l-4.4 3.2v-3.2H4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 10.4h8M8 13h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  meds: '<rect x="4.6" y="4" width="14.8" height="16" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v7M8.6 11.4h6.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
+  umbrella: '<path d="M3.4 12a8.6 8.6 0 0 1 17.2 0Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 12v6.2a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>'
+};
+
+const AIR_PROVIDERS = [
+  { name: "ICATT Air Ambulance", site: "https://icatt.in/", tel: "+919701111156", display: "+91 97011 11156" },
+  { name: "Bluedot Air Ambulance", site: "https://www.bluedotairambulance.in/", tel: "+919745410000", display: "+91 97454 10000" },
+  { name: "India Air Ambulance", site: "https://www.indiaairambulance.com/", tel: "+919999379008", display: "+91 99993 79008" },
+  { name: "Medulance", site: "https://medulance.com/", tel: "+918882978888", display: "+91 88829 78888" }
+];
+
+const MEDICINES = [
+  {
+    en: { name: "Paracetamol 500 mg", use: "Fever and mild to moderate pain.", caution: "Stay within the dose printed on the pack, and avoid it if you have liver disease or drink heavily.", rx: false },
+    hi: { name: "पैरासिटामोल 500 मि.ग्रा.", use: "बुखार और हल्का से मध्यम दर्द।", caution: "पैक पर लिखी मात्रा से ज़्यादा न लें; लिवर की बीमारी या ज़्यादा शराब से परहेज़ करें।", rx: false }
+  },
+  {
+    en: { name: "ORS (oral rehydration salts)", use: "Loose motions and dehydration.", caution: "Mix one sachet in the stated amount of clean water. Use within a day of mixing.", rx: false },
+    hi: { name: "ओ.आर.एस. (मुँह से लिया जाने वाला नमक-घोल)", use: "दस्त और शरीर में पानी की कमी।", caution: "एक पैकेट तय मात्रा में साफ़ पानी में घोलें। घोल को एक दिन में ही इस्तेमाल करें।", rx: false }
+  },
+  {
+    en: { name: "Cetirizine 10 mg", use: "Sneezing, itching and allergy symptoms.", caution: "Can make you sleepy; do not drive after taking it.", rx: false },
+    hi: { name: "सिटिरिज़ीन 10 मि.ग्रा.", use: "छींक, खुजली और एलर्जी के लक्षण।", caution: "इससे नींद आ सकती है; लेने के बाद वाहन न चलाएँ।", rx: false }
+  },
+  {
+    en: { name: "Antacid (aluminium and magnesium hydroxide)", use: "Heartburn and acid indigestion.", caution: "Not for long-term use without advice. Tell a doctor if pain is severe or comes with vomiting.", rx: false },
+    hi: { name: "एंटासिड (एल्युमिनियम और मैग्नीशियम हाइड्रॉक्साइड)", use: "सीने की जलन और एसिडिटी।", caution: "सलाह के बिना लंबे समय तक न लें। तेज़ दर्द या उल्टी हो तो डॉक्टर को दिखाएँ।", rx: false }
+  },
+  {
+    en: { name: "Povidone-iodine solution", use: "Cleaning a small cut or graze.", caution: "For external use only. Not for deep wounds, burns or the eyes - go to a hospital.", rx: false },
+    hi: { name: "पोविडोन-आयोडीन घोल", use: "छोटी कट या खरोंच साफ़ करने के लिए।", caution: "सिर्फ़ बाहर लगाने के लिए। गहरे घाव, जले हुए हिस्से या आँखों पर नहीं - अस्पताल जाएँ।", rx: false }
+  },
+  {
+    en: { name: "Saline nasal spray", use: "Blocked or dry nose.", caution: "Use clean water or a sterile spray only.", rx: false },
+    hi: { name: "सलाइन नाक स्प्रे", use: "बंद या सूखी नाक।", caution: "सिर्फ़ साफ़ पानी या स्टरलाइज़्ड स्प्रे ही इस्तेमाल करें।", rx: false }
+  },
+  {
+    en: { name: "Diclofenac gel (topical)", use: "Muscle and joint pain in a small area.", caution: "Rub it on the skin only. Do not use on broken skin, and ask a doctor if you have kidney or heart disease.", rx: false },
+    hi: { name: "डिक्लोफेनैक जेल (बाहर लगाने के लिए)", use: "छोटे हिस्से में मांसपेशी या जोड़ का दर्द।", caution: "सिर्फ़ त्वचा पर लगाएँ। कटी त्वचा पर नहीं, और गुर्दे या हृदय की बीमारी हो तो डॉक्टर से पूछें।", rx: false }
+  },
+  {
+    en: { name: "Antibiotics (azithromycin, amoxicillin)", use: "Bacterial infections, only when a doctor says which one.", caution: "Never buy or start these on your own. The wrong antibiotic makes resistance worse.", rx: true },
+    hi: { name: "एंटीबायोटिक (एज़िथ्रोमाइसिन, अमोक्सिसिलिन)", use: "बैक्टीरिया के संक्रमण में, सिर्फ़ डॉक्टर बताएँ तब।", caution: "खुद से कभी न खरीदें या शुरू न करें। गलत एंटीबायोटिक दवा बेअसर होने की समस्या बढ़ाती है।", rx: true }
+  },
+  {
+    en: { name: "Strong painkillers (tramadol, codeine)", use: "Severe pain, prescribed after an examination.", caution: "Can slow breathing and cause dependence. Never share or reuse an old strip.", rx: true },
+    hi: { name: "तेज़ दर्द की दवा (ट्रामाडोल, कोडीन)", use: "तेज़ दर्द, जाँच के बाद डॉक्टर लिखते हैं।", caution: "साँस धीमी कर सकती है और इसकी लत लग सकती है। पुरानी पत्ती कभी किसी और को न दें।", rx: true }
+  },
+  {
+    en: { name: "Inhalers (salbutamol, budesonide)", use: "Asthma and wheezing.", caution: "The dose and the technique matter. Ask a doctor or nurse to show you before the first use.", rx: true },
+    hi: { name: "इनहेलर (सैल्ब्युटामोल, बुडेसोनाइड)", use: "दमा और साँस की सीटी।", caution: "मात्रा और इस्तेमाल का तरीका अहम है। पहली बार डॉक्टर या नर्स से दिखवाएँ।", rx: true }
+  },
+  {
+    en: { name: "Diabetes medicines (metformin, insulin)", use: "Keeping blood sugar in range.", caution: "Never change or stop a dose on your own. Carry a sugar source in case of a low.", rx: true },
+    hi: { name: "मधुमेह की दवा (मेटफॉर्मिन, इंसुलिन)", use: "शुगर को नियंत्रण में रखने के लिए।", caution: "अपनी मर्ज़ी से मात्रा न बदलें, न बंद करें। शुगर गिरने के लिए मिठाई साथ रखें।", rx: true }
+  },
+  {
+    en: { name: "Blood pressure medicines", use: "Keeping blood pressure controlled.", caution: "Stopping suddenly can be dangerous. Refill before the strip runs out.", rx: true },
+    hi: { name: "ब्लड प्रेशर की दवाइयाँ", use: "ब्लड प्रेशर नियंत्रित रखने के लिए।", caution: "अचानक बंद करना खतरनाक हो सकता है। पत्ती खत्म होने से पहले दोबारा लें।", rx: true }
+  }
+];
+
+const INSURANCE_PRODUCTS = [
+  { en: ["Health insurance", "Pays hospital bills - room, surgery, medicines - up to the sum insured. The core cover for a family."], hi: ["स्वास्थ्य बीमा", "अस्पताल का खर्च - कमरा, ऑपरेशन, दवाइयाँ - बीमा राशि तक देता है। परिवार के लिए सबसे ज़रूरी कवर।"] },
+  { en: ["Personal accident", "Pays a lump sum for accidental death or disability, and often a weekly amount while you recover."], hi: ["व्यक्तिगत दुर्घटना बीमा", "दुर्घटना में मृत्यु या विकलांगता पर एकमुश्त राशि, और अक्सर ठीक होने के दिनों का साप्ताहिक भुगतान।"] },
+  { en: ["Critical illness", "A lump sum on diagnosis of listed illnesses such as cancer or a heart attack, to replace lost income."], hi: ["गंभीर बीमारी बीमा", "कैंसर या दिल के दौरे जैसी सूचीबद्ध बीमारी पकड़ में आने पर एकमुश्त राशि, ताकि कमाई का नुकसान भरा जाए।"] },
+  { en: ["Term life", "Pays your family if you die during the policy term. The cheapest way to protect people who depend on your income."], hi: ["टर्म जीवन बीमा", "अवधि के दौरान आपकी मृत्यु पर परिवार को राशि। आपकी कमाई पर निर्भर लोगों की सबसे सस्ती सुरक्षा।"] },
+  { en: ["Travel insurance", "Covers medical treatment, lost baggage and cancellation during a trip, including abroad."], hi: ["यात्रा बीमा", "यात्रा के दौरान इलाज, सामान खोने और यात्रा रद्द होने का कवर, विदेश में भी।"] },
+  { en: ["Home and contents", "Fire, flood, theft and damage to the building and everything inside it."], hi: ["घर और सामान बीमा", "आग, बाढ़, चोरी और मकान तथा अंदर के सामान को नुकसान का कवर।"] },
+  { en: ["Motor third party", "Legally required for every vehicle. Pays others you injure or damage, not your own vehicle."], hi: ["मोटर थर्ड पार्टी", "हर वाहन के लिए कानूनी रूप से ज़रूरी। दूसरों को हुए नुकसान का भुगतान, अपने वाहन का नहीं।"] },
+  { en: ["Government schemes", "PM-JAY gives free hospital care to eligible families; PMJJBY and PMSBY cost a few hundred rupees a year."], hi: ["सरकारी योजनाएँ", "पीएम-जय पात्र परिवारों को मुफ़्त अस्पताल इलाज देती है; पीएमजेजेबीवाई और पीएमएसबीवाई साल में कुछ सौ रुपये में।"] }
+];
+
+const INSURERS = [
+  { name: "New India Assurance", url: "https://www.newindia.co.in/" },
+  { name: "LIC of India", url: "https://licindia.in/" },
+  { name: "Star Health", url: "https://www.starhealth.in/" },
+  { name: "HDFC ERGO", url: "https://www.hdfcergo.com/" },
+  { name: "ICICI Lombard", url: "https://www.icicilombard.com/" },
+  { name: "Bajaj Allianz", url: "https://www.bajajallianz.com/" },
+  { name: "PolicyBazaar (comparison site)", url: "https://www.policybazaar.com/" }
+];
+
+const GOVERNMENT_SCHEMES = [
+  { name: "AB PM-JAY", note: "pmjay.gov.in", url: "https://www.pmjay.gov.in/" },
+  { name: "PMJJBY / PMSBY", note: "jansuraksha.in", url: "https://www.jansuraksha.in/" },
+  { name: "IRDAI policyholder info", note: "policyholder.gov.in", url: "https://policyholder.gov.in/" }
+];
+
+function servicesHtml(dict, state) {
+  return `
+    <section class="card flow">
+      <span class="eyebrow">${escapeHtml(dict.svcEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.svcTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.svcSub)}</p>
+      <div class="svc-grid">
+        ${SERVICES.map(item => `
+          <a class="svc-card" href="${item.href}">
+            <span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22">${SERVICE_ICONS[item.icon]}</svg></span>
+            <span class="svc-name">${escapeHtml(dict[item.title])}</span>
+            <span class="svc-blurb">${escapeHtml(dict[item.blurb])}</span>
+          </a>`).join("")}
+      </div>
+      <p class="hint-line">${escapeHtml(dict.svcDemoNote)}</p>
+    </section>
+  `;
+}
+
+function findHtml(dict, state) {
+  return `
+    <section class="card flow">
+      ${nearbyHtml(dict, "hospital")}
+      <div class="cta-row">
+        <a class="btn btn-ghost" href="#/pharmacy">${escapeHtml(dict.svcPharm)}</a>
+        <a class="btn btn-ghost" href="#/police">${escapeHtml(dict.svcPolice)}</a>
+      </div>
+    </section>
+  `;
+}
+
+function pharmacyHtml(dict, state) {
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      ${nearbyHtml(dict, "pharmacy")}
+      <p class="hint-line">${escapeHtml(dict.pharmCallNote)}</p>
+      <a class="text-link" href="#/medicines">${escapeHtml(dict.svcMeds)}</a>
+    </section>
+  `;
+}
+
+function policeHtml(dict, state) {
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(dict.policeEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.policeTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.policeSub)}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="tel:112">${escapeHtml(dict.policeCall112)}</a>
+        <a class="btn btn-ghost" href="tel:100">${escapeHtml(dict.policeCall100)}</a>
+      </div>
+      <form class="hospital-form" id="nearby-form" role="search">
+        <label class="sr-only" for="nearby-q">${escapeHtml(dict.policePlaceholder)}</label>
+        <input class="input" id="nearby-q" type="search" placeholder="${escapeHtml(dict.policePlaceholder)}" autocomplete="off">
+        <div class="hospital-actions">
+          <button type="submit" class="btn btn-primary">${escapeHtml(dict.hospSearch)}</button>
+          <button type="button" class="btn btn-ghost" id="nearby-locate">${escapeHtml(dict.hospLocate)}</button>
+        </div>
+      </form>
+      <p class="hospital-status" id="nearby-status" role="status" aria-live="polite">${escapeHtml(nearbyMessage(dict, "police"))}</p>
+      <div class="hospital-results" id="nearby-results">${nearbyResultsHtml(dict, "police")}</div>
+      <p class="field-hint">${escapeHtml(dict.nearbyPrivacy)}</p>
+      <p class="field-hint">${escapeHtml(dict.policeNote)}</p>
+    </section>
+  `;
+}
+
+const SOS_CONTACT_KEY = "sarvseva-emergency-contact";
+
+function readSosContact() {
+  try {
+    const raw = localStorage.getItem(SOS_CONTACT_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    return parsed && typeof parsed === "object" ? parsed : null;
+  } catch (err) {
+    return null;
+  }
+}
+
+function telHref(phone) {
+  return "tel:" + String(phone || "").replace(/[^\d+]/g, "");
+}
+
+function sosHtml(dict, state) {
+  const contact = readSosContact();
+  return `
+    <section class="card flow">
+      <span class="eyebrow">${escapeHtml(dict.sosEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.sosTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.sosLead)}</p>
+
+      <a class="sos-call" href="tel:112">
+        <span class="sos-num">112</span>
+        <span class="sos-label">${escapeHtml(dict.sosCall)}</span>
+      </a>
+
+      <div class="cta-row">
+        <a class="btn btn-ghost" id="sos-sms" href="sms:">${escapeHtml(dict.sosSms)}</a>
+        <a class="btn btn-ghost" id="sos-wa" href="https://wa.me/" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.sosWhatsapp)}</a>
+      </div>
+      <p class="field-hint" id="sos-loc-note">${escapeHtml(dict.sosLocHint)}</p>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.sosContactTitle)}</h2>
+        <p class="card-sub">${escapeHtml(dict.sosContactSub)}</p>
+        ${contact && contact.phone ? `
+          <div class="sos-contact">
+            <div>
+              <p class="sos-contact-name">${escapeHtml(contact.name || dict.sosContactPhone)}</p>
+              <p class="field-hint">${escapeHtml(contact.phone)}</p>
+            </div>
+            <a class="btn btn-ghost" href="${telHref(contact.phone)}">${escapeHtml(dict.sosCallContact)}</a>
+          </div>` : ""}
+        <form class="hospital-form" id="sos-contact-form">
+          <label class="sr-only" for="sos-name">${escapeHtml(dict.sosContactName)}</label>
+          <input class="input" id="sos-name" placeholder="${escapeHtml(dict.sosContactName)}" value="${escapeHtml(contact && contact.name ? contact.name : "")}" autocomplete="name">
+          <label class="sr-only" for="sos-phone">${escapeHtml(dict.sosContactPhone)}</label>
+          <input class="input" id="sos-phone" type="tel" inputmode="tel" placeholder="${escapeHtml(dict.sosContactPhone)}" value="${escapeHtml(contact && contact.phone ? contact.phone : "")}" autocomplete="tel">
+          <button class="btn btn-primary" type="submit">${escapeHtml(dict.sosContactSave)}</button>
+        </form>
+        <p class="field-hint">${escapeHtml(dict.sosContactNote)}</p>
+      </section>
+
+      <p class="hint-line">${escapeHtml(dict.sosHonest)}</p>
+    </section>
+  `;
+}
+
+function wireSos(dict) {
+  const sms = document.getElementById("sos-sms");
+  const wa = document.getElementById("sos-wa");
+  const note = document.getElementById("sos-loc-note");
+  const contact = readSosContact();
+  const baseText = dict.sosMessage;
+
+  const build = (suffix) => {
+    const text = suffix ? `${baseText} ${suffix}` : baseText;
+    const encoded = encodeURIComponent(text);
+    const target = contact && contact.phone ? String(contact.phone).replace(/[^\d+]/g, "") : "";
+    if (sms) sms.setAttribute("href", target ? `sms:${target}?body=${encoded}` : `sms:?body=${encoded}`);
+    if (wa) wa.setAttribute("href", `https://wa.me/?text=${encoded}`);
+  };
+
+  build("");
+  if (note) note.textContent = dict.sosLocHint;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const lat = position.coords.latitude.toFixed(5);
+        const lon = position.coords.longitude.toFixed(5);
+        build(`https://www.google.com/maps/search/?api=1&query=${lat},${lon}`);
+        if (note) note.textContent = dict.sosLocReady;
+      },
+      () => {
+        build("");
+        if (note) note.textContent = dict.sosLocFail;
+      },
+      { enableHighAccuracy: false, timeout: 20000, maximumAge: 120000 }
+    );
+  }
+
+  document.getElementById("sos-contact-form")?.addEventListener("submit", event => {
+    event.preventDefault();
+    const name = document.getElementById("sos-name");
+    const phone = document.getElementById("sos-phone");
+    try {
+      localStorage.setItem(SOS_CONTACT_KEY, JSON.stringify({
+        name: name ? name.value.trim() : "",
+        phone: phone ? phone.value.trim() : ""
+      }));
+    } catch (err) {
+      /* storage unavailable */
+    }
+    render();
+  });
+}
+
+function ambulanceHtml(dict, state) {
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(dict.ambEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.ambTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.ambLead)}</p>
+
+      <div class="call-grid">
+        <a class="call-card" href="tel:108">
+          <span class="call-num">108</span>
+          <span class="call-title">${escapeHtml(dict.amb108Title)}</span>
+          <span class="call-note">${escapeHtml(dict.amb108Body)}</span>
+        </a>
+        <a class="call-card" href="tel:102">
+          <span class="call-num">102</span>
+          <span class="call-title">${escapeHtml(dict.amb102Title)}</span>
+          <span class="call-note">${escapeHtml(dict.amb102Body)}</span>
+        </a>
+        <a class="call-card" href="tel:112">
+          <span class="call-num">112</span>
+          <span class="call-title">${escapeHtml(dict.amb112Title)}</span>
+          <span class="call-note">${escapeHtml(dict.amb112Body)}</span>
+        </a>
+      </div>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.ambPrivateTitle)}</h2>
+        <p class="body-copy">${escapeHtml(dict.ambPrivateBody)}</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="tel:+918882978888">Medulance · +91 88829 78888</a>
+        </div>
+      </section>
+
+      <p class="hint-line">${escapeHtml(dict.ambHonest)}</p>
+    </section>
+  `;
+}
+
+function airAmbulanceHtml(dict, state) {
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(dict.airEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.airTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.airLead)}</p>
+
+      <div class="notice notice-amber">${escapeHtml(dict.airWarn)}</div>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.airWhenTitle)}</h2>
+        <ul class="legend-list">
+          ${dict.airWhen.map(line => `<li>${escapeHtml(line)}</li>`).join("")}
+        </ul>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.airHowTitle)}</h2>
+        <ul class="legend-list">
+          ${dict.airHow.map(line => `<li>${escapeHtml(line)}</li>`).join("")}
+        </ul>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.airProvidersTitle)}</h2>
+        <ul class="provider-list">
+          ${AIR_PROVIDERS.map(p => `
+            <li class="provider">
+              <div>
+                <p class="provider-name">${escapeHtml(p.name)}</p>
+                <a class="provider-site" href="${p.site}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.site.replace("https://", "").replace(/\/$/, ""))}</a>
+              </div>
+              <a class="btn btn-ghost" href="${telHref(p.tel)}">${escapeHtml(p.display)}</a>
+            </li>`).join("")}
+        </ul>
+        <p class="field-hint">${escapeHtml(dict.airProviderNote)}</p>
+      </section>
+
+      <p class="hint-line">${escapeHtml(dict.airHonest)}</p>
+    </section>
+  `;
+}
+
+function adviceHtml(dict, state) {
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(dict.advEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.advTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.advLead)}</p>
+
+      <div class="notice notice-amber">${escapeHtml(dict.advNoDiagnosis)}</div>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.advEmergencyTitle)}</h2>
+        <ul class="legend-list">
+          ${dict.advEmergency.map(line => `<li>${escapeHtml(line)}</li>`).join("")}
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="tel:108">${escapeHtml(dict.advCall108)}</a>
+          <a class="btn btn-ghost" href="tel:112">${escapeHtml(dict.advCall112)}</a>
+        </div>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.advHelplinesTitle)}</h2>
+        <ul class="provider-list">
+          <li class="provider">
+            <div>
+              <p class="provider-name">${escapeHtml(dict.adv104Name)}</p>
+              <p class="field-hint">${escapeHtml(dict.adv104Body)}</p>
+            </div>
+            <a class="btn btn-ghost" href="tel:104">104</a>
+          </li>
+          <li class="provider">
+            <div>
+              <p class="provider-name">${escapeHtml(dict.advTeleManasName)}</p>
+              <p class="field-hint">${escapeHtml(dict.advTeleManasBody)}</p>
+            </div>
+            <a class="btn btn-ghost" href="tel:14416">14416</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.advWhenTitle)}</h2>
+        <ul class="legend-list">
+          ${dict.advWhen.map(line => `<li>${escapeHtml(line)}</li>`).join("")}
+        </ul>
+      </section>
+
+      <div class="cta-row">
+        <a class="btn btn-ghost" href="#/aid">${escapeHtml(dict.advFirstAid)}</a>
+        <a class="btn btn-ghost" href="#/medicines">${escapeHtml(dict.svcMeds)}</a>
+      </div>
+
+      <p class="hint-line">${escapeHtml(dict.advNote)}</p>
+    </section>
+  `;
+}
+
+function medicinesHtml(dict, state) {
+  const items = MEDICINES.map(m => m[state.locale] || m.en);
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(dict.medEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.medTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.medLead)}</p>
+
+      <div class="notice notice-amber">${escapeHtml(dict.medDisclaimer)}</div>
+
+      <ul class="med-list">
+        ${items.map(item => `
+          <li class="med">
+            <div class="med-head">
+              <p class="med-name">${escapeHtml(item.name)}</p>
+              <span class="med-tag ${item.rx ? "med-tag-rx" : "med-tag-otc"}">${escapeHtml(item.rx ? dict.medRx : dict.medOtc)}</span>
+            </div>
+            <p class="med-use">${escapeHtml(item.use)}</p>
+            <p class="med-caution">${escapeHtml(dict.medCaution)}: ${escapeHtml(item.caution)}</p>
+          </li>`).join("")}
+      </ul>
+
+      <p class="hint-line">${escapeHtml(dict.medAsk)}</p>
+    </section>
+  `;
+}
+
+function insuranceHtml(dict, state) {
+  const products = INSURANCE_PRODUCTS.map(p => p[state.locale] || p.en);
+  return `
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <span class="eyebrow">${escapeHtml(dict.insEyebrow)}</span>
+      <h1 class="card-title">${escapeHtml(dict.insTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.insLead)}</p>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.insProductsTitle)}</h2>
+        <ul class="ins-list">
+          ${products.map(([name, body]) => `
+            <li class="ins-item">
+              <p class="ins-name">${escapeHtml(name)}</p>
+              <p class="ins-body">${escapeHtml(body)}</p>
+            </li>`).join("")}
+        </ul>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.insBeforeTitle)}</h2>
+        <ul class="legend-list">
+          ${dict.insBefore.map(line => `<li>${escapeHtml(line)}</li>`).join("")}
+        </ul>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.insGovTitle)}</h2>
+        <ul class="provider-list">
+          ${GOVERNMENT_SCHEMES.map(s => `
+            <li class="provider">
+              <div>
+                <p class="provider-name">${escapeHtml(s.name)}</p>
+                <p class="field-hint">${escapeHtml(s.note)}</p>
+              </div>
+              <a class="btn btn-ghost" href="${s.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.insVisit)}</a>
+            </li>`).join("")}
+        </ul>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.insProvidersTitle)}</h2>
+        <ul class="provider-list">
+          ${INSURERS.map(i => `
+            <li class="provider">
+              <div>
+                <p class="provider-name">${escapeHtml(i.name)}</p>
+                <p class="field-hint">${escapeHtml(i.url.replace("https://", "").replace(/\/$/, ""))}</p>
+              </div>
+              <a class="btn btn-ghost" href="${i.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(dict.insVisit)}</a>
+            </li>`).join("")}
+        </ul>
+        <p class="field-hint">${escapeHtml(dict.insProviderNote)}</p>
+      </section>
+
+      <section class="ops-card">
+        <h2 class="group-title">${escapeHtml(dict.insGrievanceTitle)}</h2>
+        <p class="body-copy">${escapeHtml(dict.insGrievance)}</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="tel:155255">155255</a>
+          <a class="btn btn-ghost" href="https://igms.irda.gov.in/" target="_blank" rel="noopener noreferrer">IGMS</a>
+        </div>
+      </section>
+
+      <p class="hint-line">${escapeHtml(dict.insHonest)}</p>
+    </section>
+  `;
 }
 
 function aboutHtml(dict, state) {
@@ -4283,7 +5150,10 @@ function wireScreen(screen, dict, state) {
     );
   };
 
-  if (screen === "landing") wireHospitals(dict);
+  if (screen === "find") wireNearby("hospital", dict);
+  if (screen === "pharmacy") wireNearby("pharmacy", dict);
+  if (screen === "police") wireNearby("police", dict);
+  if (screen === "sos") wireSos(dict);
   if (screen === "directory") wireDirectory(dict, state);
   if (screen === "need") wireNeedHelp(dict, state);
   if (screen === "status") wireStatus(dict, state);
@@ -4524,7 +5394,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
   render();
 });
 
-const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "operations", "service-status", "terms", "sdg", "initiatives", "careers", "contact"];
+const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "operations", "service-status", "terms", "sdg", "initiatives", "careers", "contact", "find", "sos", "services", "ambulance", "air-ambulance", "pharmacy", "police", "advice", "medicines", "insurance"];
 
 function screenFromHash() {
   const name = String(location.hash || "").replace(/^#\/?/, "");

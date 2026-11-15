@@ -152,6 +152,29 @@
   </footer>
 
   <audio id="bg-music" src="assets/sarvseva-music.mp3" loop preload="none"></audio>
+  <nav class="tabbar" id="tabbar" aria-label="Main sections">
+    <a class="tab" href="#/landing" data-tab="landing" data-label-key="tabHome" aria-label="Home">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 11.2 12 4.4l8 6.8v7.5c0 .6-.5 1.1-1.1 1.1h-4.3v-5.2H9.4v5.2H5.1c-.6 0-1.1-.5-1.1-1.1z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+      <span class="tab-label">Home</span>
+    </a>
+    <a class="tab" href="#/find" data-tab="find" data-label-key="tabFind" aria-label="Find">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="11" cy="11" r="6.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15.9 15.9 20 20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+      <span class="tab-label">Find</span>
+    </a>
+    <a class="tab tab-sos" href="#/sos" data-tab="sos" data-label-key="tabSos" aria-label="SOS">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3.4 21 19.6H3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9.2v4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg></span>
+      <span class="tab-label">SOS</span>
+    </a>
+    <a class="tab" href="#/services" data-tab="services" data-label-key="tabServices" aria-label="Services">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span>
+      <span class="tab-label">Services</span>
+    </a>
+    <a class="tab" href="#/me" data-tab="me" data-label-key="tabProfile" aria-label="Profile">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="8.2" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.6 20c1-4.2 3.9-6 7.4-6s6.4 1.8 7.4 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      <span class="tab-label">Profile</span>
+    </a>
+  </nav>
+
   <div class="dock" role="group" aria-label="Display and sound">
     <button class="dock-btn" id="theme-btn" type="button" aria-pressed="false" title="Switch to light theme" aria-label="Switch to light theme">
       <span class="dock-icon" aria-hidden="true">

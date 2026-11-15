@@ -3718,3 +3718,320 @@ body.splash-open {
 [data-theme="light"] .hosp-item {
   background: #fffdf8;
 }
+
+/* ============================================================
+   Bottom tab bar and the tab pages
+   ============================================================ */
+
+body {
+  padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 95;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px));
+  background: rgba(4, 26, 33, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 56px;
+  padding: 6px 2px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border-radius: 12px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.tab:active {
+  background: rgba(255, 255, 255, 0.07);
+}
+.tab.is-active {
+  color: #fff;
+}
+.tab.is-active .tab-icon svg {
+  filter: drop-shadow(0 0 8px rgba(120, 220, 220, 0.45));
+}
+.tab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+.tab-label {
+  line-height: 1.1;
+}
+.tab-sos {
+  color: #ff8a80;
+}
+.tab-sos.is-active {
+  color: #ff5c4d;
+}
+
+.dock {
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+}
+
+[data-theme="light"] .tabbar {
+  background: rgba(255, 253, 248, 0.97);
+  border-top-color: rgba(9, 52, 62, 0.14);
+}
+[data-theme="light"] .tab {
+  color: rgba(9, 52, 62, 0.62);
+}
+[data-theme="light"] .tab.is-active {
+  color: #0b3a46;
+}
+[data-theme="light"] .tab-sos {
+  color: #b3261e;
+}
+
+/* SOS page */
+.sos-call {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 6px 0 4px;
+  padding: 22px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 92, 77, 0.55);
+  background: linear-gradient(160deg, rgba(179, 38, 30, 0.95), rgba(120, 22, 18, 0.95));
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 14px 34px rgba(120, 22, 18, 0.35);
+}
+.sos-call:active {
+  transform: translateY(1px);
+}
+.sos-num {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.sos-label {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.92;
+}
+.sos-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+.sos-contact-name {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+/* Services grid */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+.svc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  text-decoration: none;
+  color: inherit;
+  min-height: 116px;
+}
+.svc-card:active {
+  transform: translateY(1px);
+}
+.svc-icon {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(90, 220, 220, 0.14);
+  color: var(--brand-teal);
+}
+.svc-name {
+  font-size: 14.5px;
+  font-weight: 650;
+}
+.svc-blurb {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-faint);
+}
+
+/* Ambulance call cards */
+.call-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.call-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "num title" "num note";
+  column-gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  text-decoration: none;
+  color: inherit;
+}
+.call-num {
+  grid-area: num;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--brand-teal);
+}
+.call-title {
+  grid-area: title;
+  font-size: 14.5px;
+  font-weight: 650;
+}
+.call-note {
+  grid-area: note;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-faint);
+}
+
+/* Provider rows */
+.provider-list,
+.ins-list,
+.med-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.provider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+.provider-name {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 640;
+}
+.provider-site {
+  font-size: 12.5px;
+  color: var(--brand-teal);
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.provider .btn {
+  flex: 0 0 auto;
+  min-height: 44px;
+}
+
+/* Medicines */
+.med {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+.med-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.med-name {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 650;
+}
+.med-tag {
+  flex: 0 0 auto;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+.med-tag-otc {
+  background: rgba(80, 200, 150, 0.16);
+  color: #5fd6a6;
+  border: 1px solid rgba(80, 200, 150, 0.4);
+}
+.med-tag-rx {
+  background: rgba(255, 150, 90, 0.16);
+  color: #ffb27a;
+  border: 1px solid rgba(255, 150, 90, 0.42);
+}
+[data-theme="light"] .med-tag-otc {
+  color: #0f6b4a;
+}
+[data-theme="light"] .med-tag-rx {
+  color: #8a3d05;
+}
+.med-use {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+.med-caution {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-faint);
+}
+
+/* Insurance */
+.ins-item {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+.ins-name {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 650;
+}
+.ins-body {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
