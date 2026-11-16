@@ -65,7 +65,7 @@ A fixed bottom bar holds five tabs — the app is shaped like a phone app, not a
 | 📋 **Common medicines** | 12 medicines with what each is for, the main caution, and a clear **Prescription needed / No prescription** mark |
 | ☂️ **Insurance** | Eight product types explained, a pre-purchase checklist, government schemes, seven provider links, and the IRDAI grievance route |
 
-Everything else lives where it always did: a 10-entry verified directory (each number carries its source and the date it was last checked), 12 first-aid cases with a checked news-and-research list and seven first-aid videos, a colouring corner, the SDG pages, and the legal and operations pages.
+Everything else lives where it always did: a 10-entry verified directory (each number carries its source and the date it was last checked), 12 first-aid cases, an offline CPR count, a checked news-and-research list and seven first-aid videos, a colouring corner, the SDG pages, and the legal and operations pages.
 
 ---
 

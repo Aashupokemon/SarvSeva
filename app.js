@@ -512,6 +512,15 @@ const i18n = {
     watchOn: "Watch",
     tabResearch: "Research",
     tabVideos: "Videos",
+    cprTitle: "CPR mode",
+    cprSub: "Press start, put the phone down beside you, and push hard and fast in the middle of the chest. Let the chest come all the way back up between pushes.",
+    cprIdle: "30 compressions, then 2 breaths",
+    cprStart: "Start the count",
+    cprStop: "Stop",
+    cprBreaths: "2 breaths",
+    cprCycleLabel: "Cycle",
+    cprPerMinute: "110 per minute",
+    cprNote: "Counts out loud in your language. Keep going until the person breathes, moves, or someone trained takes over.",
     sketchTab: "Sketch",
     sketchTitle: "Sketch & colour",
     sketchSub: "Pick a drawing, choose a colour and fill the shapes. A quiet way to pass the time.",
@@ -1029,6 +1038,15 @@ const i18n = {
     watchOn: "देखें",
     tabResearch: "शोध",
     tabVideos: "वीडियो",
+    cprTitle: "सीपीआर मोड",
+    cprSub: "शुरू दबाएँ, फ़ोन पास रखें, और सीने के बीच में ज़ोर से तेज़ दबाएँ। हर दबाव के बीच सीना पूरा ऊपर आने दें।",
+    cprIdle: "30 दबाव, फिर 2 साँस",
+    cprStart: "गिनती शुरू करें",
+    cprStop: "रोकें",
+    cprBreaths: "2 साँस",
+    cprCycleLabel: "चक्र",
+    cprPerMinute: "110 प्रति मिनट",
+    cprNote: "आपकी भाषा में गिनती बोलकर। तब तक जारी रखें जब तक व्यक्ति साँस न ले, हिले नहीं, या कोई प्रशिक्षित व्यक्ति न आ जाये।",
     sketchTab: "स्केच",
     sketchTitle: "स्केच और रंग भरें",
     sketchSub: "एक चित्र चुनें, रंग चुनें और आकृतियाँ भरें। समय बिताने का एक शांत तरीका।",
@@ -3830,6 +3848,16 @@ function aidHtml(dict, state) {
       ${backLink(dict, state)}
       <h1 class="card-title">${dict.aidTitle}</h1>
       <p class="card-sub">${dict.aidSub}</p>
+      <section class="cpr-card" id="cpr-card" aria-labelledby="cpr-heading">
+        <h2 class="group-title" id="cpr-heading">${escapeHtml(dict.cprTitle)}</h2>
+        <p class="hint-line">${escapeHtml(dict.cprSub)}</p>
+        <div class="cpr-readout" role="status" aria-live="polite">
+          <span class="cpr-count" id="cpr-count">30:2</span>
+          <span class="cpr-meta" id="cpr-meta">${escapeHtml(dict.cprIdle)}</span>
+        </div>
+        <button type="button" class="btn btn-primary" id="cpr-toggle" aria-pressed="false">${escapeHtml(dict.cprStart)}</button>
+        <p class="hint-line">${escapeHtml(dict.cprNote)}</p>
+      </section>
       ${AID_GROUPS.map(g => {
         const items = AID_CASES.filter(c => c.group === g);
         if (!items.length) return "";
@@ -5117,6 +5145,8 @@ function initFilmVisibility() {
 }
 
 function wireScreen(screen, dict, state) {
+  if (screen !== "aid" && CPR.running) cprStop();
+
   const go = (to) => {
     if (to !== state.screen) state.prev = state.screen;
     state.screen = to;
@@ -5292,6 +5322,10 @@ function wireScreen(screen, dict, state) {
     }
   }
 
+  if (screen === "aid") {
+    wireCpr(dict, state);
+  }
+
   if (screen === "sketch") {
     document.querySelectorAll("[data-sketch]").forEach(card => {
       card.addEventListener("click", () => {
@@ -5387,6 +5421,21 @@ const FILM_CLIPS = [
   "assets/sarvseva-film-find.mp4",
   "assets/sarvseva-film-wait.mp4"
 ];
+
+/* CPR mode constants. Defined up here because the very first render may be
+   the first-aid page, and these are read while wiring it. */
+const CPR_BEAT_MS = 60000 / 110;
+const CPR_BREATH_HOLD_MS = 4200;
+const CPR = { running: false, timer: 0, ctx: null, beat: 0, cycle: 1 };
+
+const CPR_NUMBERS = {
+  en: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+       "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty",
+       "twenty-one", "twenty-two", "twenty-three", "twenty-four", "twenty-five", "twenty-six", "twenty-seven", "twenty-eight", "twenty-nine", "thirty"],
+  hi: ["एक", "दो", "तीन", "चार", "पाँच", "छह", "सात", "आठ", "नौ", "दस",
+       "ग्यारह", "बारह", "तेरह", "चौदह", "पंद्रह", "सोलह", "सत्रह", "अठारह", "उन्नीस", "बीस",
+       "इक्कीस", "बाईस", "तेईस", "चौबीस", "पच्चीस", "छब्बीस", "सत्ताईस", "अट्ठाईस", "उनतीस", "तीस"]
+};
 
 /* Reading list for the First aid tab. Curated, never fetched - each entry
    carries the month it was last checked. */
@@ -5549,3 +5598,154 @@ function initSplash() {
 
 initSplash();
 startRetryWatcher();
+
+/* ------------------------------------------------------------------
+   CPR mode
+
+   A 110 bpm metronome that counts 30 compressions and then two breaths,
+   out loud, in the language the app is set to. The beat comes from
+   WebAudio and the voice from the device's own speech engine, so nothing
+   here touches the network and it works with the phone in flight mode.
+   ------------------------------------------------------------------ */
+function cprNodes() {
+  return {
+    count: document.getElementById("cpr-count"),
+    meta: document.getElementById("cpr-meta"),
+    toggle: document.getElementById("cpr-toggle")
+  };
+}
+
+function cprBeep(kind) {
+  const ctx = CPR.ctx;
+  if (!ctx) return;
+  if (ctx.state === "suspended") {
+    const resumed = ctx.resume();
+    if (resumed && resumed.catch) resumed.catch(() => {});
+  }
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const now = ctx.currentTime;
+  const length = kind === "breath" ? 0.16 : 0.05;
+  osc.type = "sine";
+  osc.frequency.value = kind === "breath" ? 610 : 1000;
+  gain.gain.setValueAtTime(kind === "breath" ? 0.14 : 0.09, now);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + length);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + length + 0.02);
+}
+
+function cprSay(text, locale) {
+  if (!("speechSynthesis" in window) || !text) return;
+  try {
+    const utter = new SpeechSynthesisUtterance(String(text));
+    utter.lang = locale === "hi" ? "hi-IN" : "en-IN";
+    utter.rate = 1.45;
+    utter.volume = 1;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
+  } catch (err) {
+    /* speech is a bonus; the beat and the number still carry the count */
+  }
+}
+
+function cprStep() {
+  if (!CPR.running) return;
+  const { count, meta } = cprNodes();
+  if (!count || !meta) {
+    cprStop();
+    return;
+  }
+  const dict = i18n[state.locale];
+  const locale = state.locale === "hi" ? "hi" : "en";
+
+  if (CPR.beat >= 30) {
+    count.textContent = dict.cprBreaths;
+    count.classList.add("is-breath");
+    meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
+    cprBeep("breath");
+    cprSay(dict.cprBreaths, locale);
+    CPR.beat = 0;
+    CPR.cycle += 1;
+    CPR.timer = window.setTimeout(cprStep, CPR_BREATH_HOLD_MS);
+    return;
+  }
+
+  CPR.beat += 1;
+  count.textContent = String(CPR.beat);
+  count.classList.remove("is-breath");
+  meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
+  cprBeep("push");
+  const words = CPR_NUMBERS[locale] || CPR_NUMBERS.en;
+  cprSay(words[CPR.beat - 1], locale);
+  CPR.timer = window.setTimeout(cprStep, CPR_BEAT_MS);
+}
+
+function cprStart() {
+  if (!CPR.ctx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (Ctx) {
+      try {
+        CPR.ctx = new Ctx();
+      } catch (err) {
+        CPR.ctx = null;
+      }
+    }
+  }
+  CPR.running = true;
+  CPR.beat = 0;
+  CPR.cycle = 1;
+  const { toggle } = cprNodes();
+  if (toggle) {
+    toggle.textContent = i18n[state.locale].cprStop;
+    toggle.setAttribute("aria-pressed", "true");
+    toggle.classList.add("is-running");
+  }
+  cprStep();
+}
+
+function cprStop() {
+  CPR.running = false;
+  if (CPR.timer) window.clearTimeout(CPR.timer);
+  CPR.timer = 0;
+  CPR.beat = 0;
+  CPR.cycle = 1;
+  if ("speechSynthesis" in window) {
+    try {
+      speechSynthesis.cancel();
+    } catch (err) {
+      /* nothing to cancel */
+    }
+  }
+  cprReset();
+}
+
+function cprReset() {
+  const { count, meta, toggle } = cprNodes();
+  const dict = i18n[state.locale];
+  if (count) {
+    count.textContent = "30:2";
+    count.classList.remove("is-breath");
+  }
+  if (meta) meta.textContent = dict.cprIdle;
+  if (toggle) {
+    toggle.textContent = dict.cprStart;
+    toggle.setAttribute("aria-pressed", "false");
+    toggle.classList.remove("is-running");
+  }
+}
+
+function wireCpr(dict) {
+  const toggle = document.getElementById("cpr-toggle");
+  if (!toggle) return;
+  if (CPR.running) {
+    toggle.textContent = dict.cprStop;
+    toggle.setAttribute("aria-pressed", "true");
+    toggle.classList.add("is-running");
+  }
+  toggle.addEventListener("click", () => {
+    if (CPR.running) cprStop();
+    else cprStart();
+  });
+}
