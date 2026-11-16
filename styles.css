@@ -1483,15 +1483,6 @@ body {
 }
 
 /* ===== SDG ===== */
-.demo-banner {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--text-faint);
-  background: rgba(183, 156, 255, 0.1);
-  border: 1px solid rgba(183, 156, 255, 0.3);
-  border-radius: var(--radius-sm);
-  padding: 9px 11px;
-}
 .sdg-card {
   padding: 15px;
   border-radius: 14px;

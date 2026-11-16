@@ -141,7 +141,7 @@ npm run dev          # serve . -l 8888 -s -n -L
 
 Open <http://localhost:8888>. Any static file server works — paths are relative, so the app also runs from a subfolder.
 
-> The sign-in flow is a **demo**: the OTP is always `123456`. There is no account system yet.
+> The sign-in flow is a **preview**: the code is always `123456` and no SMS is sent. There is no account system yet.
 
 ---
 
