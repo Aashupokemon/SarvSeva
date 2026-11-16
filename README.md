@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/sarvseva-icon-192.png" width="112" height="112" alt="SarvSeva app icon">
+
 # SarvSeva
 
 ### Together, We Save Lives
@@ -194,7 +196,7 @@ Not built into the APK: any notion of a server. The app has none.
 | `styles.css` | Theme tokens, layout, tab bar, cards, medicine and insurance lists |
 | `sw.js` | Offline shell and cache versioning |
 | `manifest.json` | PWA manifest and icons |
-| `assets/` | Logo, icons, intro film, background music, licence |
+| `assets/` | App icon (`sarvseva-icon-192.png`, `-512`, maskable), logo, intro film, background music, licence |
 | `screenshots/` | The images in this README |
 | `coming-soon.html` | The original teaser page, kept for reference |
 | `docs/` | Build plan, engineering spec, backlog (local notes) |
