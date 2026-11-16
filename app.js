@@ -77,8 +77,6 @@ const i18n = {
     trustCopy3: "Starts with public sample data.",
     heroSub: "Support that follows through. Sign in with your mobile number to get started.",
     videoLabel: "SarvSeva · initiative film",
-    playVideo: "Play film",
-    pauseVideo: "Pause film",
     aboutEyebrow: "The initiative",
     aboutTitle: "A help network that follows through.",
     aboutLead: "SarvSeva is a community effort to put verified local help within reach of anyone with a phone number - no email, no app store, no forms.",
@@ -110,9 +108,6 @@ const i18n = {
     themeDark: "Switch to dark theme",
     themeLightShort: "Light",
     themeDarkShort: "Dark",
-    musicPlay: "Play music",
-    musicPause: "Pause music",
-    musicCredit: "Gymnopedie No. 1 - Erik Satie, performed by Teknopazzo (CC0 1.0)",
     aboutPageTitle: "About SarvSeva",
     aboutPageSub: "A community help network, built in the open.",
     aboutPageParas: [
@@ -509,6 +504,12 @@ const i18n = {
     callNow: "Call 112",
     dontLabel: "Don't:",
     aidNote: "General guidance, not medical advice. For anything life-threatening, call 112 first.",
+    aidNewsTitle: "News and research",
+    aidNewsSub: "Picked from sources worth trusting, each with the month it was last checked. A reading list, not a live feed.",
+    aidVideoTitle: "Watch and learn",
+    aidVideoSub: "Videos from recognised trainers and hospitals. They open on YouTube, so the app carries no player or trackers.",
+    newsChecked: "Checked",
+    watchOn: "Watch",
     sketchTab: "Sketch",
     sketchTitle: "Sketch & colour",
     sketchSub: "Pick a drawing, choose a colour and fill the shapes. A quiet way to pass the time.",
@@ -591,8 +592,6 @@ const i18n = {
     trustCopy3: "सार्वजनिक सैंपल डेटा से शुरुआत।",
     heroSub: "मदद जो पूरी होने तक साथ रहे। अपने मोबाइल नंबर से साइन इन करके शुरू करें।",
     videoLabel: "सर्वसेवा · पहल फ़िल्म",
-    playVideo: "फ़िल्म चलाएँ",
-    pauseVideo: "फ़िल्म रोकें",
     aboutEyebrow: "इस पहल के बारे में",
     aboutTitle: "मदद जो आख़िर तक साथ रहे।",
     aboutLead: "सर्वसेवा एक सामूहिक पहल है - जिसके पास सिर्फ़ एक फ़ोन नंबर है, उस तक भरोसेमंद स्थानीय मदद पहुँचाने के लिए। न ईमेल, न ऐप स्टोर, न फ़ॉर्म।",
@@ -624,9 +623,6 @@ const i18n = {
     themeDark: "डार्क थीम चुनें",
     themeLightShort: "लाइट",
     themeDarkShort: "डार्क",
-    musicPlay: "संगीत चलाएँ",
-    musicPause: "संगीत रोकें",
-    musicCredit: "जिम्नोपेडी नं. 1 - एरिक सैती, वादन टेक्नोपाज़ो (CC0 1.0)",
     aboutPageTitle: "सर्वसेवा के बारे में",
     aboutPageSub: "एक सामुदायिक मदद नेटवर्क, खुले तौर पर बनाया गया।",
     aboutPageParas: [
@@ -1023,6 +1019,12 @@ const i18n = {
     callNow: "112 पर कॉल",
     dontLabel: "न करें:",
     aidNote: "यह सामान्य मार्गदर्शन है, डॉक्टरी सलाह नहीं। जान का खतरा हो तो पहले 112 पर कॉल करें।",
+    aidNewsTitle: "समाचार और शोध",
+    aidNewsSub: "भरोसेमंद स्रोतों से चुनी बातें, हर एक पर जाँच का महीना लिखा है। यह पढ़ने की सूची है, लाइव फीड नहीं।",
+    aidVideoTitle: "देखें और सीखें",
+    aidVideoSub: "मान्यता प्राप्त प्रशिक्षकों और अस्पतालों के वीडियो। ये YouTube पर खुलते हैं, इसलिए ऐप में कोई प्लेयर या ट्रैकर नहीं है।",
+    newsChecked: "जाँच",
+    watchOn: "देखें",
     sketchTab: "स्केच",
     sketchTitle: "स्केच और रंग भरें",
     sketchSub: "एक चित्र चुनें, रंग चुनें और आकृतियाँ भरें। समय बिताने का एक शांत तरीका।",
@@ -2097,11 +2099,6 @@ function renderChrome(dict, state) {
       themeLabel.textContent = state.theme === "light" ? dict.themeDarkShort : dict.themeLightShort;
     }
   }
-  const audio = document.getElementById("bg-music");
-  const musicLabel = document.querySelector("#music-btn .music-label");
-  if (musicLabel) {
-    musicLabel.textContent = audio && !audio.paused ? dict.musicPause : dict.musicPlay;
-  }
 }
 
 function applyTheme(theme) {
@@ -2155,67 +2152,6 @@ function initChrome() {
     render();
   });
 
-  const audio = document.getElementById("bg-music");
-  const musicBtn = document.getElementById("music-btn");
-  if (audio && musicBtn) {
-    audio.volume = 0.22;
-    let musicPref = "on";
-    try {
-      const stored = localStorage.getItem("sarvseva-music");
-      if (stored === "on" || stored === "off") musicPref = stored;
-    } catch (err) {
-      /* storage unavailable */
-    }
-    const rememberMusic = () => {
-      try {
-        localStorage.setItem("sarvseva-music", audio.paused ? "off" : "on");
-      } catch (err) {
-        /* storage unavailable */
-      }
-    };
-    const sync = () => {
-      const playing = !audio.paused;
-      const dict = i18n[state.locale];
-      musicBtn.setAttribute("aria-pressed", String(playing));
-      musicBtn.setAttribute("title", dict.musicCredit);
-      const label = musicBtn.querySelector(".music-label");
-      if (label) label.textContent = playing ? dict.musicPause : dict.musicPlay;
-    };
-    musicBtn.addEventListener("click", async (e) => {
-      e.stopPropagation();
-      if (audio.paused) {
-        try {
-          await audio.play();
-        } catch (err) {
-          /* blocked until a gesture */
-        }
-      } else {
-        audio.pause();
-      }
-      rememberMusic();
-      sync();
-    });
-    audio.addEventListener("play", () => {
-      rememberMusic();
-      sync();
-    });
-    audio.addEventListener("pause", () => {
-      rememberMusic();
-      sync();
-    });
-    sync();
-    if (musicPref === "on") {
-      const attempt = audio.play();
-      if (attempt && attempt.catch) attempt.catch(() => sync());
-      document.addEventListener("pointerdown", function once() {
-        if (audio.paused) {
-          const retry = audio.play();
-          if (retry && retry.catch) retry.catch(() => {});
-        }
-        document.removeEventListener("pointerdown", once);
-      }, { once: true });
-    }
-  }
 }
 
 function buildScreen(screen, dict, state) {
@@ -2333,7 +2269,7 @@ function landingHtml(dict) {
 
     <section class="hero-shell reveal">
       <div class="video-card">
-        <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="metadata">
+        <video class="hero-video" id="hero-video" muted playsinline preload="metadata">
           <source src="assets/sarvseva-intro.mp4" type="video/mp4">
         </video>
         <div class="video-shade" aria-hidden="true"></div>
@@ -2342,10 +2278,6 @@ function landingHtml(dict) {
           <h1 class="hero-title">${escapeHtml(dict.tagline)}</h1>
           <p class="hero-sub">${dict.heroSub}</p>
         </div>
-        <button type="button" class="video-toggle" id="video-toggle" aria-pressed="true">
-          <span class="video-toggle-icon" aria-hidden="true"></span>
-          <span class="video-toggle-label">${dict.pauseVideo}</span>
-        </button>
       </div>
     </section>
 
@@ -3771,7 +3703,6 @@ function aboutHtml(dict, state) {
           <a class="btn btn-ghost" href="#" data-go="service-status">${dict.opsStatusLink}</a>
         </div>
       </section>
-      <p class="hint-line">${dict.musicCredit}</p>
     </section>
   `;
 }
@@ -3901,6 +3832,8 @@ function aidHtml(dict, state) {
           </div>
         `;
       }).join("")}
+      ${aidResearchHtml(dict, state)}
+      ${aidVideosHtml(dict, state)}
       <p class="hint-line">${dict.aidNote}</p>
       <a class="text-link" href="#/emergency">${dict.emergencyTab}</a>
     </section>
@@ -3924,6 +3857,42 @@ function aidCase(dict, state, c) {
         ${dont ? `<p class="aid-dont"><strong>${dict.dontLabel}</strong> ${escapeHtml(dont)}</p>` : ""}
       </div>
     </details>
+  `;
+}
+
+function aidResearchHtml(dict, state) {
+  return `
+    <div class="aid-group">
+      <h2 class="group-title">${escapeHtml(dict.aidNewsTitle)}</h2>
+      <p class="hint-line">${escapeHtml(dict.aidNewsSub)}</p>
+      <ul class="news-list">
+        ${AID_RESEARCH.map(item => `
+          <li class="news-item">
+            <span class="news-meta">${escapeHtml(item.source)} &middot; ${escapeHtml(dict.newsChecked)} ${escapeHtml(item.date)}</span>
+            <a class="news-title" href="${item.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(state.locale === "hi" ? item.titleHi : item.titleEn)}</a>
+            <p class="news-note">${escapeHtml(state.locale === "hi" ? item.noteHi : item.noteEn)}</p>
+          </li>`).join("")}
+      </ul>
+    </div>
+  `;
+}
+
+function aidVideosHtml(dict, state) {
+  return `
+    <div class="aid-group">
+      <h2 class="group-title">${escapeHtml(dict.aidVideoTitle)}</h2>
+      <p class="hint-line">${escapeHtml(dict.aidVideoSub)}</p>
+      <div class="learn-grid">
+        ${AID_VIDEOS.map(v => `
+          <a class="learn-card" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener noreferrer">
+            <img class="learn-thumb" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" width="96" height="54" loading="lazy" onerror="this.style.display='none'">
+            <span class="learn-body">
+              <span class="learn-title">${escapeHtml(state.locale === "hi" ? v.titleHi : v.titleEn)}</span>
+              <span class="learn-meta">${escapeHtml(v.channel)} &middot; ${escapeHtml(dict.watchOn)}</span>
+            </span>
+          </a>`).join("")}
+      </div>
+    </div>
   `;
 }
 
@@ -5272,39 +5241,29 @@ function wireScreen(screen, dict, state) {
 
   if (screen === "landing") {
     const video = document.getElementById("hero-video");
-    const toggle = document.getElementById("video-toggle");
-    if (video && toggle) {
-      const label = toggle.querySelector(".video-toggle-label");
-      const sync = () => {
-        const playing = !video.paused;
-        toggle.setAttribute("aria-pressed", String(playing));
-        toggle.classList.toggle("is-paused", !playing);
-        if (label) label.textContent = playing ? dict.pauseVideo : dict.playVideo;
+    if (video) {
+      const source = video.querySelector("source");
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let index = 0;
+      const start = () => {
+        const attempt = video.play();
+        if (attempt && attempt.catch) attempt.catch(() => {});
       };
-      toggle.addEventListener("click", () => {
-        if (video.paused) {
-          const again = video.play();
-          if (again && again.catch) again.catch(() => {});
-        } else {
-          video.pause();
-        }
-        sync();
-      });
-      video.addEventListener("play", sync);
-      video.addEventListener("pause", sync);
+      const show = (next) => {
+        index = next % FILM_CLIPS.length;
+        if (source) source.src = FILM_CLIPS[index];
+        video.load();
+        start();
+      };
+      video.addEventListener("ended", () => show(index + 1));
       video.addEventListener("loadeddata", () => {
-        const again = video.play();
-        if (again && again.catch) again.catch(() => {});
+        if (!reduce) start();
       });
       document.addEventListener("visibilitychange", () => {
-        if (!document.hidden && video.paused) {
-          const again = video.play();
-          if (again && again.catch) again.catch(() => {});
-        }
+        if (document.hidden) video.pause();
+        else start();
       });
-      const attempt = video.play();
-      if (attempt && attempt.catch) attempt.catch(() => {});
-      sync();
+      if (!reduce) start();
     }
   }
 
@@ -5395,6 +5354,75 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
 });
 
 const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "operations", "service-status", "terms", "sdg", "initiatives", "careers", "contact", "find", "sos", "services", "ambulance", "air-ambulance", "pharmacy", "police", "advice", "medicines", "insurance"];
+
+/* The landing film: four clips, played one after another. */
+const FILM_CLIPS = [
+  "assets/sarvseva-intro.mp4",
+  "assets/sarvseva-film-call.mp4",
+  "assets/sarvseva-film-find.mp4",
+  "assets/sarvseva-film-wait.mp4"
+];
+
+/* Reading list for the First aid tab. Curated, never fetched - each entry
+   carries the month it was last checked. */
+const AID_RESEARCH = [
+  {
+    date: "Nov 2026",
+    source: "Indian Red Cross Society",
+    titleEn: "Indian First Aid Manual, 7th edition",
+    titleHi: "भारतीय प्राथमिक चिकित्सा नियमावली, 7वाँ संस्करण",
+    noteEn: "The reference the country's Red Cross trainers teach from. The steps in this tab follow its order.",
+    noteHi: "देश के रेड क्रॉस प्रशिक्षक इसी नियमावली से पढ़ाते हैं। इस टैब के चरण उसी क्रम में हैं।",
+    url: "https://www.indianredcross.org/ircs/program/firstaid"
+  },
+  {
+    date: "Nov 2026",
+    source: "World Health Organization",
+    titleEn: "Emergency care",
+    titleHi: "आपातकालीन देखभाल",
+    noteEn: "Bystander first aid and a working ambulance number decide survival more often than hospital care does.",
+    noteHi: "आस-पास का प्राथमिक उपचार और चलने वाला एम्बुलेंस नंबर, अस्पताल के इलाज से ज़्यादा बार जान बचाते हैं।",
+    url: "https://www.who.int/health-topics/emergency-care"
+  },
+  {
+    date: "Nov 2026",
+    source: "World Health Organization",
+    titleEn: "Road traffic injuries",
+    titleHi: "सड़क दुर्घटना की चोटें",
+    noteEn: "India carries a large share of the world's road deaths. Helmets and stopping bleeding fast are the two things this tab can change.",
+    noteHi: "दुनिया की सड़क मौतों में भारत का बड़ा हिस्सा है। हेलमेट और तुरंत खून रोकना - यह टैब इन्हीं दो पर काम करता है।",
+    url: "https://www.who.int/news-room/fact-sheets/detail/road-traffic-injuries"
+  },
+  {
+    date: "Nov 2026",
+    source: "Ministry of Health and Family Welfare",
+    titleEn: "Health advisories",
+    titleHi: "स्वास्थ्य सलाह",
+    noteEn: "Outbreak, heatwave and monsoon advisories are published here first. Worth checking before trusting a forwarded message.",
+    noteHi: "बीमारी, लू और मानसून की सलाह पहले यहीं छपती है। फ़ॉरवर्ड किए संदेश पर भरोसा करने से पहले देख लें।",
+    url: "https://www.mohfw.gov.in/"
+  },
+  {
+    date: "Nov 2026",
+    source: "ICMR",
+    titleEn: "Standard treatment guidelines",
+    titleHi: "मानक उपचार दिशानिर्देश",
+    noteEn: "Includes the national snakebite management guidance, which is where the bite advice in this tab comes from.",
+    noteHi: "इसमें सांप के काटने पर राष्ट्रीय दिशानिर्देश हैं, जिनसे इस टैब के निर्देश लिए गए हैं।",
+    url: "https://www.icmr.gov.in/"
+  }
+];
+
+/* Videos open on YouTube, so the app ships no player of its own. */
+const AID_VIDEOS = [
+  { id: "fwoz2ETqRWc", channel: "Varsha Nursing Academy", titleEn: "CPR, step by step (Hindi)", titleHi: "सीपीआर: चरण-दर-चरण (हिंदी)" },
+  { id: "S7Es7volhYY", channel: "Merquri Medica", titleEn: "CPR and AED (Hindi)", titleHi: "सीपीआर और एईडी (हिंदी)" },
+  { id: "ezwuwZtmZ-k", channel: "Indian Resuscitation Council", titleEn: "BCLS: India's CPR guidelines", titleHi: "बीसीएलएस: भारत के सीपीआर दिशानिर्देश" },
+  { id: "8R3RWC-xx1I", channel: "American Red Cross", titleEn: "Adult choking: back blows and thrusts", titleHi: "घुटन: पीठ पर थपकी और पेट दबाव" },
+  { id: "YJB3fI3T1oo", channel: "American Red Cross", titleEn: "Severe bleeding: direct pressure", titleHi: "तेज़ खून बहना: सीधा दबाव" },
+  { id: "IOtnGl_9-qw", channel: "British Red Cross", titleEn: "Burns and scalds: cool for 20 minutes", titleHi: "जलना: 20 मिनट ठंडा पानी" },
+  { id: "JBKf4ZgrlXg", channel: "Manipal Hospitals", titleEn: "Snakebite: what to do, what to avoid", titleHi: "सांप का काटना: क्या करें, क्या न करें" }
+];
 
 function screenFromHash() {
   const name = String(location.hash || "").replace(/^#\/?/, "");

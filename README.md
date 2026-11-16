@@ -47,7 +47,7 @@ A fixed bottom bar holds five tabs — the app is shaped like a phone app, not a
 
 | Tab | What it opens |
 | --- | --- |
-| 🏠 **Home** | Emergency strip (112), "I need help" / "I can help", the intro film, the initiative story |
+| 🏠 **Home** | Emergency strip (112), "I need help" / "I can help", a film that plays four clips one after another, the initiative story |
 | 🔍 **Find** | Nearest **hospitals** from your location or any area you type, closest first, with directions |
 | ⚠️ **SOS** | One-tap **112**, SMS / WhatsApp sharing of your live location, and an emergency contact saved on the phone |
 | ▦ **Services** | Seven services, each on its own page |
@@ -65,7 +65,7 @@ A fixed bottom bar holds five tabs — the app is shaped like a phone app, not a
 | 📋 **Common medicines** | 12 medicines with what each is for, the main caution, and a clear **Prescription needed / No prescription** mark |
 | ☂️ **Insurance** | Eight product types explained, a pre-purchase checklist, government schemes, seven provider links, and the IRDAI grievance route |
 
-Everything else lives where it always did: a 10-entry verified directory (each number carries its source and the date it was last checked), 12 first-aid cases, a colouring corner, the SDG pages, and the legal and operations pages.
+Everything else lives where it always did: a 10-entry verified directory (each number carries its source and the date it was last checked), 12 first-aid cases with a checked news-and-research list and seven first-aid videos, a colouring corner, the SDG pages, and the legal and operations pages.
 
 ---
 
@@ -113,7 +113,6 @@ manifest.json · installable PWA
 | [Nominatim](https://nominatim.openstreetmap.org/) (OpenStreetMap) | Turning a typed area like "Dwarka, Delhi" into coordinates | One request per search, well inside the usage policy |
 | OpenStreetMap | Every place name, distance and map link | © OpenStreetMap contributors, ODbL |
 | State helplines | 112, 108, 102, 100, 104, 14416, 155255 | Each directory entry records its source and check date |
-| Music | Satie's *Gymnopédie No. 1*, performed by Teknopazzo | CC0 — see `assets/sarvseva-music-LICENSE.txt` |
 
 Coordinates are rounded to three decimals (about 100 m) before they leave the phone, and the app keeps nothing: there is no analytics, no cookie, no tracker anywhere in this repository.
 
@@ -123,7 +122,7 @@ Coordinates are rounded to three decimals (about 100 m) before they leave the ph
 <summary><b>Languages, theme and accessibility</b></summary>
 
 - The **हिंदी / English** toggle in the floating display row re-renders every screen, including the tab labels, the nearby-search results and the medical copy.
-- Light and dark themes persist in `localStorage` (`sarvseva-theme`). Music preference does too (`sarvseva-music`).
+- Light and dark themes persist in `localStorage` (`sarvseva-theme`).
 - Tap targets are at least 44 px, labels are real labels, and the bottom bar carries `aria-current` on the active tab.
 - Every page is reachable by URL (`#/insurance`, `#/medicines`, `#/find` …) so a helper can send someone a direct link.
 - The splash respects `prefers-reduced-motion`.
@@ -196,7 +195,7 @@ Not built into the APK: any notion of a server. The app has none.
 | `styles.css` | Theme tokens, layout, tab bar, cards, medicine and insurance lists |
 | `sw.js` | Offline shell and cache versioning |
 | `manifest.json` | PWA manifest and icons |
-| `assets/` | App icon (`sarvseva-icon-192.png`, `-512`, maskable), logo, intro film, background music, licence |
+| `assets/` | App icon (`sarvseva-icon-192.png`, `-512`, maskable), logo, and the four film clips (`sarvseva-intro.mp4`, `sarvseva-film-call.mp4`, `sarvseva-film-find.mp4`, `sarvseva-film-wait.mp4`) |
 | `screenshots/` | The images in this README |
 | `coming-soon.html` | The original teaser page, kept for reference |
 | `docs/` | Build plan, engineering spec, backlog (local notes) |
