@@ -3893,7 +3893,7 @@ function videosHtml(dict, state) {
       <div class="learn-grid">
         ${AID_VIDEOS.map(v => `
           <a class="learn-card" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener noreferrer">
-            <img class="learn-thumb" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" width="96" height="54" loading="lazy" onerror="this.style.display='none'">
+            <img class="learn-thumb" src="${v.poster}" alt="" width="96" height="54" loading="lazy" onerror="this.style.display='none'">
             <span class="learn-body">
               <span class="learn-title">${escapeHtml(state.locale === "hi" ? v.titleHi : v.titleEn)}</span>
               <span class="learn-meta">${escapeHtml(v.channel)} &middot; ${escapeHtml(dict.watchOn)}</span>
@@ -5440,13 +5440,13 @@ const AID_RESEARCH = [
 
 /* Videos open on YouTube, so the app ships no player of its own. */
 const AID_VIDEOS = [
-  { id: "fwoz2ETqRWc", channel: "Varsha Nursing Academy", titleEn: "CPR, step by step (Hindi)", titleHi: "सीपीआर: चरण-दर-चरण (हिंदी)" },
-  { id: "S7Es7volhYY", channel: "Merquri Medica", titleEn: "CPR and AED (Hindi)", titleHi: "सीपीआर और एईडी (हिंदी)" },
-  { id: "ezwuwZtmZ-k", channel: "Indian Resuscitation Council", titleEn: "BCLS: India's CPR guidelines", titleHi: "बीसीएलएस: भारत के सीपीआर दिशानिर्देश" },
-  { id: "8R3RWC-xx1I", channel: "American Red Cross", titleEn: "Adult choking: back blows and thrusts", titleHi: "घुटन: पीठ पर थपकी और पेट दबाव" },
-  { id: "YJB3fI3T1oo", channel: "American Red Cross", titleEn: "Severe bleeding: direct pressure", titleHi: "तेज़ खून बहना: सीधा दबाव" },
-  { id: "IOtnGl_9-qw", channel: "British Red Cross", titleEn: "Burns and scalds: cool for 20 minutes", titleHi: "जलना: 20 मिनट ठंडा पानी" },
-  { id: "JBKf4ZgrlXg", channel: "Manipal Hospitals", titleEn: "Snakebite: what to do, what to avoid", titleHi: "सांप का काटना: क्या करें, क्या न करें" }
+  { id: "fwoz2ETqRWc", poster: "assets/yt-cpr-hindi.jpg", channel: "Varsha Nursing Academy", titleEn: "CPR, step by step (Hindi)", titleHi: "सीपीआर: चरण-दर-चरण (हिंदी)" },
+  { id: "S7Es7volhYY", poster: "assets/yt-cpr-aed.jpg", channel: "Merquri Medica", titleEn: "CPR and AED (Hindi)", titleHi: "सीपीआर और एईडी (हिंदी)" },
+  { id: "ezwuwZtmZ-k", poster: "assets/yt-bcls.jpg", channel: "Indian Resuscitation Council", titleEn: "BCLS: India's CPR guidelines", titleHi: "बीसीएलएस: भारत के सीपीआर दिशानिर्देश" },
+  { id: "8R3RWC-xx1I", poster: "assets/yt-choking.jpg", channel: "American Red Cross", titleEn: "Adult choking: back blows and thrusts", titleHi: "घुटन: पीठ पर थपकी और पेट दबाव" },
+  { id: "YJB3fI3T1oo", poster: "assets/yt-bleeding.jpg", channel: "American Red Cross", titleEn: "Severe bleeding: direct pressure", titleHi: "तेज़ खून बहना: सीधा दबाव" },
+  { id: "IOtnGl_9-qw", poster: "assets/yt-burns.jpg", channel: "British Red Cross", titleEn: "Burns and scalds: cool for 20 minutes", titleHi: "जलना: 20 मिनट ठंडा पानी" },
+  { id: "JBKf4ZgrlXg", poster: "assets/yt-snakebite.jpg", channel: "Manipal Hospitals", titleEn: "Snakebite: what to do, what to avoid", titleHi: "सांप का काटना: क्या करें, क्या न करें" }
 ];
 
 function screenFromHash() {
