@@ -5328,7 +5328,7 @@ function wireScreen(screen, dict, state) {
   }
 
   if (screen === "aid") {
-    wireCpr(dict, state);
+    wireCpr();
   }
 
   if (screen === "sketch") {
@@ -5431,7 +5431,7 @@ const FILM_CLIPS = [
    the first-aid page, and these are read while wiring it. */
 const CPR_BEAT_MS = 60000 / 110;
 const CPR_BREATH_HOLD_MS = 4200;
-const CPR = { running: false, timer: 0, ctx: null, beat: 0, cycle: 1 };
+const CPR = { running: false, timer: 0, ctx: null, beat: 0, cycle: 1, phase: "push" };
 
 const CPR_NUMBERS = {
   en: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
@@ -5612,41 +5612,60 @@ startRetryWatcher();
    WebAudio and the voice from the device's own speech engine, so nothing
    here touches the network and it works with the phone in flight mode.
    ------------------------------------------------------------------ */
-function cprNodes() {
-  return {
-    count: document.getElementById("cpr-count"),
-    meta: document.getElementById("cpr-meta"),
-    toggle: document.getElementById("cpr-toggle")
-  };
+function cprView() {
+  const count = document.getElementById("cpr-count");
+  const meta = document.getElementById("cpr-meta");
+  const toggle = document.getElementById("cpr-toggle");
+  if (!count || !meta || !toggle) return null;
+  return { count, meta, toggle };
+}
+
+/* One place paints the button and the readout, so they can never disagree
+   about whether the count is running - after a stop, a re-render or a language
+   switch. */
+function cprPaint() {
+  const view = cprView();
+  if (!view) return null;
+  const dict = i18n[state.locale];
+  view.toggle.textContent = CPR.running ? dict.cprStop : dict.cprStart;
+  view.toggle.setAttribute("aria-pressed", String(CPR.running));
+  view.toggle.classList.toggle("is-running", CPR.running);
+  if (!CPR.running) {
+    view.count.textContent = "30:2";
+    view.count.classList.remove("is-breath");
+    view.meta.textContent = dict.cprIdle;
+    return view;
+  }
+  /* Mid-run (a language switch, a theme switch) the readout has to come back
+     to where the count actually is, not to the idle 30:2. */
+  const breath = CPR.phase === "breath";
+  view.count.textContent = breath ? dict.cprBreaths : String(Math.max(1, CPR.beat));
+  view.count.classList.toggle("is-breath", breath);
+  view.meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
+  return view;
 }
 
 /* The readout changes twice a second, so it is not a live region - that would
-   read every number over the beat. Only the start, the stop and the breath
-   cue are announced, through this hidden status line. */
+   read every number over the beat. Only the start, the stop and the breath cue
+   come through here. A trailing zero-width space makes a repeated cue (every
+   cycle says "2 breaths") count as new text, without a timer. */
+let cprAnnounceFlip = 0;
 function cprAnnounce(text) {
-  const el = document.getElementById("cpr-announce");
-  if (!el || !text) return;
-  el.textContent = "";
-  window.setTimeout(() => {
-    const again = document.getElementById("cpr-announce");
-    if (again) again.textContent = text;
-  }, 60);
+  const live = document.getElementById("cpr-announce");
+  if (!live || !text) return;
+  cprAnnounceFlip ^= 1;
+  live.textContent = cprAnnounceFlip ? text : text + "\u200B";
 }
 
-function cprBeep(kind) {
+function cprBeep(isBreath) {
   const ctx = CPR.ctx;
   if (!ctx) return;
-  if (ctx.state === "suspended") {
-    const resumed = ctx.resume();
-    if (resumed && resumed.catch) resumed.catch(() => {});
-  }
+  const length = isBreath ? 0.16 : 0.05;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
   const now = ctx.currentTime;
-  const length = kind === "breath" ? 0.16 : 0.05;
-  osc.type = "sine";
-  osc.frequency.value = kind === "breath" ? 610 : 1000;
-  gain.gain.setValueAtTime(kind === "breath" ? 0.14 : 0.09, now);
+  osc.frequency.value = isBreath ? 610 : 1000;
+  gain.gain.setValueAtTime(isBreath ? 0.14 : 0.09, now);
   gain.gain.exponentialRampToValueAtTime(0.0001, now + length);
   osc.connect(gain);
   gain.connect(ctx.destination);
@@ -5660,7 +5679,6 @@ function cprSay(text, locale) {
     const utter = new SpeechSynthesisUtterance(String(text));
     utter.lang = locale === "hi" ? "hi-IN" : "en-IN";
     utter.rate = 1.45;
-    utter.volume = 1;
     speechSynthesis.cancel();
     speechSynthesis.speak(utter);
   } catch (err) {
@@ -5668,37 +5686,40 @@ function cprSay(text, locale) {
   }
 }
 
+/* Numbers are spoken; events (start, stop, breath) go to the live region.
+   Keeping the two channels apart is what stops a screen reader reading the
+   count twice a second. */
 function cprStep() {
   if (!CPR.running) return;
-  const { count, meta } = cprNodes();
-  if (!count || !meta) {
+  const view = cprView();
+  if (!view) {
     cprStop();
     return;
   }
   const dict = i18n[state.locale];
   const locale = state.locale === "hi" ? "hi" : "en";
+  const isBreath = CPR.beat >= 30;
+  const meta = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
 
-  if (CPR.beat >= 30) {
-    count.textContent = dict.cprBreaths;
-    count.classList.add("is-breath");
-    meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
-    cprBeep("breath");
-    cprSay(dict.cprBreaths, locale);
-    cprAnnounce(dict.cprBreaths);
+  if (isBreath) {
     CPR.beat = 0;
     CPR.cycle += 1;
-    CPR.timer = window.setTimeout(cprStep, CPR_BREATH_HOLD_MS);
-    return;
+    CPR.phase = "breath";
+    view.count.textContent = dict.cprBreaths;
+    view.count.classList.add("is-breath");
+    cprBeep(true);
+    cprAnnounce(dict.cprBreaths);
+  } else {
+    CPR.beat += 1;
+    CPR.phase = "push";
+    view.count.textContent = String(CPR.beat);
+    view.count.classList.remove("is-breath");
+    cprBeep(false);
+    cprSay(CPR_NUMBERS[locale][CPR.beat - 1], locale);
   }
 
-  CPR.beat += 1;
-  count.textContent = String(CPR.beat);
-  count.classList.remove("is-breath");
-  meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
-  cprBeep("push");
-  const words = CPR_NUMBERS[locale] || CPR_NUMBERS.en;
-  cprSay(words[CPR.beat - 1], locale);
-  CPR.timer = window.setTimeout(cprStep, CPR_BEAT_MS);
+  view.meta.textContent = meta;
+  CPR.timer = window.setTimeout(cprStep, isBreath ? CPR_BREATH_HOLD_MS : CPR_BEAT_MS);
 }
 
 function cprStart() {
@@ -5712,25 +5733,26 @@ function cprStart() {
       }
     }
   }
+  if (CPR.ctx && CPR.ctx.state === "suspended") {
+    const resumed = CPR.ctx.resume();
+    if (resumed && resumed.catch) resumed.catch(() => {});
+  }
   CPR.running = true;
   CPR.beat = 0;
   CPR.cycle = 1;
-  const { toggle } = cprNodes();
-  if (toggle) {
-    toggle.textContent = i18n[state.locale].cprStop;
-    toggle.setAttribute("aria-pressed", "true");
-    toggle.classList.add("is-running");
-  }
+  CPR.phase = "push";
+  cprPaint();
   cprAnnounce(i18n[state.locale].cprStarted);
   cprStep();
 }
 
-function cprStop(announce) {
+function cprStop() {
   CPR.running = false;
-  if (CPR.timer) window.clearTimeout(CPR.timer);
+  window.clearTimeout(CPR.timer);
   CPR.timer = 0;
   CPR.beat = 0;
   CPR.cycle = 1;
+  CPR.phase = "push";
   if ("speechSynthesis" in window) {
     try {
       speechSynthesis.cancel();
@@ -5738,35 +5760,19 @@ function cprStop(announce) {
       /* nothing to cancel */
     }
   }
-  cprReset();
-  if (announce) cprAnnounce(i18n[state.locale].cprStopped);
+  cprPaint();
 }
 
-function cprReset() {
-  const { count, meta, toggle } = cprNodes();
-  const dict = i18n[state.locale];
-  if (count) {
-    count.textContent = "30:2";
-    count.classList.remove("is-breath");
-  }
-  if (meta) meta.textContent = dict.cprIdle;
-  if (toggle) {
-    toggle.textContent = dict.cprStart;
-    toggle.setAttribute("aria-pressed", "false");
-    toggle.classList.remove("is-running");
-  }
-}
-
-function wireCpr(dict) {
+function wireCpr() {
   const toggle = document.getElementById("cpr-toggle");
   if (!toggle) return;
-  if (CPR.running) {
-    toggle.textContent = dict.cprStop;
-    toggle.setAttribute("aria-pressed", "true");
-    toggle.classList.add("is-running");
-  }
+  if (CPR.running) cprPaint();
   toggle.addEventListener("click", () => {
-    if (CPR.running) cprStop(true);
-    else cprStart();
+    if (CPR.running) {
+      cprStop();
+      cprAnnounce(i18n[state.locale].cprStopped);
+    } else {
+      cprStart();
+    }
   });
 }
