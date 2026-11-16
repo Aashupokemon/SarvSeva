@@ -195,7 +195,7 @@ Not built into the APK: any notion of a server. The app has none.
 | `styles.css` | Theme tokens, layout, tab bar, cards, medicine and insurance lists |
 | `sw.js` | Offline shell and cache versioning |
 | `manifest.json` | PWA manifest and icons |
-| `assets/` | App icon (`sarvseva-icon-192.png`, `-512`, maskable), logo, and the four film clips (`sarvseva-intro.mp4`, `sarvseva-film-call.mp4`, `sarvseva-film-find.mp4`, `sarvseva-film-wait.mp4`) |
+| `assets/` | App icon (`sarvseva-icon-192.png`, `-512`, maskable), logo, the four film clips (`sarvseva-intro.mp4`, `sarvseva-film-call.mp4`, `sarvseva-film-find.mp4`, `sarvseva-film-wait.mp4`), and the seven video posters (`yt-*.jpg`) |
 | `screenshots/` | The images in this README |
 | `coming-soon.html` | The original teaser page, kept for reference |
 | `docs/` | Build plan, engineering spec, backlog (local notes) |

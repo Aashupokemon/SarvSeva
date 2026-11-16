@@ -2,7 +2,7 @@
    Caches the app shell and interface assets only. Audio and video are left
    to the network so their byte-range requests keep working. */
 
-const CACHE = "sarvseva-shell-v3";
+const CACHE = "sarvseva-shell-v4";
 
 const SHELL = [
   "./",
@@ -17,6 +17,13 @@ const SHELL = [
   "assets/sarvseva-icon-maskable-512.png",
   "assets/sarvseva-apple-touch-180.png",
   "assets/sarvseva-favicon-32.png",
+  "assets/yt-cpr-hindi.jpg",
+  "assets/yt-cpr-aed.jpg",
+  "assets/yt-bcls.jpg",
+  "assets/yt-choking.jpg",
+  "assets/yt-bleeding.jpg",
+  "assets/yt-burns.jpg",
+  "assets/yt-snakebite.jpg",
   "assets/fonts/inter-400.woff2",
   "assets/fonts/inter-600.woff2",
   "assets/fonts/plus-jakarta-sans-700.woff2",
