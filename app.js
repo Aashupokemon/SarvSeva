@@ -23,7 +23,7 @@ const i18n = {
     otpTitle: "Check your phone",
     otpSubtitle: "We sent a 6-digit code to your number.",
     otpHint: "Code expires in a few minutes.",
-    demoHint: "Demo build - the code is 123456.",
+    codeHint: "The code is 123456 and no SMS is sent.",
     nextLabel: "I have the code",
     createAccount: "Create account",
     resendLabel: "Resend code",
@@ -43,7 +43,7 @@ const i18n = {
     resourcesSubtitle: "Basic, public information to get started. Verified local data comes later.",
     categoriesLabel: "What kind of help are you looking for?",
     disclaimer: "SarvSeva is not an emergency service. If someone is in immediate danger, call local emergency services (for example 112).",
-    footerNote: "SarvSeva app • demo build",
+    footerNote: "SarvSeva app",
     otpSent: "Code sent.",
     otpVerified: "Code verified.",
     success: "Done.",
@@ -137,7 +137,7 @@ const i18n = {
     sdgSourcePrefix: "Source:",
     sdgSourceLink: "The Sustainable Development Goals Report 2025 (UN)",
     sdgTarget: "2030 target",
-    sdgProgress: "Progress (demo)",
+    sdgProgress: "Progress (sample)",
     sdgOurs: "How SarvSeva helps",
     initEyebrow: "Schemes",
     initTitle: "Government initiatives",
@@ -315,7 +315,7 @@ const i18n = {
     svcMedsBlurb: "Uses, cautions, and prescription marks.",
     svcInsurance: "Insurance",
     svcInsuranceBlurb: "Health, accident and life cover, explained.",
-    svcDemoNote: "SarvSeva does not dispatch ambulances, book beds or sell insurance. Every action here either calls a service or explains what to do.",
+    svcNote: "SarvSeva does not dispatch ambulances, book beds or sell insurance. Every action here either calls a service or explains what to do.",
     sosEyebrow: "Emergency",
     sosTitle: "SOS",
     sosLead: "One tap calls 112. The buttons below send your location to someone you trust.",
@@ -537,7 +537,7 @@ const i18n = {
     otpTitle: "अपने फ़ोन की जाँच करें",
     otpSubtitle: "हमने तुम्हारे नंबर पर 6 अंकों का कोड भेजा है।",
     otpHint: "कोड कुछ मिनट में समाप्त हो जाता है।",
-    demoHint: "डेमो बिल्ड - कोड है 123456।",
+    codeHint: "कोड 123456 है और कोई एसएमएस नहीं जाता।",
     nextLabel: "कोड मिल गया",
     createAccount: "अकाउंट बनाएँ",
     resendLabel: "कोड दोबारा भेजें",
@@ -557,7 +557,7 @@ const i18n = {
     resourcesSubtitle: "शुरू करने के लिए बुनियादी सार्वजनिक जानकारी। पुष्टि की गई स्थानीय जानकारी बाद में आएगी।",
     categoriesLabel: "तुम किस तरह की मदद खोज रहे हो?",
     disclaimer: "SarvSeva आपातकालीन सेवा नहीं है। अगर किसी को तुरंत खतरा है, तो स्थानीय आपातकालीन सेवाओं को कॉल करें (उदाहरण के लिए 112)।",
-    footerNote: "सर्वसेवा ऐप · डेमो बिल्ड",
+    footerNote: "सर्वसेवा ऐप",
     otpSent: "कोड भेजा गया।",
     otpVerified: "कोड पुष्टि हो गया।",
     success: "हो गया।",
@@ -651,7 +651,7 @@ const i18n = {
     sdgSourcePrefix: "स्रोत:",
     sdgSourceLink: "सतत विकास लक्ष्य रिपोर्ट 2025 (संयुक्त राष्ट्र)",
     sdgTarget: "2030 लक्ष्य",
-    sdgProgress: "प्रगति (डेमो)",
+    sdgProgress: "प्रगति (नमूना)",
     sdgOurs: "सर्वसेवा कैसे मदद करता है",
     initEyebrow: "योजनाएँ",
     initTitle: "सरकारी योजनाएँ",
@@ -829,7 +829,7 @@ const i18n = {
     svcMedsBlurb: "किस काम की, सावधानी, और पर्चा ज़रूरी या नहीं।",
     svcInsurance: "बीमा",
     svcInsuranceBlurb: "स्वास्थ्य, दुर्घटना और जीवन बीमा, आसान भाषा में।",
-    svcDemoNote: "SarvSeva एम्बुलेंस नहीं भेजती, बेड नहीं बुक करती और बीमा नहीं बेचती। यहाँ हर काम या तो सेवा को कॉल करता है या बताता है कि क्या करना है।",
+    svcNote: "SarvSeva एम्बुलेंस नहीं भेजती, बेड नहीं बुक करती और बीमा नहीं बेचती। यहाँ हर काम या तो सेवा को कॉल करता है या बताता है कि क्या करना है।",
     sosEyebrow: "आपातकाल",
     sosTitle: "एसओएस",
     sosLead: "एक टैप में 112 पर कॉल। नीचे के बटन आपकी लोकेशन किसी भरोसेमंद को भेजते हैं।",
@@ -1975,7 +1975,7 @@ const SKETCHES = [
   }
 ];
 
-const DEMO_CODE = "123456";
+const SIGN_IN_CODE = "123456";
 
 const root = document.getElementById("main");
 const appState = document.getElementById("app-state");
@@ -2412,7 +2412,7 @@ function otpHtml(dict, state) {
         <input id="otp-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="6" placeholder="000000" required class="input code-input">
         <button type="submit" class="btn btn-primary btn-full">${dict.nextLabel}</button>
       </form>
-      <p class="hint-line">${dict.demoHint}</p>
+      <p class="hint-line">${dict.codeHint}</p>
       <p class="switch"><button type="button" id="resend-code" class="switch-link">${dict.resendLabel}</button></p>
     </section>
   `;
@@ -3342,7 +3342,7 @@ function servicesHtml(dict, state) {
             <span class="svc-blurb">${escapeHtml(dict[item.blurb])}</span>
           </a>`).join("")}
       </div>
-      <p class="hint-line">${escapeHtml(dict.svcDemoNote)}</p>
+      <p class="hint-line">${escapeHtml(dict.svcNote)}</p>
     </section>
   `;
 }
@@ -5177,7 +5177,7 @@ function wireScreen(screen, dict, state) {
   if (screen === "otp") {
     document.getElementById("resend-code")?.addEventListener("click", (e) => {
       e.preventDefault();
-      state.otpCode = DEMO_CODE;
+      state.otpCode = SIGN_IN_CODE;
       flashOk(dict.otpSent);
     });
     document.getElementById("otp-form")?.addEventListener("submit", (e) => {
@@ -5187,7 +5187,7 @@ function wireScreen(screen, dict, state) {
         flashError(dict.errorOtpBad);
         return;
       }
-      if (code !== DEMO_CODE) {
+      if (code !== SIGN_IN_CODE) {
         flashError(dict.errorOtpBad);
         return;
       }
