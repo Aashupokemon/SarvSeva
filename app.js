@@ -5096,6 +5096,26 @@ function wingSvg(cls) {
   `;
 }
 
+/* The film's visibility rule is registered once for the session. It looks up
+   whichever <video> is on the page at that moment, so switching language or
+   theme - which re-renders the landing page - cannot leave old handlers
+   behind that resume a detached element. */
+function initFilmVisibility() {
+  if (initFilmVisibility.ready) return;
+  initFilmVisibility.ready = true;
+  document.addEventListener("visibilitychange", () => {
+    const video = document.getElementById("hero-video");
+    if (!video || !video.isConnected) return;
+    if (document.hidden) {
+      video.pause();
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const attempt = video.play();
+    if (attempt && attempt.catch) attempt.catch(() => {});
+  });
+}
+
 function wireScreen(screen, dict, state) {
   const go = (to) => {
     if (to !== state.screen) state.prev = state.screen;
@@ -5267,10 +5287,7 @@ function wireScreen(screen, dict, state) {
       video.addEventListener("loadeddata", () => {
         if (!reduce) start();
       });
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) video.pause();
-        else start();
-      });
+      initFilmVisibility();
       if (!reduce) start();
     }
   }
