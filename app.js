@@ -521,6 +521,8 @@ const i18n = {
     cprCycleLabel: "Cycle",
     cprPerMinute: "110 per minute",
     cprNote: "Counts out loud in your language. Keep going until the person breathes, moves, or someone trained takes over.",
+    cprStarted: "Counting. 110 pushes a minute, 30 compressions then 2 breaths.",
+    cprStopped: "Stopped.",
     sketchTab: "Sketch",
     sketchTitle: "Sketch & colour",
     sketchSub: "Pick a drawing, choose a colour and fill the shapes. A quiet way to pass the time.",
@@ -1047,6 +1049,8 @@ const i18n = {
     cprCycleLabel: "चक्र",
     cprPerMinute: "110 प्रति मिनट",
     cprNote: "आपकी भाषा में गिनती बोलकर। तब तक जारी रखें जब तक व्यक्ति साँस न ले, हिले नहीं, या कोई प्रशिक्षित व्यक्ति न आ जाये।",
+    cprStarted: "गिनती शुरू। 110 दबाव प्रति मिनट, 30 दबाव फिर 2 साँस।",
+    cprStopped: "रुका।",
     sketchTab: "स्केच",
     sketchTitle: "स्केच और रंग भरें",
     sketchSub: "एक चित्र चुनें, रंग चुनें और आकृतियाँ भरें। समय बिताने का एक शांत तरीका।",
@@ -3851,10 +3855,11 @@ function aidHtml(dict, state) {
       <section class="cpr-card" id="cpr-card" aria-labelledby="cpr-heading">
         <h2 class="group-title" id="cpr-heading">${escapeHtml(dict.cprTitle)}</h2>
         <p class="hint-line">${escapeHtml(dict.cprSub)}</p>
-        <div class="cpr-readout" role="status" aria-live="polite">
-          <span class="cpr-count" id="cpr-count">30:2</span>
+        <div class="cpr-readout">
+          <span class="cpr-count" id="cpr-count" aria-hidden="true">30:2</span>
           <span class="cpr-meta" id="cpr-meta">${escapeHtml(dict.cprIdle)}</span>
         </div>
+        <p class="sr-only" id="cpr-announce" role="status" aria-live="polite"></p>
         <button type="button" class="btn btn-primary" id="cpr-toggle" aria-pressed="false">${escapeHtml(dict.cprStart)}</button>
         <p class="hint-line">${escapeHtml(dict.cprNote)}</p>
       </section>
@@ -5615,6 +5620,19 @@ function cprNodes() {
   };
 }
 
+/* The readout changes twice a second, so it is not a live region - that would
+   read every number over the beat. Only the start, the stop and the breath
+   cue are announced, through this hidden status line. */
+function cprAnnounce(text) {
+  const el = document.getElementById("cpr-announce");
+  if (!el || !text) return;
+  el.textContent = "";
+  window.setTimeout(() => {
+    const again = document.getElementById("cpr-announce");
+    if (again) again.textContent = text;
+  }, 60);
+}
+
 function cprBeep(kind) {
   const ctx = CPR.ctx;
   if (!ctx) return;
@@ -5666,6 +5684,7 @@ function cprStep() {
     meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
     cprBeep("breath");
     cprSay(dict.cprBreaths, locale);
+    cprAnnounce(dict.cprBreaths);
     CPR.beat = 0;
     CPR.cycle += 1;
     CPR.timer = window.setTimeout(cprStep, CPR_BREATH_HOLD_MS);
@@ -5702,10 +5721,11 @@ function cprStart() {
     toggle.setAttribute("aria-pressed", "true");
     toggle.classList.add("is-running");
   }
+  cprAnnounce(i18n[state.locale].cprStarted);
   cprStep();
 }
 
-function cprStop() {
+function cprStop(announce) {
   CPR.running = false;
   if (CPR.timer) window.clearTimeout(CPR.timer);
   CPR.timer = 0;
@@ -5719,6 +5739,7 @@ function cprStop() {
     }
   }
   cprReset();
+  if (announce) cprAnnounce(i18n[state.locale].cprStopped);
 }
 
 function cprReset() {
@@ -5745,7 +5766,7 @@ function wireCpr(dict) {
     toggle.classList.add("is-running");
   }
   toggle.addEventListener("click", () => {
-    if (CPR.running) cprStop();
+    if (CPR.running) cprStop(true);
     else cprStart();
   });
 }
