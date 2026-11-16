@@ -510,6 +510,8 @@ const i18n = {
     aidVideoSub: "Videos from recognised trainers and hospitals. They open on YouTube, so the app carries no player or trackers.",
     newsChecked: "Checked",
     watchOn: "Watch",
+    tabResearch: "Research",
+    tabVideos: "Videos",
     sketchTab: "Sketch",
     sketchTitle: "Sketch & colour",
     sketchSub: "Pick a drawing, choose a colour and fill the shapes. A quiet way to pass the time.",
@@ -1025,6 +1027,8 @@ const i18n = {
     aidVideoSub: "मान्यता प्राप्त प्रशिक्षकों और अस्पतालों के वीडियो। ये YouTube पर खुलते हैं, इसलिए ऐप में कोई प्लेयर या ट्रैकर नहीं है।",
     newsChecked: "जाँच",
     watchOn: "देखें",
+    tabResearch: "शोध",
+    tabVideos: "वीडियो",
     sketchTab: "स्केच",
     sketchTitle: "स्केच और रंग भरें",
     sketchSub: "एक चित्र चुनें, रंग चुनें और आकृतियाँ भरें। समय बिताने का एक शांत तरीका।",
@@ -2004,7 +2008,7 @@ function render() {
     if (key === "ops") el.textContent = dict.navOperations;
     if (key === "social") el.textContent = dict.socialLabel;
   });
-  const tabNames = { emergency: dict.emergencyTab, aid: dict.aidTab, sketch: dict.sketchTab };
+  const tabNames = { emergency: dict.emergencyTab, aid: dict.aidTab, sketch: dict.sketchTab, research: dict.tabResearch, videos: dict.tabVideos };
   document.querySelectorAll("[data-tab]").forEach(el => {
     const name = el.getAttribute("data-tab");
     const label = el.querySelector("[data-tab-label]");
@@ -2200,6 +2204,10 @@ function buildScreen(screen, dict, state) {
       return sketchHtml(dict, state);
     case "aid":
       return aidHtml(dict, state);
+    case "research":
+      return researchHtml(dict, state);
+    case "videos":
+      return videosHtml(dict, state);
     case "about":
       return aboutHtml(dict, state);
     case "operations":
@@ -3832,8 +3840,6 @@ function aidHtml(dict, state) {
           </div>
         `;
       }).join("")}
-      ${aidResearchHtml(dict, state)}
-      ${aidVideosHtml(dict, state)}
       <p class="hint-line">${dict.aidNote}</p>
       <a class="text-link" href="#/emergency">${dict.emergencyTab}</a>
     </section>
@@ -3860,11 +3866,12 @@ function aidCase(dict, state, c) {
   `;
 }
 
-function aidResearchHtml(dict, state) {
+function researchHtml(dict, state) {
   return `
-    <div class="aid-group">
-      <h2 class="group-title">${escapeHtml(dict.aidNewsTitle)}</h2>
-      <p class="hint-line">${escapeHtml(dict.aidNewsSub)}</p>
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <h1 class="card-title">${escapeHtml(dict.aidNewsTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.aidNewsSub)}</p>
       <ul class="news-list">
         ${AID_RESEARCH.map(item => `
           <li class="news-item">
@@ -3873,15 +3880,16 @@ function aidResearchHtml(dict, state) {
             <p class="news-note">${escapeHtml(state.locale === "hi" ? item.noteHi : item.noteEn)}</p>
           </li>`).join("")}
       </ul>
-    </div>
+    </section>
   `;
 }
 
-function aidVideosHtml(dict, state) {
+function videosHtml(dict, state) {
   return `
-    <div class="aid-group">
-      <h2 class="group-title">${escapeHtml(dict.aidVideoTitle)}</h2>
-      <p class="hint-line">${escapeHtml(dict.aidVideoSub)}</p>
+    <section class="card flow">
+      ${backLink(dict, state)}
+      <h1 class="card-title">${escapeHtml(dict.aidVideoTitle)}</h1>
+      <p class="card-sub">${escapeHtml(dict.aidVideoSub)}</p>
       <div class="learn-grid">
         ${AID_VIDEOS.map(v => `
           <a class="learn-card" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener noreferrer">
@@ -3892,7 +3900,7 @@ function aidVideosHtml(dict, state) {
             </span>
           </a>`).join("")}
       </div>
-    </div>
+    </section>
   `;
 }
 
@@ -5353,7 +5361,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
   render();
 });
 
-const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "operations", "service-status", "terms", "sdg", "initiatives", "careers", "contact", "find", "sos", "services", "ambulance", "air-ambulance", "pharmacy", "police", "advice", "medicines", "insurance"];
+const SCREENS = ["landing", "login", "otp", "register", "me", "resources", "emergency", "directory", "need", "status", "offer", "sketch", "aid", "about", "operations", "service-status", "terms", "sdg", "initiatives", "careers", "contact", "find", "sos", "services", "ambulance", "air-ambulance", "pharmacy", "police", "advice", "medicines", "insurance", "research", "videos"];
 
 /* The landing film: four clips, played one after another. */
 const FILM_CLIPS = [
