@@ -520,7 +520,10 @@ const i18n = {
     cprBreaths: "2 breaths",
     cprCycleLabel: "Cycle",
     cprPerMinute: "110 per minute",
-    cprNote: "Counts out loud in your language. Keep going until the person breathes, moves, or someone trained takes over.",
+    cprNote: "Counts out loud in your language. At every 30 it pauses for two breaths, then picks up again - tap continue as soon as the breaths are in.",
+    cprContinue: "Continue the count",
+    cprBreathMeta: "2 breaths \u00b7 continue when ready",
+    cprResumed: "Counting.",
     cprStarted: "Counting. 110 pushes a minute, 30 compressions then 2 breaths.",
     cprStopped: "Stopped.",
     sketchTab: "Sketch",
@@ -1048,7 +1051,10 @@ const i18n = {
     cprBreaths: "2 साँस",
     cprCycleLabel: "चक्र",
     cprPerMinute: "110 प्रति मिनट",
-    cprNote: "आपकी भाषा में गिनती बोलकर। तब तक जारी रखें जब तक व्यक्ति साँस न ले, हिले नहीं, या कोई प्रशिक्षित व्यक्ति न आ जाये।",
+    cprNote: "आपकी भाषा में गिनती बोलकर। हर 30 पर दो साँस के लिए रुकता है, फिर आप के जारी करने पर या कुछ सेकंड में स्वयं चलता है।",
+    cprContinue: "गिनती जारी रखें",
+    cprBreathMeta: "2 साँस · तैयार होने पर दबाएँ",
+    cprResumed: "गिनती जारी।",
     cprStarted: "गिनती शुरू। 110 दबाव प्रति मिनट, 30 दबाव फिर 2 साँस।",
     cprStopped: "रुका।",
     sketchTab: "स्केच",
@@ -3861,6 +3867,7 @@ function aidHtml(dict, state) {
         </div>
         <p class="sr-only" id="cpr-announce" role="status" aria-live="polite"></p>
         <button type="button" class="btn btn-primary" id="cpr-toggle" aria-pressed="false">${escapeHtml(dict.cprStart)}</button>
+        <button type="button" class="btn btn-ghost" id="cpr-continue" hidden>${escapeHtml(dict.cprContinue)}</button>
         <p class="hint-line">${escapeHtml(dict.cprNote)}</p>
       </section>
       ${AID_GROUPS.map(g => {
@@ -5430,7 +5437,8 @@ const FILM_CLIPS = [
 /* CPR mode constants. Defined up here because the very first render may be
    the first-aid page, and these are read while wiring it. */
 const CPR_BEAT_MS = 60000 / 110;
-const CPR_BREATH_HOLD_MS = 4200;
+const CPR_BREATH_MS = 1200;          // one calm rescue breath
+const CPR_BREATH_TIMEOUT_MS = 6000;  // two breaths plus time to reposition hands
 const CPR = { running: false, timer: 0, ctx: null, beat: 0, cycle: 1, phase: "push" };
 
 const CPR_NUMBERS = {
@@ -5617,7 +5625,7 @@ function cprView() {
   const meta = document.getElementById("cpr-meta");
   const toggle = document.getElementById("cpr-toggle");
   if (!count || !meta || !toggle) return null;
-  return { count, meta, toggle };
+  return { count, meta, toggle, next: document.getElementById("cpr-continue") };
 }
 
 /* One place paints the button and the readout, so they can never disagree
@@ -5634,6 +5642,7 @@ function cprPaint() {
     view.count.textContent = "30:2";
     view.count.classList.remove("is-breath");
     view.meta.textContent = dict.cprIdle;
+    if (view.next) view.next.hidden = true;
     return view;
   }
   /* Mid-run (a language switch, a theme switch) the readout has to come back
@@ -5641,7 +5650,10 @@ function cprPaint() {
   const breath = CPR.phase === "breath";
   view.count.textContent = breath ? dict.cprBreaths : String(Math.max(1, CPR.beat));
   view.count.classList.toggle("is-breath", breath);
-  view.meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
+  view.meta.textContent = breath
+    ? `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprBreathMeta}`
+    : `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprPerMinute}`;
+  if (view.next) view.next.hidden = !breath;
   return view;
 }
 
@@ -5709,6 +5721,10 @@ function cprStep() {
     view.count.classList.add("is-breath");
     cprBeep(true);
     cprAnnounce(dict.cprBreaths);
+    if (view.next) view.next.hidden = false;
+    view.meta.textContent = `${dict.cprCycleLabel} ${CPR.cycle} · ${dict.cprBreathMeta}`;
+    CPR.timer = window.setTimeout(cprResume, CPR_BREATH_TIMEOUT_MS);
+    return;
   } else {
     CPR.beat += 1;
     CPR.phase = "push";
@@ -5719,7 +5735,20 @@ function cprStep() {
   }
 
   view.meta.textContent = meta;
-  CPR.timer = window.setTimeout(cprStep, isBreath ? CPR_BREATH_HOLD_MS : CPR_BEAT_MS);
+  CPR.timer = window.setTimeout(cprStep, CPR_BEAT_MS);
+}
+
+/* Two breaths are not a fixed-length event, so the count waits in a breath
+   phase: a tap continues immediately, and a timeout continues anyway for
+   anyone whose hands are busy. */
+function cprResume() {
+  if (!CPR.running || CPR.phase !== "breath") return;
+  window.clearTimeout(CPR.timer);
+  CPR.timer = 0;
+  CPR.phase = "push";
+  cprPaint();
+  cprStep();
+  cprAnnounce(i18n[state.locale].cprResumed);
 }
 
 function cprStart() {
@@ -5767,6 +5796,7 @@ function wireCpr() {
   const toggle = document.getElementById("cpr-toggle");
   if (!toggle) return;
   if (CPR.running) cprPaint();
+  document.getElementById("cpr-continue")?.addEventListener("click", cprResume);
   toggle.addEventListener("click", () => {
     if (CPR.running) {
       cprStop();
