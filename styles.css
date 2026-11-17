@@ -4055,6 +4055,12 @@ body {
 .cpr-card .btn {
   width: 100%;
 }
+.cpr-card .btn + .btn {
+  margin-top: 8px;
+}
+.cpr-card [hidden] {
+  display: none;
+}
 .cpr-card .btn.is-running {
   background: transparent;
   color: var(--amber-200);
